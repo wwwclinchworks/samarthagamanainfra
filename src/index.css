@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --color-cream: #f6f1ea;
+  --color-cream-deep: #ece4d8;
+  --color-sage: #8aa08a;
+  --color-sage-deep: #5d6b5a;
+  --color-blush: #edd6cc;
+  --color-sky: #d5e4ee;
+  --color-sand: #e8dcc8;
+  --color-gold: #c4a574;
+  --color-ink: #2b3330;
+  --color-muted: #6d756f;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #c4a57455;
+  color: var(--color-ink);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.pastel-grid {
+  background-image:
+    linear-gradient(180deg, #f6f1ea 0%, #f3ece3 40%, #e7f0ea 100%),
+    radial-gradient(circle at 18% 12%, #edd6cc88, transparent 42%),
+    radial-gradient(circle at 82% 8%, #d5e4ee99, transparent 38%);
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+.field {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-sand);
+  background: color-mix(in srgb, white 80%, transparent);
+  padding: 0.65rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--color-ink);
+  outline: none;
+}
+
+.field:focus {
+  border-color: var(--color-gold);
+}
+
+.glass {
+  background: color-mix(in srgb, white 72%, transparent);
+  backdrop-filter: blur(18px);
+  border: 1px solid color-mix(in srgb, white 55%, #c4a574);
+}
