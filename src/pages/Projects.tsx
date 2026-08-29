@@ -1,38 +1,36 @@
-import { Link } from "react-router-dom"
-import { completed, locations } from "../data/content"
+import { Html } from "@react-three/drei";
+import { completed, locations } from "../data/content";
+import { RoomPage } from "../experience/Room";
 
 export function ProjectsPage() {
   return (
-    <div className="page-block">
-      <div className="container">
-        <p className="eyebrow">Our projects</p>
-        <h1 className="origin__title">Crafted for today, with an eye for tomorrow</h1>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, margin: "2rem 0" }}>
-          {locations.map((city) => (
-            <span key={city} className="parcel-card__coord" style={{ border: "1px solid var(--line)", padding: "6px 12px" }}>
-              {city}
-            </span>
-          ))}
-        </div>
-        <div className="parcels__grid">
-          {completed.map((p, i) => (
-            <article key={p.name} className="parcel-card">
-              <div className="parcel-card__top">
-                <span className="parcel-card__coord">
-                  {p.type} · {p.status}
-                </span>
-                <span className="parcel-card__num">0{i + 1}</span>
-              </div>
-              <h3 className="parcel-card__title">{p.name}</h3>
-              <p className="parcel-card__desc">{p.place}</p>
-            </article>
-          ))}
-        </div>
-        <div style={{ marginTop: "2rem", display: "flex", gap: 24 }}>
-          <Link to="/ongoing">Ongoing →</Link>
-          <Link to="/upcoming">Upcoming →</Link>
-        </div>
-      </div>
-    </div>
-  )
+    <RoomPage
+      kicker="Our projects"
+      title="Delivered neighbourhoods"
+      lead={locations.join(" · ")}
+      variant="mixed"
+    >
+      {completed.map((p, i) => {
+        const col = i % 3;
+        const row = Math.floor(i / 3);
+        return (
+          <Html
+            key={p.name}
+            position={[(col - 1) * 7.2, 3.4, 5.2 - row * 6.5]}
+            center
+            distanceFactor={11}
+            zIndexRange={[38, 0]}
+          >
+            <a className="html3d" href="/contact">
+              <p className="html3d__kicker">
+                {p.type} · {p.status}
+              </p>
+              <strong>{p.name}</strong>
+              <span>{p.place}</span>
+            </a>
+          </Html>
+        );
+      })}
+    </RoomPage>
+  );
 }

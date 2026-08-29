@@ -1,38 +1,34 @@
-import { contactIntents, waLink } from "../lib/whatsapp"
-import { IconHome, IconBuildings, IconPlot, IconPhone } from "../components/Icons"
-
-const map = {
-  house: IconHome,
-  apartment: IconBuildings,
-  plot: IconPlot,
-  commercial: IconBuildings,
-  call: IconPhone,
-}
+import { Html } from "@react-three/drei";
+import { contactIntents, waLink } from "../lib/whatsapp";
+import { RoomPage } from "../experience/Room";
 
 export function ContactPage() {
   return (
-    <div className="page-block">
-      <div className="container">
-        <p className="eyebrow">Contact</p>
-        <h1 className="cta__headline" style={{ textAlign: "left" }}>
-          House, apartment, or a call — one message.
-        </h1>
-        <p className="cta__sub" style={{ marginLeft: 0, textAlign: "left" }}>
-          Every enquiry opens WhatsApp to +91 78158 72759. Choose what you are looking for.
-        </p>
-        <div className="intent-grid">
-          {contactIntents.map((item) => {
-            const Ico = map[item.id]
-            return (
-              <a key={item.id} className="intent-card" href={waLink(item.topic)} target="_blank" rel="noreferrer">
-                <Ico className="parcel-card__icon" />
-                <strong>{item.label}</strong>
-                <span className="parcel-card__desc">WhatsApp the desk</span>
-              </a>
-            )
-          })}
-        </div>
-      </div>
-    </div>
-  )
+    <RoomPage
+      kicker="Contact"
+      title="One message from this room"
+      lead="Every card opens WhatsApp to +91 78158 72759."
+      variant="houses"
+    >
+      {contactIntents.map((item, i) => {
+        const col = i % 3;
+        const row = Math.floor(i / 3);
+        return (
+          <Html
+            key={item.id}
+            position={[(col - 1) * 7, 3.2, 5.4 - row * 6]}
+            center
+            distanceFactor={11}
+            zIndexRange={[38, 0]}
+          >
+            <a className="html3d" href={waLink(item.topic)} target="_blank" rel="noreferrer">
+              <p className="html3d__kicker">WhatsApp</p>
+              <strong>{item.label}</strong>
+              <span>Write the desk now</span>
+            </a>
+          </Html>
+        );
+      })}
+    </RoomPage>
+  );
 }

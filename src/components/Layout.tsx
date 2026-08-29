@@ -1,43 +1,25 @@
-import { Outlet } from "react-router-dom"
-import { Footer } from "./Footer"
-import { Header } from "./Header"
-import { RouteProgress } from "./experience/RouteProgress"
-import { ContactDock } from "./ContactDock"
-import { PersistBrand } from "./experience/PersistBrand"
-import { useEffect } from "react"
-import Lenis from "lenis"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import gsap from "gsap"
-
-gsap.registerPlugin(ScrollTrigger)
+import { Outlet } from "react-router-dom";
+import { Header } from "./Header";
+import { ContactDock } from "./ContactDock";
+import { IntroLoader } from "./experience/IntroLoader";
+import { useEffect, useState } from "react";
 
 export function Layout() {
+  const [intro, setIntro] = useState(true);
+
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    if (reduce) return
-    const lenis = new Lenis({ lerp: 0.085, smoothWheel: true })
-    lenis.on("scroll", ScrollTrigger.update)
-    const ticker = (time: number) => {
-      lenis.raf(time * 1000)
-    }
-    gsap.ticker.add(ticker)
-    gsap.ticker.lagSmoothing(0)
-    return () => {
-      gsap.ticker.remove(ticker)
-      lenis.destroy()
-    }
-  }, [])
+    document.documentElement.classList.add("is-3d");
+    return () => document.documentElement.classList.remove("is-3d");
+  }, []);
 
   return (
     <>
-      <RouteProgress />
-      <PersistBrand />
+      {intro ? <IntroLoader onDone={() => setIntro(false)} /> : null}
       <Header />
-      <main>
+      <main className="scene-main">
         <Outlet />
       </main>
-      <Footer />
       <ContactDock />
     </>
-  )
+  );
 }

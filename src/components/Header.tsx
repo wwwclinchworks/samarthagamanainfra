@@ -1,19 +1,12 @@
-import { NavLink, Link } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { NavLink, Link } from "react-router-dom";
+import { useState } from "react";
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false)
-  const [open, setOpen] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 48)
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
+  const [open, setOpen] = useState(false);
 
   return (
-    <nav id="site-nav" className={scrolled ? "scrolled" : ""}>
-      <Link to="/" className="nav__brand">
+    <nav id="site-nav" className="nav-3d">
+      <Link to="/" className="nav__brand" onClick={() => setOpen(false)}>
         <span className="nav__mark" aria-hidden />
         <span className="nav__word">Samartha Gamana</span>
       </Link>
@@ -28,11 +21,17 @@ export function Header() {
         <span />
       </button>
       <div className={`nav__links${open ? " open" : ""}`}>
-        <a className="nav__link" href="/#chapter-parcels" onClick={() => setOpen(false)}>
-          Parcels
-        </a>
+        <NavLink className="nav__link" to="/" end onClick={() => setOpen(false)}>
+          Street
+        </NavLink>
         <NavLink className="nav__link" to="/projects" onClick={() => setOpen(false)}>
-          Developments
+          Projects
+        </NavLink>
+        <NavLink className="nav__link" to="/ongoing" onClick={() => setOpen(false)}>
+          Ongoing
+        </NavLink>
+        <NavLink className="nav__link" to="/upcoming" onClick={() => setOpen(false)}>
+          Upcoming
         </NavLink>
         <NavLink className="nav__link" to="/about" onClick={() => setOpen(false)}>
           About
@@ -42,5 +41,5 @@ export function Header() {
         </NavLink>
       </div>
     </nav>
-  )
+  );
 }

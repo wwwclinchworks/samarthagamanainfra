@@ -1,3 +1,11 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Outfit", system-ui, sans-serif;
+  --font-hero: "Big Shoulders Display", sans-serif;
+  --font-serif: "Instrument Serif", "Cormorant Garamond", serif;
+}
+
 :root {
   --basalt: #1a1714;
   --basalt-soft: #fffaf4;
@@ -38,7 +46,138 @@ html,
 body,
 #root {
   min-height: 100%;
+  height: 100%;
   margin: 0;
+}
+
+html.is-3d,
+html.is-3d body,
+html.is-3d #root {
+  overflow: hidden;
+  height: 100%;
+}
+
+.scene-root {
+  position: fixed;
+  inset: 0;
+  background: #ead9b8;
+}
+
+.scene-main {
+  height: 100%;
+}
+
+.html3d {
+  display: block;
+  width: min(78vw, 240px);
+  padding: 1rem 1.1rem;
+  border-radius: 1.15rem;
+  border: 1px solid #d9c7a0;
+  background: rgba(255, 248, 234, 0.92);
+  box-shadow: 0 18px 40px rgba(70, 50, 20, 0.16);
+  backdrop-filter: blur(10px);
+  color: #1c1814;
+  text-align: left;
+  pointer-events: auto;
+}
+
+.html3d strong {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.35rem;
+  line-height: 1.15;
+  margin-top: 0.2rem;
+}
+
+.html3d span {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #6b5c4a;
+}
+
+.html3d__kicker {
+  font-family: Outfit, system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #8a6a28;
+  margin: 0;
+}
+
+.html3d--wide {
+  width: min(88vw, 640px);
+  text-align: center;
+}
+
+.html3d--wide .html3d__lead,
+.html3d--wide span {
+  font-family: "Instrument Serif", serif;
+  font-size: clamp(1rem, 2.2vw, 1.45rem);
+  color: #3f3428;
+}
+
+.html3d__title {
+  font-size: clamp(1.6rem, 4vw, 2.6rem) !important;
+}
+
+.html3d--stat {
+  width: 13rem;
+  text-align: center;
+}
+
+.html3d__num {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: #c9a227;
+  margin: 0;
+  line-height: 1;
+}
+
+.html3d--dark {
+  background: #1c1814;
+  color: #f4ead8;
+  text-align: center;
+  width: min(88vw, 420px);
+}
+
+.html3d--dark strong {
+  color: #f4ead8;
+  font-size: 1.8rem;
+}
+
+.html3d--dark .html3d__kicker {
+  color: #c9a227;
+}
+
+.html3d__btn {
+  display: inline-flex;
+  margin-top: 1rem;
+  border-radius: 999px;
+  background: #c9a227;
+  color: #1c1814;
+  padding: 0.7rem 1.3rem;
+  font-family: Outfit, system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+#site-nav.nav-3d,
+#site-nav.nav-3d .nav__word,
+#site-nav.nav-3d .nav__link,
+#site-nav.nav-3d .nav__cta {
+  color: #2b3330;
+}
+
+#site-nav.nav-3d {
+  background: linear-gradient(to bottom, rgba(234, 217, 184, 0.92), rgba(234, 217, 184, 0));
+}
+
+#loader {
+  background: #ead9b8;
 }
 
 body {

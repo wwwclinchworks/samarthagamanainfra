@@ -1,23 +1,21 @@
-import { upcoming } from "../data/content"
+import { Html } from "@react-three/drei";
+import { upcoming } from "../data/content";
+import { RoomPage } from "../experience/Room";
 
 export function UpcomingPage() {
   return (
-    <div className="page-block">
-      <div className="container">
-        <p className="eyebrow">Upcoming</p>
-        <h1 className="origin__title">With a vision to build a better tomorrow</h1>
-        <div className="parcels__grid" style={{ marginTop: "3rem" }}>
-          {upcoming.map((p) => (
-            <article key={p.name} className="parcel-card">
-              <span className="parcel-card__coord">{p.type}</span>
-              <h3 className="parcel-card__title">{p.name}</h3>
-              <p className="parcel-card__desc">
-                {p.place} — {p.note}
-              </p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
+    <RoomPage kicker="Upcoming" title="The next streets" lead="Waitlists open as drawings lock." variant="mixed">
+      {upcoming.map((p, i) => (
+        <Html key={p.name} position={[(i - 1.5) * 6.6, 3.4, 4.2]} center distanceFactor={11} zIndexRange={[38, 0]}>
+          <a className="html3d" href="/contact">
+            <p className="html3d__kicker">{p.type}</p>
+            <strong>{p.name}</strong>
+            <span>
+              {p.place} — {p.note}
+            </span>
+          </a>
+        </Html>
+      ))}
+    </RoomPage>
+  );
 }

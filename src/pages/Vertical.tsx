@@ -1,42 +1,35 @@
-import { Link, useParams } from "react-router-dom"
-import { verticals } from "../data/content"
+import { Html } from "@react-three/drei";
+import { Link, useParams } from "react-router-dom";
+import { verticals } from "../data/content";
+import { RoomPage } from "../experience/Room";
+import { waLink } from "../lib/whatsapp";
 
 export function VerticalPage() {
-  const { slug } = useParams()
-  const item = verticals.find((v) => v.slug === slug)
+  const { slug } = useParams();
+  const item = verticals.find((v) => v.slug === slug);
 
   if (!item) {
     return (
-      <div className="page-block container">
-        <h1 className="origin__title">This offering is not listed</h1>
-        <Link to="/" className="btn-magnetic" style={{ marginTop: "2rem" }}>
-          Return home
-        </Link>
-      </div>
-    )
+      <RoomPage kicker="Offerings" title="Not listed" lead="This vertical is not on the street yet.">
+        <Html position={[0, 3, 5]} center distanceFactor={12} zIndexRange={[38, 0]}>
+          <Link className="html3d html3d__btn" to="/">
+            Return to the street
+          </Link>
+        </Html>
+      </RoomPage>
+    );
   }
 
   return (
-    <div className="page-block">
-      <div className="container origin__grid">
-        <div>
-          <p className="eyebrow">{item.kicker}</p>
-          <h1 className="origin__title">{item.title}</h1>
-          <p className="dev-panel__desc" style={{ marginTop: "1.2rem" }}>
-            {item.summary}
-          </p>
-          <p className="dev-panel__desc" style={{ marginTop: "1rem" }}>
-            {item.copy}
-          </p>
-          <Link to="/contact" className="btn-magnetic" style={{ marginTop: "2rem" }}>
-            Speak with the desk
-          </Link>
+    <RoomPage kicker={item.kicker} title={item.title} lead={item.summary} variant="mixed">
+      <Html position={[0, 3.1, 5.6]} center distanceFactor={13} zIndexRange={[38, 0]}>
+        <div className="html3d html3d--wide">
+          <span>{item.copy}</span>
+          <a className="html3d__btn" href={waLink(item.title.toLowerCase())} target="_blank" rel="noreferrer">
+            Enquire on WhatsApp
+          </a>
         </div>
-        <div
-          className="dev-panel__media"
-          style={{ minHeight: 320, background: "linear-gradient(135deg,#1c2530,#3e5c76 55%,#c9a176)" }}
-        />
-      </div>
-    </div>
-  )
+      </Html>
+    </RoomPage>
+  );
 }
