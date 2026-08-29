@@ -1,5 +1,4 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
-import { DisclaimerScreen, useDisclaimer } from "./components/DisclaimerGate"
 import { Layout } from "./components/Layout"
 import { AboutPage } from "./pages/About"
 import { ContactPage } from "./pages/Contact"
@@ -10,16 +9,6 @@ import { UpcomingPage } from "./pages/Upcoming"
 import { VerticalPage } from "./pages/Vertical"
 
 export default function App() {
-  const { agreed, agree } = useDisclaimer()
-
-  if (agreed === null) {
-    return <div style={{ minHeight: "100svh", background: "#0B0E13" }} />
-  }
-
-  if (!agreed) {
-    return <DisclaimerScreen onAgree={agree} />
-  }
-
   return (
     <BrowserRouter>
       <Routes>

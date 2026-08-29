@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 import { CityBackdrop } from "../components/experience/CityBackdrop"
 import { IntroLoader } from "../components/experience/IntroLoader"
 import { initPageMotion, revealHero } from "../components/experience/motion"
+import { IconHome, IconBuildings, IconPlot } from "../components/Icons"
+import { waLink } from "../lib/whatsapp"
 import { verticals } from "../data/content"
 
 const INTRO_KEY = "sgi-city-intro"
@@ -92,7 +94,9 @@ export function HomePage() {
             <h2>Where Gamana operates.</h2>
           </div>
           <div className="parcels__grid">
-            {verticals.map((v, i) => (
+            {verticals.map((v, i) => {
+              const Ico = i % 3 === 0 ? IconHome : i % 3 === 1 ? IconBuildings : IconPlot
+              return (
               <Link key={v.slug} className="parcel-card" to={`/what-we-do/${v.slug}`}>
                 <div className="parcel-card__top">
                   <span className="parcel-card__coord">
@@ -100,10 +104,12 @@ export function HomePage() {
                   </span>
                   <span className="parcel-card__num">0{i + 1}</span>
                 </div>
+                <Ico className="parcel-card__icon" />
                 <h3 className="parcel-card__title">{v.title}</h3>
                 <p className="parcel-card__desc">{v.summary}</p>
               </Link>
-            ))}
+              )
+            })}
             <div className="parcel-card">
               <div className="parcel-card__top">
                 <span className="parcel-card__coord">Parcel 06 / Construction</span>
@@ -246,14 +252,17 @@ export function HomePage() {
           <Link className="btn-magnetic" id="cta-btn" to="/contact">
             Start a conversation →
           </Link>
+          <a className="btn-magnetic" href={waLink("a general enquiry")} target="_blank" rel="noreferrer">
+            WhatsApp 7815872759
+          </a>
           <div className="contact-grid">
             <div className="contact-row">
               <span className="contact-row__label">Email</span>
               <span className="contact-row__value">connect@samarthagamana.in</span>
             </div>
             <div className="contact-row">
-              <span className="contact-row__label">Phone</span>
-              <span className="contact-row__value">+91 00000 00000</span>
+              <span className="contact-row__label">WhatsApp</span>
+              <span className="contact-row__value">+91 78158 72759</span>
             </div>
             <div className="contact-row">
               <span className="contact-row__label">Office</span>

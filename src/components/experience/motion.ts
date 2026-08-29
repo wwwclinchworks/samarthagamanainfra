@@ -47,22 +47,22 @@ function tiltCard(el: HTMLElement, max = 7) {
 }
 
 export function revealHero() {
-  const tl = gsap.timeline({ delay: 0.15 })
-  tl.fromTo("#hero .eyebrow", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" })
+  const tl = gsap.timeline({ delay: 0.08 })
+  tl.fromTo("#hero .eyebrow", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" })
     .fromTo(
       ".hero__title .name-primary",
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 1, ease: "power4.out" },
-      "-=0.4",
+      { opacity: 0, y: 56, clipPath: "inset(0 0 100% 0)" },
+      { opacity: 1, y: 0, clipPath: "inset(0 0 0% 0)", duration: 1.05, ease: "power4.out" },
+      "-=0.2",
     )
     .fromTo(
       ".hero__title .name-secondary",
-      { opacity: 0, y: 14 },
-      { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
       "-=0.55",
     )
-    .fromTo(".hero__sub", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.5")
-    .fromTo(".hero__scroll", { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.3")
+    .fromTo(".hero__sub", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }, "-=0.4")
+    .fromTo(".hero__scroll", { opacity: 0 }, { opacity: 1, duration: 0.5 }, "-=0.25")
 }
 
 export function initPageMotion() {
@@ -70,14 +70,14 @@ export function initPageMotion() {
     const spans = splitWords(el)
     gsap.fromTo(
       spans,
-      { yPercent: 115, opacity: 0 },
+      { yPercent: 120, opacity: 0 },
       {
         yPercent: 0,
         opacity: 1,
-        duration: 0.9,
-        ease: "power3.out",
-        stagger: 0.045,
-        scrollTrigger: { trigger: el, start: "top 88%" },
+        duration: 1.15,
+        ease: "power4.out",
+        stagger: 0.055,
+        scrollTrigger: { trigger: el, start: "top 86%" },
       },
     )
   })

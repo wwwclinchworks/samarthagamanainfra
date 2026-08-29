@@ -1,5 +1,5 @@
 import { useEffect, useRef, type MutableRefObject } from "react"
-import { mountCityScene } from "../../lib/cityScene"
+import { mountEstateScene } from "../../lib/estateScene"
 
 export function CityBackdrop({
   playRef,
@@ -11,7 +11,7 @@ export function CityBackdrop({
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-    const handle = mountCityScene(canvas)
+    const handle = mountEstateScene(canvas)
     playRef.current = () => handle?.playIntro()
     return () => {
       handle?.destroy()
