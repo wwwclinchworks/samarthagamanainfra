@@ -4,13 +4,23 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(ScrollTrigger)
 
-export type CityHandle = {
-  playIntro: () => void
-  destroy: () => void
+type SceneHandle = {
+  camera: THREE.PerspectiveCamera
+  updateBuildings: (t: number) => void
+  roadMeshes: THREE.Mesh[]
+  trunkMesh: THREE.InstancedMesh
+  canopyMesh: THREE.InstancedMesh
+  dispose: () => void
 }
 
-export function mountCityScene(canvas: HTMLCanvasElement): CityHandle | null {
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+function easeOutBack(t: number) {
+  const c1 = 1.4
+  const c3 = c1 + 1
+  return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2)
+}
+
+export function mountCityScene(canvas: HTMLCanvasElement): SceneHandle | null {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
   const isSmall = window.innerWidth < 820
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true })
@@ -25,17 +35,19 @@ export function mountCityScene(canvas: HTMLCanvasElement): CityHandle | null {
   camera.lookAt(0, 0, 0)
 
   scene.add(new THREE.AmbientLight(0x8899aa, 0.55))
-  const sun = new THREE.DirectionalLight(0xffe4bd, 0.55)
+  const sun = new THREE.DirectionalLight(0xffe4bd, 0.9)
   sun.position.set(30, 60, 20)
   scene.add(sun)
-  const rim = new THREE.PointLight(0xb98f4b, 0.35, 200)
+  const rim = new THREE.PointLight(0xb98f4b, 0.6, 200)
   rim.position.set(-30, 20, -20)
   scene.add(rim)
 
   const grid = new THREE.GridHelper(220, 44, 0x6c93b8, 0x1c222c)
-  const gridMat = grid.material as THREE.Material & { opacity: number; transparent: boolean }
-  gridMat.opacity = 0.35
-  gridMat.transparent = true
+  const gridMats = Array.isArray(grid.material) ? grid.material : [grid.material]
+  gridMats.forEach((m) => {
+    m.transparent = true
+    m.opacity = 0.35
+  })
   scene.add(grid)
 
   const ground = new THREE.Mesh(
@@ -51,9 +63,9 @@ export function mountCityScene(canvas: HTMLCanvasElement): CityHandle | null {
   buildingGeo.translate(0, 0.5, 0)
   const gridSize = isSmall ? 9 : 12
   const spacing = 5.4
-  const raw: Array<{ x: number; z: number; dist: number }> = []
-  for (let ix = 0; ix < gridSize; ix += 1) {
-    for (let iz = 0; iz < gridSize; iz += 1) {
+  const raw: { x: number; z: number; dist: number }[] = []
+  for (let ix = 0; ix < gridSize; ix++) {
+    for (let iz = 0; iz < gridSize; iz++) {
       if (ix === Math.floor(gridSize / 2) || iz === Math.floor(gridSize / 2)) continue
       if (Math.random() < 0.22) continue
       const x = (ix - (gridSize - 1) / 2) * spacing + (Math.random() - 0.5) * 1.4
@@ -62,16 +74,7 @@ export function mountCityScene(canvas: HTMLCanvasElement): CityHandle | null {
     }
   }
 
-  type B = {
-    x: number
-    z: number
-    height: number
-    w: number
-    d: number
-    groupIdx: number
-    startT: number
-  }
-  const buildingData: B[] = raw.map((p, i) => {
+  const buildingData = raw.map((p, i) => {
     const centerFactor = 1 - Math.min(p.dist / 40, 1)
     const height = 2 + Math.random() * 4 + centerFactor * 11 + (Math.random() < 0.1 ? 6 : 0)
     return {
@@ -84,32 +87,28 @@ export function mountCityScene(canvas: HTMLCanvasElement): CityHandle | null {
       startT: Math.random() * 0.55,
     }
   })
-  const perGroup: B[][] = buildingColors.map(() => [])
-  buildingData.forEach((b) => {
-    perGroup[b.groupIdx].push(b)
-  })
+
+  const perGroup = buildingColors.map(() => [] as typeof buildingData)
+  buildingData.forEach((b) => perGroup[b.groupIdx].push(b))
+
+  const dummy = new THREE.Object3D()
   const buildingGroups = buildingColors.map((color, gi) => {
-    const mat = new THREE.MeshStandardMaterial({ color, roughness: 0.55, metalness: 0.25 })
-    const mesh = new THREE.InstancedMesh(buildingGeo, mat, perGroup[gi].length)
+    const mesh = new THREE.InstancedMesh(
+      buildingGeo,
+      new THREE.MeshStandardMaterial({ color, roughness: 0.55, metalness: 0.25 }),
+      perGroup[gi].length,
+    )
     mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage)
     scene.add(mesh)
     return { mesh, data: perGroup[gi] }
   })
 
-  const dummy = new THREE.Object3D()
-  const easeOutBack = (t: number) => {
-    const c1 = 1.4
-    const c3 = c1 + 1
-    return 1 + c3 * (t - 1) ** 3 + c1 * (t - 1) ** 2
-  }
   const updateBuildings = (globalT: number) => {
     buildingGroups.forEach((g) => {
       g.data.forEach((b, i) => {
-        let t = (globalT - b.startT) / (1 - b.startT)
-        t = Math.min(Math.max(t, 0), 1)
-        const eased = easeOutBack(t)
+        const t = Math.min(Math.max((globalT - b.startT) / (1 - b.startT), 0), 1)
         dummy.position.set(b.x, 0, b.z)
-        dummy.scale.set(b.w, Math.max(eased * b.height, 0.001), b.d)
+        dummy.scale.set(b.w, Math.max(easeOutBack(t) * b.height, 0.001), b.d)
         dummy.updateMatrix()
         g.mesh.setMatrixAt(i, dummy.matrix)
       })
@@ -120,9 +119,10 @@ export function mountCityScene(canvas: HTMLCanvasElement): CityHandle | null {
 
   const roadMeshes: THREE.Mesh[] = []
   const makeRoad = (w: number, d: number, x: number, z: number) => {
-    const geo = new THREE.BoxGeometry(w, 0.06, d)
-    const mat = new THREE.MeshBasicMaterial({ color: 0xb98f4b, transparent: true, opacity: 0.5 })
-    const m = new THREE.Mesh(geo, mat)
+    const m = new THREE.Mesh(
+      new THREE.BoxGeometry(w, 0.06, d),
+      new THREE.MeshBasicMaterial({ color: 0xb98f4b, transparent: true, opacity: 0.85 }),
+    )
     m.position.set(x, 0.03, z)
     m.scale.set(0.001, 1, 1)
     scene.add(m)
@@ -144,7 +144,7 @@ export function mountCityScene(canvas: HTMLCanvasElement): CityHandle | null {
     new THREE.MeshStandardMaterial({ color: 0x5c7a5e }),
     treeCount,
   )
-  for (let t = 0; t < treeCount; t += 1) {
+  for (let t = 0; t < treeCount; t++) {
     const side = Math.random() < 0.5 ? 1 : -1
     const tx = (Math.random() - 0.5) * 180
     const tz = side * (28 + Math.random() * 4)
@@ -164,7 +164,7 @@ export function mountCityScene(canvas: HTMLCanvasElement): CityHandle | null {
   const particleCount = isSmall ? 200 : 420
   const particleGeo = new THREE.BufferGeometry()
   const positions = new Float32Array(particleCount * 3)
-  for (let p = 0; p < particleCount; p += 1) {
+  for (let p = 0; p < particleCount; p++) {
     positions[p * 3] = (Math.random() - 0.5) * 140
     positions[p * 3 + 1] = Math.random() * 30 + 2
     positions[p * 3 + 2] = (Math.random() - 0.5) * 140
@@ -189,20 +189,19 @@ export function mountCityScene(canvas: HTMLCanvasElement): CityHandle | null {
   const frame = () => {
     if (!active) return
     raf = requestAnimationFrame(frame)
-    const dt = clock.getDelta()
-    particles.rotation.y += dt * 0.01
+    particles.rotation.y += clock.getDelta() * 0.01
     renderer.render(scene, camera)
   }
   frame()
 
+  const wrapper = document.getElementById("hero")
+  const originEl = document.getElementById("chapter-origin")
   const checkVisible = () => {
-    const hero = document.getElementById("hero")
-    const origin = document.getElementById("chapter-origin")
-    if (!hero || !origin) return
-    const r1 = hero.getBoundingClientRect()
-    const r2 = origin.getBoundingClientRect()
+    if (!wrapper || !originEl) return
+    const r1 = wrapper.getBoundingClientRect()
+    const r2 = originEl.getBoundingClientRect()
     const visible =
-      (r1.bottom > 0 && r1.top < innerHeight) || (r2.bottom > 0 && r2.top < innerHeight)
+      (r1.bottom > 0 && r1.top < window.innerHeight) || (r2.bottom > 0 && r2.top < window.innerHeight)
     if (visible && !active) {
       active = true
       frame()
@@ -211,24 +210,12 @@ export function mountCityScene(canvas: HTMLCanvasElement): CityHandle | null {
   }
   window.addEventListener("scroll", checkVisible, { passive: true })
 
-  let scrollTrigger: ReturnType<typeof ScrollTrigger.create> | undefined
-
-  const initScrollCamera = () => {
-    scrollTrigger = ScrollTrigger.create({
-      trigger: "#chapter-origin",
-      start: "top bottom",
-      end: "bottom top",
-      scrub: 1,
-      onUpdate: (self) => {
-        const p = self.progress
-        const angle = p * Math.PI * 0.55
-        const radius = 34 + p * 8
-        camera.position.x = Math.sin(angle) * radius
-        camera.position.z = Math.cos(angle) * radius
-        camera.position.y = 15 + p * 9
-        camera.lookAt(0, 2, 0)
-      },
-    })
+  const dispose = () => {
+    active = false
+    cancelAnimationFrame(raf)
+    window.removeEventListener("resize", onResize)
+    window.removeEventListener("scroll", checkVisible)
+    renderer.dispose()
   }
 
   const playIntro = () => {
@@ -236,46 +223,59 @@ export function mountCityScene(canvas: HTMLCanvasElement): CityHandle | null {
     const cityState = { p: 0 }
     gsap.to(cityState, {
       p: 1,
-      duration: reduceMotion ? 0.6 : 2.6,
+      duration: reduce ? 0.6 : 2.6,
       ease: "power2.out",
       onUpdate: () => updateBuildings(cityState.p),
     })
     gsap.to(
       roadMeshes.map((m) => m.scale),
-      { x: 1, duration: 1.2, delay: reduceMotion ? 0 : 1.5, ease: "power3.out", stagger: 0.12 },
+      { x: 1, duration: 1.2, delay: reduce ? 0 : 1.5, ease: "power3.out", stagger: 0.12 },
     )
     gsap.to([trunkMesh.scale, canopyMesh.scale], {
       x: 1,
       y: 1,
       z: 1,
       duration: 0.9,
-      delay: reduceMotion ? 0 : 1.9,
+      delay: reduce ? 0 : 1.9,
       ease: "back.out(2)",
     })
     gsap.to(camState, {
       y: 15,
       z: 34,
       x: 2,
-      duration: reduceMotion ? 0.6 : 2.8,
+      duration: reduce ? 0.6 : 2.8,
       ease: "power3.inOut",
       delay: 0.1,
       onUpdate: () => {
         camera.position.set(camState.x, camState.y, camState.z)
         camera.lookAt(0, 2, 0)
       },
-      onComplete: initScrollCamera,
+      onComplete: () => {
+        ScrollTrigger.create({
+          trigger: "#chapter-origin",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+          onUpdate: (self) => {
+            const p = self.progress
+            const angle = p * Math.PI * 0.55
+            const radius = 34 + p * 8
+            camera.position.x = Math.sin(angle) * radius
+            camera.position.z = Math.cos(angle) * radius
+            camera.position.y = 15 + p * 9
+            camera.lookAt(0, 2, 0)
+          },
+        })
+      },
     })
   }
 
-  return {
-    playIntro,
-    destroy: () => {
-      active = false
-      cancelAnimationFrame(raf)
-      window.removeEventListener("resize", onResize)
-      window.removeEventListener("scroll", checkVisible)
-      scrollTrigger?.kill()
-      renderer.dispose()
-    },
-  }
+  ;(window as unknown as { __sgiPlayCity?: () => void }).__sgiPlayCity = playIntro
+
+  return { camera, updateBuildings, roadMeshes, trunkMesh, canopyMesh, dispose }
+}
+
+export function playCityIntro() {
+  const fn = (window as unknown as { __sgiPlayCity?: () => void }).__sgiPlayCity
+  fn?.()
 }

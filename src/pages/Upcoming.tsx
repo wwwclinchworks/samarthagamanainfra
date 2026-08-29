@@ -1,21 +1,36 @@
-import { Html } from "@react-three/drei";
-import { upcoming } from "../data/content";
-import { RoomPage } from "../experience/Room";
+import { upcoming } from "../data/content"
 
 export function UpcomingPage() {
   return (
-    <RoomPage kicker="Upcoming" title="The next streets" lead="Waitlists open as drawings lock." variant="mixed">
-      {upcoming.map((p, i) => (
-        <Html key={p.name} position={[(i - 1.5) * 6.6, 3.4, 4.2]} center distanceFactor={11} zIndexRange={[38, 0]}>
-          <a className="html3d" href="/contact">
-            <p className="html3d__kicker">{p.type}</p>
-            <strong>{p.name}</strong>
-            <span>
-              {p.place} — {p.note}
-            </span>
-          </a>
-        </Html>
-      ))}
-    </RoomPage>
-  );
+    <>
+      <section className="page-hero">
+        <div className="hero__inner">
+          <p className="eyebrow">Upcoming</p>
+          <h1 className="hero__title">
+            <span className="line-small">Next</span>
+            <span className="line-big">Streets</span>
+          </h1>
+          <p className="hero__sub">Waitlists open as drawings lock.</p>
+        </div>
+      </section>
+      <section className="chapter chapter--solid">
+        <div className="container">
+          <div className="parcels__grid">
+            {upcoming.map((p, i) => (
+              <article key={p.name} className="parcel-card">
+                <div className="parcel-card__top">
+                  <span className="parcel-card__coord">{p.type}</span>
+                  <span className="parcel-card__num">0{i + 1}</span>
+                </div>
+                <h3 className="parcel-card__title">{p.name}</h3>
+                <p className="parcel-card__desc">
+                  {p.place} — {p.note}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  )
 }

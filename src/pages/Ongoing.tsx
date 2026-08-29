@@ -1,36 +1,36 @@
-import { Html } from "@react-three/drei";
-import { locations, ongoing } from "../data/content";
-import { RoomPage } from "../experience/Room";
+import { locations, ongoing } from "../data/content"
 
 export function OngoingPage() {
   return (
-    <RoomPage
-      kicker="Ongoing"
-      title="Work on the ground"
-      lead={locations.join(" · ")}
-      variant="towers"
-    >
-      {ongoing.map((p, i) => {
-        const col = i % 3;
-        const row = Math.floor(i / 3);
-        return (
-          <Html
-            key={p.name}
-            position={[(col - 1) * 7.4, 3.6, 5.5 - row * 6.8]}
-            center
-            distanceFactor={11}
-            zIndexRange={[38, 0]}
-          >
-            <div className="html3d">
-              <p className="html3d__kicker">{p.type}</p>
-              <strong>{p.name}</strong>
-              <span>
-                {p.place} — {p.note}
-              </span>
-            </div>
-          </Html>
-        );
-      })}
-    </RoomPage>
-  );
+    <>
+      <section className="page-hero">
+        <div className="hero__inner">
+          <p className="eyebrow">Ongoing</p>
+          <h1 className="hero__title">
+            <span className="line-small">On site</span>
+            <span className="line-big">Now</span>
+          </h1>
+          <p className="hero__sub">{locations.join(" · ")}</p>
+        </div>
+      </section>
+      <section className="chapter chapter--solid">
+        <div className="container">
+          <div className="parcels__grid">
+            {ongoing.map((p, i) => (
+              <article key={p.name} className="parcel-card">
+                <div className="parcel-card__top">
+                  <span className="parcel-card__coord">{p.type}</span>
+                  <span className="parcel-card__num">0{i + 1}</span>
+                </div>
+                <h3 className="parcel-card__title">{p.name}</h3>
+                <p className="parcel-card__desc">
+                  {p.place} — {p.note}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  )
 }

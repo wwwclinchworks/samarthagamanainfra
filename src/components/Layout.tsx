@@ -1,25 +1,33 @@
-import { Outlet } from "react-router-dom";
-import { Header } from "./Header";
-import { ContactDock } from "./ContactDock";
-import { IntroLoader } from "./experience/IntroLoader";
-import { useEffect, useState } from "react";
+import { Outlet, useLocation } from "react-router-dom"
+import { Header } from "./Header"
+import { Footer } from "./Footer"
+import { Cursor } from "./Cursor"
+import { RouteTrack } from "./RouteTrack"
+import { ContactDock } from "./ContactDock"
+import { useEffect } from "react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import gsap from "gsap"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export function Layout() {
-  const [intro, setIntro] = useState(true);
+  const loc = useLocation()
 
   useEffect(() => {
-    document.documentElement.classList.add("is-3d");
-    return () => document.documentElement.classList.remove("is-3d");
-  }, []);
+    window.scrollTo(0, 0)
+    ScrollTrigger.refresh()
+  }, [loc.pathname])
 
   return (
     <>
-      {intro ? <IntroLoader onDone={() => setIntro(false)} /> : null}
+      <Cursor />
+      <RouteTrack />
       <Header />
-      <main className="scene-main">
+      <main>
         <Outlet />
       </main>
+      <Footer />
       <ContactDock />
     </>
-  );
+  )
 }

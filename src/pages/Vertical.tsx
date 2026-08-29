@@ -1,35 +1,54 @@
-import { Html } from "@react-three/drei";
-import { Link, useParams } from "react-router-dom";
-import { verticals } from "../data/content";
-import { RoomPage } from "../experience/Room";
-import { waLink } from "../lib/whatsapp";
+import { Link, useParams } from "react-router-dom"
+import { verticals } from "../data/content"
+import { waLink } from "../lib/whatsapp"
 
 export function VerticalPage() {
-  const { slug } = useParams();
-  const item = verticals.find((v) => v.slug === slug);
+  const { slug } = useParams()
+  const item = verticals.find((v) => v.slug === slug)
 
   if (!item) {
     return (
-      <RoomPage kicker="Offerings" title="Not listed" lead="This vertical is not on the street yet.">
-        <Html position={[0, 3, 5]} center distanceFactor={12} zIndexRange={[38, 0]}>
-          <Link className="html3d html3d__btn" to="/">
-            Return to the street
+      <section className="page-hero">
+        <div className="hero__inner">
+          <p className="eyebrow">Offerings</p>
+          <h1 className="hero__title">
+            <span className="line-big">Unlisted</span>
+          </h1>
+          <p className="hero__sub">This parcel is not on the drawing yet.</p>
+          <Link to="/" className="btn-magnetic" style={{ marginTop: "2rem" }}>
+            Return home
           </Link>
-        </Html>
-      </RoomPage>
-    );
+        </div>
+      </section>
+    )
   }
 
   return (
-    <RoomPage kicker={item.kicker} title={item.title} lead={item.summary} variant="mixed">
-      <Html position={[0, 3.1, 5.6]} center distanceFactor={13} zIndexRange={[38, 0]}>
-        <div className="html3d html3d--wide">
-          <span>{item.copy}</span>
-          <a className="html3d__btn" href={waLink(item.title.toLowerCase())} target="_blank" rel="noreferrer">
-            Enquire on WhatsApp
-          </a>
+    <>
+      <section className="page-hero">
+        <div className="hero__inner">
+          <p className="eyebrow">{item.kicker}</p>
+          <h1 className="hero__title">
+            <span className="line-big">{item.title}</span>
+          </h1>
+          <p className="hero__sub">{item.summary}</p>
         </div>
-      </Html>
-    </RoomPage>
-  );
+      </section>
+      <section className="chapter">
+        <div className="container origin__grid">
+          <div className="origin__text">
+            <p className="eyebrow">The brief</p>
+            <h2 className="origin__title">{item.copy}</h2>
+            <a className="btn-magnetic" href={waLink(item.title.toLowerCase())} target="_blank" rel="noreferrer">
+              Enquire on WhatsApp →
+            </a>
+          </div>
+          <div
+            className="dev-panel__media"
+            style={{ minHeight: 320, background: "linear-gradient(135deg,#1c2530,#3e5c76 55%,#c9a176)" }}
+          />
+        </div>
+      </section>
+    </>
+  )
 }
