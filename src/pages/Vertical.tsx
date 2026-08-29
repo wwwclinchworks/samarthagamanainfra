@@ -1,10 +1,5 @@
-import { lazy, Suspense } from "react"
 import { Link, useParams } from "react-router-dom"
 import { verticals } from "../data/content"
-
-const AmbientCanvas = lazy(() =>
-  import("../components/scene/Scenes").then((m) => ({ default: m.AmbientCanvas })),
-)
 
 export function VerticalPage() {
   const { slug } = useParams()
@@ -12,9 +7,9 @@ export function VerticalPage() {
 
   if (!item) {
     return (
-      <div className="mx-auto max-w-3xl px-5 py-20 text-center">
-        <h1 className="font-display text-4xl">This offering is not listed</h1>
-        <Link to="/" className="mt-4 inline-block text-sage-deep underline">
+      <div className="page-block container">
+        <h1 className="origin__title">This offering is not listed</h1>
+        <Link to="/" className="btn-magnetic" style={{ marginTop: "2rem" }}>
           Return home
         </Link>
       </div>
@@ -22,25 +17,25 @@ export function VerticalPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-12">
-      <p className="text-xs tracking-[0.28em] text-gold uppercase">{item.kicker}</p>
-      <h1 className="font-display mt-2 text-5xl sm:text-6xl">{item.title}</h1>
-      <div className="mt-10 grid items-center gap-10 lg:grid-cols-2">
+    <div className="page-block">
+      <div className="container origin__grid">
         <div>
-          <p className="text-lg leading-relaxed text-muted">{item.summary}</p>
-          <p className="mt-5 text-sm leading-relaxed text-muted">{item.copy}</p>
-          <Link
-            to="/contact"
-            className="mt-8 inline-block rounded-full bg-sage-deep px-6 py-3 text-sm text-cream"
-          >
+          <p className="eyebrow">{item.kicker}</p>
+          <h1 className="origin__title">{item.title}</h1>
+          <p className="dev-panel__desc" style={{ marginTop: "1.2rem" }}>
+            {item.summary}
+          </p>
+          <p className="dev-panel__desc" style={{ marginTop: "1rem" }}>
+            {item.copy}
+          </p>
+          <Link to="/contact" className="btn-magnetic" style={{ marginTop: "2rem" }}>
             Speak with the desk
           </Link>
         </div>
-        <div className="h-[320px] overflow-hidden rounded-[2rem] border border-white/70 shadow-lg sm:h-[400px]">
-          <Suspense fallback={<div className="h-full bg-sand/40" />}>
-            <AmbientCanvas />
-          </Suspense>
-        </div>
+        <div
+          className="dev-panel__media"
+          style={{ minHeight: 320, background: "linear-gradient(135deg,#1c2530,#3e5c76 55%,#c9a176)" }}
+        />
       </div>
     </div>
   )

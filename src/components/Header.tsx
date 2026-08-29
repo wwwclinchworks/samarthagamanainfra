@@ -1,94 +1,49 @@
-import { AnimatePresence, motion } from "framer-motion"
-import { Menu, X } from "lucide-react"
-import { useState } from "react"
-import { NavLink } from "react-router-dom"
-import { brand, nav } from "../data/content"
+import { useEffect, useState } from "react"
+import { NavLink, Link } from "react-router-dom"
 
-export function Header({ onEnquire }: { onEnquire: () => void }) {
+export function Header() {
+  const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
+
   return (
-    <header className="sticky top-0 z-40 border-b border-sand/70 bg-cream/80 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
-        <NavLink to="/" className="flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded-xl border border-gold/50 bg-white/70 font-display text-lg text-sage-deep">
-            {brand.short}
-          </span>
-          <span className="leading-tight">
-            <span className="block font-display text-lg text-ink sm:text-xl">
-              Samartha Gamana
-            </span>
-            <span className="block text-[10px] tracking-[0.28em] text-muted uppercase">
-              Infra
-            </span>
-          </span>
+    <nav id="site-nav" className={scrolled ? "scrolled" : ""}>
+      <Link to="/" className="nav__brand">
+        <svg className="nav__mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+          <path d="M2 8V2h6M22 8V2h-6M2 16v6h6M22 16v6h-6" />
+          <path d="M12 9v6M9 12h6" />
+        </svg>
+        <span className="nav__word">Samartha Gamana</span>
+      </Link>
+      <button
+        className={`nav__toggle${open ? " open" : ""}`}
+        type="button"
+        aria-label="Toggle menu"
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span />
+        <span />
+        <span />
+      </button>
+      <div className={`nav__links${open ? " open" : ""}`} id="nav-links">
+        <a className="nav__link" href="/#chapter-parcels" onClick={() => setOpen(false)}>
+          Parcels
+        </a>
+        <NavLink className="nav__link" to="/projects" onClick={() => setOpen(false)}>
+          Developments
         </NavLink>
-
-        <nav className="hidden items-center gap-6 lg:flex">
-          {nav.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                `text-sm ${isActive ? "text-sage-deep" : "text-muted hover:text-ink"}`
-              }
-              end={item.to === "/"}
-            >
-              {item.label}
-            </NavLink>
-          ))}
-          <button
-            type="button"
-            onClick={onEnquire}
-            className="rounded-full bg-sage-deep px-4 py-2 text-sm text-cream hover:bg-ink"
-          >
-            Enquire
-          </button>
-        </nav>
-
-        <button
-          type="button"
-          className="grid h-10 w-10 place-items-center rounded-full border border-sand lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Menu"
-        >
-          {open ? <X size={18} /> : <Menu size={18} />}
-        </button>
+        <NavLink className="nav__link" to="/about" onClick={() => setOpen(false)}>
+          Process
+        </NavLink>
+        <NavLink className="nav__cta" to="/contact" onClick={() => setOpen(false)}>
+          Contact
+        </NavLink>
       </div>
-
-      <AnimatePresence>
-        {open ? (
-          <motion.nav
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t border-sand lg:hidden"
-          >
-            <div className="flex flex-col gap-1 px-5 py-4">
-              {nav.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  onClick={() => setOpen(false)}
-                  className="rounded-xl px-3 py-2 text-ink hover:bg-white/60"
-                >
-                  {item.label}
-                </NavLink>
-              ))}
-              <button
-                type="button"
-                onClick={() => {
-                  setOpen(false)
-                  onEnquire()
-                }}
-                className="mt-2 rounded-full bg-sage-deep px-4 py-2 text-cream"
-              >
-                Enquire now
-              </button>
-            </div>
-          </motion.nav>
-        ) : null}
-      </AnimatePresence>
-    </header>
+    </nav>
   )
 }

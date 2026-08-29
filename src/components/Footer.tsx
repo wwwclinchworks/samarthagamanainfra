@@ -1,45 +1,25 @@
 import { Link } from "react-router-dom"
-import { brand, nav, verticals } from "../data/content"
 
 export function Footer() {
   return (
-    <footer className="border-t border-sand bg-[#2b3330] text-cream">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-4">
-        <div className="md:col-span-2">
-          <p className="font-display text-3xl">{brand.name}</p>
-          <p className="mt-3 max-w-sm text-sm leading-relaxed text-cream/70">
-            {brand.tagline} Plots, apartments, villas, commercial complexes and
-            farmlands — planned with cost, quality and a calm hand.
-          </p>
+    <footer id="site-footer">
+      <div className="container footer__row">
+        <span className="footer__stamp">SG / Gamana — Est. Parcel 00 · © {new Date().getFullYear()} Samartha Gamana Infra</span>
+        <div className="footer__links">
+          <Link to="/">Parcels</Link>
+          <Link to="/projects">Developments</Link>
+          <Link to="/about">About</Link>
         </div>
-        <div>
-          <p className="text-xs tracking-[0.22em] text-gold uppercase">House</p>
-          <ul className="mt-3 space-y-2 text-sm text-cream/80">
-            {nav.map((item) => (
-              <li key={item.to}>
-                <Link to={item.to} className="hover:text-cream">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <p className="text-xs tracking-[0.22em] text-gold uppercase">What we do</p>
-          <ul className="mt-3 space-y-2 text-sm text-cream/80">
-            {verticals.map((v) => (
-              <li key={v.slug}>
-                <Link to={`/what-we-do/${v.slug}`} className="hover:text-cream">
-                  {v.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <div className="border-t border-white/10 px-5 py-4 text-center text-xs text-cream/50">
-        © {new Date().getFullYear()} {brand.legal}. All rights reserved. Marketing
-        information is indicative and subject to change.
+        <button
+          id="back-to-top"
+          type="button"
+          aria-label="Back to top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" width="16" height="16">
+            <path d="M12 19V5M5 12l7-7 7 7" />
+          </svg>
+        </button>
       </div>
     </footer>
   )
