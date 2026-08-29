@@ -20,17 +20,20 @@ npm run preview
 
 ## Vercel
 
-This is a Vite SPA. Connect the Git repository to Vercel (or use the Publish control). Build command `npm run build`, output `dist`. `vercel.json` already rewrites all routes to `index.html`.
+Vite SPA. Framework `vite`, build `npm run build`, output `dist`.
+
+`vercel.json` includes SPA rewrites plus baseline security headers (HSTS, nosniff, frame deny, CSP, permissions policy). Custom Vercel Firewall / WAF rules are configured in the project Firewall tab after the project exists.
+
+Production domain: **samarthagamanainfra.com** (DNS on Cloudflare).
 
 ## Cloudflare DNS
 
-Point the domain at Vercel with a CNAME:
+Grey-cloud (DNS only) until HTTPS is live. SSL/TLS mode: **Full (strict)** — never Flexible.
 
-| Type  | Name | Target                 |
+| Type  | Name | Content                |
 | ----- | ---- | ---------------------- |
-| CNAME | `@` or `www` | `cname.vercel-dns.com` |
-
-In Cloudflare, set SSL/TLS to **Full (strict)** once Vercel has issued a certificate. Do not proxy with “Flexible” SSL.
+| A     | `@`  | `10.0.1.2`            |
+| CNAME | `www` | `cname.vercel-dns.com` |
 
 ## Pages
 
