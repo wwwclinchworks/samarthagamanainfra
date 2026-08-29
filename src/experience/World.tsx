@@ -94,7 +94,7 @@ export function World() {
           <group key={p.slug} position={[x, 0, -16]}>
             <Tower3D height={2.4 + i * 0.28} />
             <Html position={[0, 5.4, 0]} center distanceFactor={12} zIndexRange={[36, 0]}>
-              <a className="html3d" href={`/what-we-do/${p.slug}`}>
+              <a className="html3d" href={"/what-we-do/" + p.slug}>
                 <p className="html3d__kicker">{p.kicker}</p>
                 <strong>{p.title}</strong>
                 <span>{p.summary}</span>

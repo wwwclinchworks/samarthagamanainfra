@@ -14,7 +14,7 @@ export function ContactDock() {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className={`wa-dock${open ? " open" : ""}`}>
+    <div className={open ? "wa-dock open" : "wa-dock"}>
       {open ? (
         <div className="wa-panel">
           <p className="wa-panel__label">WhatsApp the desk</p>

@@ -11,7 +11,7 @@ export function Header() {
         <span className="nav__word">Samartha Gamana</span>
       </Link>
       <button
-        className={`nav__toggle${open ? " open" : ""}`}
+        className={open ? "nav__toggle open" : "nav__toggle"}
         type="button"
         aria-label="Toggle menu"
         onClick={() => setOpen((v) => !v)}
@@ -20,7 +20,7 @@ export function Header() {
         <span />
         <span />
       </button>
-      <div className={`nav__links${open ? " open" : ""}`}>
+      <div className={open ? "nav__links open" : "nav__links"}>
         <NavLink className="nav__link" to="/" end onClick={() => setOpen(false)}>
           Street
         </NavLink>
