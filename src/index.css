@@ -541,6 +541,18 @@ html[data-theme="dark"] .footer__logo {
   margin-bottom: 0.3em;
 }
 
+.hero__title .line-equal {
+  display: block;
+  font-size: clamp(3.2rem, 12vw, 9.5rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 0.88;
+  background: linear-gradient(100deg, var(--ink) 20%, var(--brass-bright) 50%, var(--ink) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 .hero__title .line-big {
   display: block;
   font-size: clamp(4rem, 15vw, 12.5rem);
@@ -548,6 +560,10 @@ html[data-theme="dark"] .footer__logo {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+.page-hero .hero__title .line-equal {
+  font-size: clamp(2.6rem, 9vw, 6.5rem);
 }
 
 .hero__sub {

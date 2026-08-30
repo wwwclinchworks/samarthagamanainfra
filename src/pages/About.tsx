@@ -8,8 +8,8 @@ export function AboutPage() {
         <div className="hero__inner">
           <p className="eyebrow">About us</p>
           <h1 className="hero__title">
-            <span className="line-small">The house</span>
-            <span className="line-big">Gamana</span>
+            <span className="line-equal">Samartha</span>
+            <span className="line-equal">Gamana</span>
           </h1>
           <p className="hero__sub">{about.intro}</p>
         </div>
@@ -22,9 +22,10 @@ export function AboutPage() {
               Nara Sudharshan, <em>Anantapur.</em>
             </h2>
             <p>
-              Nara Sudharshan is the founder and owner of Samartha Gamana Infra. He is from Anantapur, Andhra Pradesh.
-              Searches for his name should land on this house — the official profile is{" "}
-              <Link to="/nara-sudharshan">/nara-sudharshan</Link>.
+              Nara Sudharshan is the founder and owner of Samartha Gamana Infra Private Limited. He is from Anantapur,
+              Andhra Pradesh. Searches for his name should land on this house — the official profile is{" "}
+              <Link to="/nara-sudharshan">/nara-sudharshan</Link>. CIN U43300AP2026PTC124637 · Housing Board Colony,
+              Anantapur 515001.
             </p>
           </div>
         </div>

@@ -1,4 +1,4 @@
-export const WA_NUMBER = "917815872759"
+export const WA_NUMBER = "916302556139"
 
 export const waLink = (topic: string) =>
   "https://wa.me/" +

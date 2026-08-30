@@ -1,6 +1,6 @@
 # Samartha Gamana Infra
 
-Dark cinematic site for **Samartha Gamana Infra** — particle intro, procedural 3D city, then a long scroll from land to landmark.
+Official site for **Samartha Gamana Infra Private Limited** (CIN `U43300AP2026PTC124637`) — Housing Board Colony, Anantapur, Andhra Pradesh. Founded by **Nara Sudharshan**.
 
 ## Local
 
@@ -11,35 +11,44 @@ npm run dev
 
 Dev server: [http://127.0.0.1:45217](http://127.0.0.1:45217).
 
-## Deploy (Cloudflare Workers, free)
+## Deploy flow (GitHub → Cloudflare)
 
-This is a static Vite SPA on Workers Static Assets (`not_found_handling = single-page-application`). No Vercel.
+Do **not** deploy from a laptop for production. Push to `main` on GitHub; Cloudflare Workers deploys automatically.
 
-```bash
-npm install
-npx wrangler login
-npm run deploy
-```
+### One-time setup (required once)
 
-That publishes to `https://samartha-gamana-infra.<your-subdomain>.workers.dev` and, if the zone is on the same Cloudflare account, attaches:
+1. Open [GitHub → Settings → Secrets and variables → Actions](https://github.com/wwwclinchworks/samarthagamanainfra/settings/secrets/actions).
+2. Add repository secrets:
+   - `CLOUDFLARE_API_TOKEN` — token with **Workers Scripts Edit** (and **Zone DNS Edit** if custom domains are managed by Wrangler).
+   - `CLOUDFLARE_ACCOUNT_ID` — your Cloudflare account ID.
+3. Ensure Actions are enabled for the repo.
+4. Push to `main` (or run the **Deploy to Cloudflare Workers** workflow manually).
 
-- `https://samarthagamanainfra.com`
-- `https://www.samarthagamanainfra.com`
+Workflow file: `.github/workflows/deploy.yml` (`npm ci` → `npm run build` → `wrangler deploy`).
 
-Custom domains only work when the domain’s nameservers are already on Cloudflare. Delete any leftover Vercel CNAME/A records on `@` and `www` first, then Wrangler (or Workers → Domains & Routes) attaches the Worker.
+**Optional alternative:** Cloudflare dashboard → Workers → `samartha-gamana-infra` → Settings → Builds → Connect GitHub repo `wwwclinchworks/samarthagamanainfra`, build `npm run build`, deploy `npx wrangler deploy`, production branch `main`.
 
-To attach a domain from the dashboard instead: **Workers & Pages → samartha-gamana-infra → Settings → Domains & Routes → Add → Custom Domain**.
+Live:
 
-### CI token
+- https://samarthagamanainfra.com
+- https://www.samarthagamanainfra.com
 
-Create an API token with **Account → Cloudflare Workers → Edit** (and **Zone → DNS → Edit** if you attach custom domains from Wrangler). Set `CLOUDFLARE_API_TOKEN` and optionally `CLOUDFLARE_ACCOUNT_ID`.
+## Company facts (public)
+
+| Field | Value |
+| --- | --- |
+| Legal name | Samartha Gamana Infra Private Limited |
+| Entity | Private Limited Company (**not** an LLP) |
+| CIN | U43300AP2026PTC124637 |
+| Registered office | No. 28-5-154, 1st Floor, Housing Board Colony, Anantapur, AP 515001 |
+| Founder | Nara Sudharshan (Anantapur) |
+| WhatsApp | +91 63025 56139 |
+| Email | connect@samarthagamana.in |
 
 ## Pages
 
-`/` intro + city · `/nara-sudharshan` (alias `/founder`) Nara Sudharshan, founder from Anantapur · `/gallery` 2 BHK / villas / houses · `/about` `/projects` `/ongoing` `/upcoming` `/process` `/team` `/cities` `/careers` `/press` `/faq` `/journal` `/contact`
+`/` · `/nara-sudharshan` · `/gallery` (Anantapur & A.P. photography) · `/about` · `/projects` · `/contact` and supporting routes.
 
-WhatsApp **+91 78158 72759** · connect@samarthagamana.in
+## Search
 
-## Search / indexing
-
-Public crawl files: `/sitemap.xml`, `/robots.txt`, `/humans.txt`, `/llms.txt`. Founder and company are marked up with Schema.org Person + Organization. Submit the sitemap in [Google Search Console](https://search.google.com/search-console) for `samarthagamanainfra.com` — Google does not index on deploy; it recrawls after you submit.
+`/sitemap.xml` · `/robots.txt` — submit the sitemap in Google Search Console after go-live.

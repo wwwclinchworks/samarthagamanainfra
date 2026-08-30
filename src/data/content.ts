@@ -1,9 +1,10 @@
 export const brand = {
   name: "Samartha Gamana Infra",
   short: "SGI",
-  legal: "SamarthaGamanaInfra",
+  legal: "Samartha Gamana Infra Private Limited",
+  cin: "U43300AP2026PTC124637",
   tagline: "Capable journeys. Lasting homes.",
-  since: "Established for the next generation of neighbourhoods",
+  since: "Private Limited Company · Anantapur · CIN U43300AP2026PTC124637",
 }
 
 export const nav = [
@@ -67,8 +68,8 @@ export const about = {
   quote:
     "Every successful project is a result of our hard work and determination, gained by the trust and satisfaction of our customers.",
   intro:
-    "Samartha Gamana Infra is a real-estate house founded and owned by Nara Sudharshan of Anantapur, Andhra Pradesh. Named for capability (Samartha) and journey (Gamana), we plan, we build, and we stay until the keys feel like they were always yours.",
-  body: "Nara Sudharshan started this desk in Anantapur so land, roads and homes stay on one drawing. We create plans to achieve your ambitions and then execute them with cost discipline and quality that satisfies. Details of our cities, years and square-feet will be updated as the portfolio is published — the craft and the promise begin here.",
+    "Samartha Gamana Infra Private Limited is a construction and real-estate company founded and owned by Nara Sudharshan of Anantapur, Andhra Pradesh. Named for capability (Samartha) and journey (Gamana), we plan, we build, and we stay until the keys feel like they were always yours.",
+  body: "MCA records list Samartha Gamana Infra Private Limited (CIN U43300AP2026PTC124637) as a Private Limited Company — not an LLP — with registered office at No. 28-5-154, 1st Floor, Housing Board Colony, Anantapur 515001. Class U43300 covers specialised construction and infrastructure. Nara Sudharshan started this desk so land, roads and homes in Anantapur and Rayalaseema stay on one drawing.",
   values: [
     {
       title: "Safety",
@@ -76,11 +77,11 @@ export const about = {
     },
     {
       title: "Integrity",
-      text: "We honour commitments and lead by example, aligning drawings, dates and deeds.",
+      text: "We honour commitments and lead by example, aligning drawings, dates and deeds — and the CIN on every agreement.",
     },
     {
       title: "Customer service",
-      text: "Quality product, patient answers, and a process that does not ignore your needs.",
+      text: "Quality product, patient answers, and WhatsApp +91 63025 56139 that still picks up.",
     },
     {
       title: "Collaboration",
@@ -92,130 +93,110 @@ export const about = {
     },
     {
       title: "Social responsibility",
-      text: "We aim to leave neighbourhoods better than we found them — through built work and civic care.",
+      text: "We aim to leave Anantapur neighbourhoods better than we found them — through built work and civic care.",
     },
   ],
   vision:
-    "To be an effective and innovative real-estate company, with a wistful commitment to superbly designed properties in excellent locations — homes, farmlands and shops that keep our trademark standards across budgets.",
+    "To be an effective and innovative Anantapur real-estate and infrastructure company — homes, plots and roads that keep Samartha Gamana standards across budgets.",
   mission:
-    "To provide an excellent level of service and expertise in the real-estate market. Highest standards of structure and performance, essential to fulfilling property dreams.",
+    "To provide clear service and expertise from the Housing Board Colony desk. Highest standards of structure and performance for Rayalaseema families.",
 }
 
 export const locations = [
+  "Anantapur",
+  "Lepakshi",
+  "Tadipatri",
   "Kurnool",
+  "Kadapa",
+  "Nandyal",
+  "Ballari",
+  "Gadwal",
   "Hyderabad",
   "Bengaluru",
-  "Nandyal",
-  "Anantapur",
-  "Ballari",
-  "Kadapa",
-  "Gadwal",
-  "Warangal",
-  "Tadipatri",
 ] as const
 
 export const completed = [
   {
-    name: "Avencia",
-    place: "Hyderabad",
-    type: "Apartments",
-    status: "Delivered",
-  },
-  {
-    name: "Golden Oaks II",
-    place: "Bengaluru",
-    type: "Villas",
-    status: "Delivered",
-  },
-  {
-    name: "Ekashila",
-    place: "Warangal",
-    type: "Plots",
-    status: "Delivered",
-  },
-  {
-    name: "Silpa Emerald",
-    place: "Kurnool",
-    type: "Gated community",
-    status: "Delivered",
-  },
-  {
-    name: "Aarambh Econest",
+    name: "Housing Board Colony desk",
     place: "Anantapur",
-    type: "Farmlands",
-    status: "Delivered",
+    type: "Registered office",
+    status: "Active",
+    desc: "Registered office of Samartha Gamana Infra Private Limited at No. 28-5-154, 1st Floor, Housing Board Colony, Anantapur 515001 — the public address on MCA filings.",
   },
   {
-    name: "Sindhooram",
-    place: "Nandyal",
-    type: "Apartments",
-    status: "Delivered",
+    name: "Anantapur city parcels",
+    place: "Anantapur",
+    type: "Plots & houses",
+    status: "Enquiry open",
+    desc: "Open plots and independent houses on Anantapur survey numbers. Title check and site walk before any hold letter — WhatsApp +91 63025 56139.",
+  },
+  {
+    name: "Lepakshi district land",
+    place: "Lepakshi",
+    type: "Plots",
+    status: "Enquiry open",
+    desc: "Plotted interest around Lepakshi in Anantapur district — heritage town, hard stone, approach roads drawn before the sale.",
+  },
+  {
+    name: "Rayalaseema farm edges",
+    place: "Anantapur district",
+    type: "Farmlands",
+    status: "Enquiry open",
+    desc: "Orchard and weekend-house parcels on Rayalaseema contour. Irrigation and internal road discussed on site, not only on paper.",
   },
 ] as const
 
 export const ongoing = [
   {
-    name: "Brindavanam",
-    place: "Kurnool",
-    type: "Residential township",
-    note: "Landscaped streets, clubhouse and plotted parcels in progress.",
+    name: "Anantapur residential walks",
+    place: "Anantapur",
+    type: "Homes & 2 BHK interest",
+    note: "Sample walks for families buying in Anantapur city. Confirm floor and facing on WhatsApp.",
   },
   {
-    name: "Green Farms",
-    place: "Kadapa",
-    type: "Farmlands",
-    note: "Orchard grid, irrigation and a weekend pavilion under construction.",
+    name: "Housing Board Colony enquiries",
+    place: "Anantapur",
+    type: "Desk",
+    note: "Title files, layout questions and site appointments from the registered office.",
   },
   {
-    name: "Karthikeyam",
-    place: "Hyderabad",
-    type: "High-rise apartments",
-    note: "Structure rising. Sample flat open for walkthroughs.",
-  },
-  {
-    name: "Anvaya Greens",
-    place: "Bengaluru",
-    type: "Villas",
-    note: "Villa shells and internal roads in current phase.",
-  },
-  {
-    name: "Jasmine",
-    place: "Ballari",
+    name: "District plotted layouts",
+    place: "Anantapur district",
     type: "Plots",
-    note: "Layout development and park works underway.",
+    note: "Layout development and park works for district parcels — sequence: road, drain, then plot.",
   },
   {
-    name: "Apoorva",
-    place: "Tadipatri",
-    type: "Commercial + homes",
-    note: "Mixed-use podium and residential wings in parallel.",
+    name: "Approach-road packages",
+    place: "Rayalaseema",
+    type: "Infrastructure",
+    note: "Service lanes and drainage engineered before houses sit on the grid.",
   },
 ] as const
 
 export const upcoming = [
   {
-    name: "Gamana Heights",
-    place: "Hyderabad",
+    name: "Samartha Gamana Heights — Anantapur",
+    place: "Anantapur",
     type: "Apartments",
-    note: "A mid-rise on a quiet corridor. Launch details to follow.",
+    note: "Mid-rise concept on an Anantapur corridor. Launch details via WhatsApp waitlist.",
   },
   {
-    name: "Samartha Grove",
-    place: "Bengaluru",
+    name: "Samartha Gamana Grove",
+    place: "Anantapur district",
     type: "Farmlands",
-    note: "Managed groves with a shared clubhouse on the drawing board.",
+    note: "Managed grove parcels with a shared pavilion on the drawing board.",
   },
   {
-    name: "Pallavi Square",
-    place: "Kurnool",
-    type: "Commercial complex",
-    note: "Retail, food street and terrace lawn — coming next.",
+    name: "Samartha Gamana Square",
+    place: "Anantapur",
+    type: "Commercial",
+    note: "Retail and food street concept for a city mixed-use plot.",
   },
   {
-    name: "Nivaasa Villas",
-    place: "Nandyal",
-    type: "Villas",
-    note: "Limited villas around a central green. Waitlist open.",
+    name: "Nivaasa street houses",
+    place: "Anantapur",
+    type: "Houses",
+    note: "Limited independent houses around a central green. Waitlist open on WhatsApp.",
   },
 ] as const
 
@@ -241,19 +222,29 @@ export const testimonials = [
 ] as const
 
 export const stats = [
-  { value: 1, suffix: "L+", label: "Happy clients" },
-  { value: 40, suffix: "+", label: "Projects" },
-  { value: 70, suffix: "+ lakh sft", label: "Constructed" },
+  { value: 1, suffix: "", label: "Registered office — Anantapur" },
+  { value: 2026, suffix: "", label: "Private Limited year (CIN)" },
+  { value: 515001, suffix: "", label: "Anantapur PIN" },
 ] as const
 
 export const offices = [
   {
-    title: "Corporate office",
-    lines: ["Samartha Gamana Infra", "South India — address to be updated", "Open weekdays 10:00 – 18:00"],
+    title: "Registered office",
+    lines: [
+      "Samartha Gamana Infra Private Limited",
+      "No. 28-5-154, 1st Floor, Housing Board Colony",
+      "Anantapur, Andhra Pradesh 515001",
+      "CIN U43300AP2026PTC124637 · Open weekdays 10:00 – 18:00",
+    ],
   },
   {
-    title: "Branch office",
-    lines: ["City lounge & sample gallery", "By appointment on weekends", "hello@samarthagamana.infra"],
+    title: "Public desk",
+    lines: [
+      "Founder Nara Sudharshan",
+      "WhatsApp +91 63025 56139",
+      "connect@samarthagamana.in",
+      "Site visits by appointment",
+    ],
   },
 ] as const
 

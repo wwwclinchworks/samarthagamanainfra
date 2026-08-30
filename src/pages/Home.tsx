@@ -92,8 +92,8 @@ export function HomePage() {
         <div className="hero__inner">
           <p className="eyebrow hero__eyebrow">Samartha Gamana · Infra Developers</p>
           <h1 className="hero__title">
-            <span className="line-small">Samartha</span>
-            <span className="line-big">Gamana</span>
+            <span className="line-equal">Samartha</span>
+            <span className="line-equal">Gamana</span>
           </h1>
           <p className="hero__sub">the journey from land to landmark.</p>
         </div>
@@ -112,7 +112,7 @@ export function HomePage() {
             </h2>
             <p>
               Before a beam is set, a plot is measured, surveyed, and drawn to scale. That discipline — precision before
-              ambition — is what Samartha Gamana brings to every township, tower, and road it builds. The house is
+              ambition — is what Samartha Gamana Infra brings to every township, tower, and road it builds. The house is
               founded and owned by Nara Sudharshan, from Anantapur, Andhra Pradesh. We don't chase height for its own
               sake. We plan movement: how people will arrive, live, work, and return, long after the drawings are filed
               away.
@@ -142,7 +142,7 @@ export function HomePage() {
         <div className="container">
           <div className="chapter-head">
             <p className="eyebrow">Six disciplines, one journey</p>
-            <h2>Where Gamana operates.</h2>
+            <h2>Where Samartha Gamana Infra operates.</h2>
           </div>
           <div className="parcels__grid">
             {parcels.map((p) => (
@@ -219,10 +219,10 @@ export function HomePage() {
           </div>
           <div className="dev-panel__content">
             <span className="dev-panel__index">01 / Township</span>
-            <h3 className="dev-panel__title">Gamana Township</h3>
+            <h3 className="dev-panel__title">Samartha Gamana — Anantapur plots</h3>
             <p className="dev-panel__desc">
-              A self-contained community planned for thousands of households — schools, transit, and a green corridor
-              included by design, not as an afterthought.
+              Open plots and independent houses on Anantapur survey numbers, drawn from the Housing Board Colony desk
+              of Samartha Gamana Infra Private Limited (CIN U43300AP2026PTC124637).
             </p>
           </div>
         </div>
@@ -232,10 +232,10 @@ export function HomePage() {
           </div>
           <div className="dev-panel__content">
             <span className="dev-panel__index">02 / Commercial</span>
-            <h3 className="dev-panel__title">Samartha Business Quarter</h3>
+            <h3 className="dev-panel__title">Samartha Gamana — infrastructure</h3>
             <p className="dev-panel__desc">
-              A commercial district built around a central transit spine, so the address works for the business inside it
-              and the city around it.
+              Approach roads, drains and service lanes for Rayalaseema parcels — MCA class U43300 specialised
+              construction, sequenced before the first house sits on the grid.
             </p>
           </div>
         </div>
@@ -245,10 +245,10 @@ export function HomePage() {
           </div>
           <div className="dev-panel__content">
             <span className="dev-panel__index">03 / Residential</span>
-            <h3 className="dev-panel__title">The Ridge Residences</h3>
+            <h3 className="dev-panel__title">Samartha Gamana — Lepakshi district</h3>
             <p className="dev-panel__desc">
-              Low-rise homes stepped along a natural contour, so no unit blocks another's view — and no hillside is
-              levelled to build them.
+              Plotted interest around Lepakshi in Anantapur district — heritage stone country, contour first, then the
+              road, then the home.
             </p>
           </div>
         </div>
@@ -303,11 +303,11 @@ export function HomePage() {
             </div>
             <div className="contact-row">
               <span className="contact-row__label">WhatsApp</span>
-              <span className="contact-row__value">+91 78158 72759</span>
+              <span className="contact-row__value">+91 63025 56139</span>
             </div>
             <div className="contact-row">
               <span className="contact-row__label">Office</span>
-              <span className="contact-row__value">Bengaluru, Karnataka</span>
+              <span className="contact-row__value">Housing Board Colony, Anantapur 515001</span>
             </div>
           </div>
           <p style={{ marginTop: "2.5rem" }}>

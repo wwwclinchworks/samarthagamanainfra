@@ -28,7 +28,7 @@ export function ContactPage() {
       <section id="chapter-cta" className="chapter">
         <div className="container">
           <h2 className="cta__headline">One message from this desk.</h2>
-          <p className="cta__sub">Every card opens WhatsApp to +91 78158 72759.</p>
+          <p className="cta__sub">Every card opens WhatsApp to +91 63025 56139.</p>
           <div className="intent-grid">
             {contactIntents.map((item) => {
               const Ico = map[item.id]
@@ -48,19 +48,17 @@ export function ContactPage() {
             </div>
             <div className="contact-row">
               <span className="contact-row__label">WhatsApp</span>
-              <span className="contact-row__value">+91 78158 72759</span>
+              <span className="contact-row__value">+91 63025 56139</span>
             </div>
             <div className="contact-row">
-              <span className="contact-row__label">Founder</span>
-              <span className="contact-row__value">Nara Sudharshan</span>
+              <span className="contact-row__label">CIN</span>
+              <span className="contact-row__value">U43300AP2026PTC124637 · Private Limited</span>
             </div>
             <div className="contact-row">
-              <span className="contact-row__label">From</span>
-              <span className="contact-row__value">Anantapur, Andhra Pradesh</span>
-            </div>
-            <div className="contact-row">
-              <span className="contact-row__label">Office</span>
-              <span className="contact-row__value">Anantapur desk · dummy Bengaluru hours by appointment</span>
+              <span className="contact-row__label">Registered office</span>
+              <span className="contact-row__value">
+                No. 28-5-154, 1st Floor, Housing Board Colony, Anantapur 515001
+              </span>
             </div>
           </div>
         </div>

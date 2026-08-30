@@ -30,9 +30,7 @@ export function ProjectsPage() {
           <div className="dev-panel__content">
             <span className="dev-panel__index">0{i + 1} / {p.place}</span>
             <h3 className="dev-panel__title">{p.name}</h3>
-            <p className="dev-panel__desc">
-              Delivered for the city of {p.place}. {p.type} held to the drawing, then handed over with keys.
-            </p>
+            <p className="dev-panel__desc">{p.desc}</p>
           </div>
         </div>
       ))}

@@ -14,7 +14,9 @@ export function Footer() {
         <Link to="/" className="footer__brand" aria-label="Samartha Gamana Infra home">
           <BrandLogo className="footer__logo" />
         </Link>
-        <span className="footer__stamp">© {new Date().getFullYear()} Samartha Gamana Infra Developers</span>
+        <span className="footer__stamp">
+          © {new Date().getFullYear()} Samartha Gamana Infra Private Limited · CIN U43300AP2026PTC124637
+        </span>
         <div className="footer__links">
           <Link to="/nara-sudharshan">Nara Sudharshan</Link>
           <a href="/#chapter-parcels">Parcels</a>

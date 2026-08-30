@@ -3,10 +3,10 @@ import { waLink } from "../lib/whatsapp"
 import { useMemo, useState } from "react"
 
 const tabs: { id: "all" | GalleryKind; label: string }[] = [
-  { id: "all", label: "All" },
-  { id: "2bhk", label: "2 BHK flats" },
-  { id: "villa", label: "Villas" },
-  { id: "house", label: "Houses" },
+  { id: "all", label: "All places" },
+  { id: "2bhk", label: "City light" },
+  { id: "villa", label: "District & heritage" },
+  { id: "house", label: "Anantapur ground" },
 ]
 
 export function GalleryPage() {
@@ -19,19 +19,20 @@ export function GalleryPage() {
         <div className="hero__inner">
           <p className="eyebrow">Gallery</p>
           <h1 className="hero__title">
-            <span className="line-small">2 BHK · Villas</span>
-            <span className="line-big">Houses</span>
+            <span className="line-equal">Anantapur</span>
+            <span className="line-equal">&amp; A.P.</span>
           </h1>
           <p className="hero__sub">
-            Dummy stock for the desk — two-bedroom flats, villas with gardens, independent houses on serviced plots.
+            Place photography from Anantapur and Andhra Pradesh — clock tower, Lepakshi, Rayalaseema. Live parcels are
+            confirmed on WhatsApp +91 63025 56139.
           </p>
         </div>
       </section>
       <section className="chapter chapter--solid">
         <div className="container">
           <p className="inner-copy">
-            Filter by type. Every card is sample photography and dummy area. Enquire on WhatsApp with the unit name;
-            live floor and facing are confirmed before a visit.
+            Photographs of Anantapur city, Lepakshi and Rayalaseema country. Filter by mood. Enquire on WhatsApp with
+            the place name; live floor and facing are confirmed before a visit.
           </p>
           <div className="gallery-tabs">
             {tabs.map((t) => (

@@ -37,7 +37,7 @@ export function Seo() {
     setMeta("og:description", meta.description, "property")
     setMeta("og:url", SITE_URL + (path === "/" ? "/" : path), "property")
     setMeta("og:type", path === "/nara-sudharshan" || path === "/founder" ? "profile" : "website", "property")
-    setMeta("og:image", SITE_URL + "/logo-bg.png", "property")
+    setMeta("og:image", SITE_URL + "/newlogo.png", "property")
     setMeta("og:site_name", "Samartha Gamana Infra", "property")
     setMeta("og:locale", "en_IN", "property")
     setMeta("profile:first_name", "Sudharshan", "property")
@@ -45,7 +45,7 @@ export function Seo() {
     setMeta("twitter:card", "summary_large_image")
     setMeta("twitter:title", meta.title)
     setMeta("twitter:description", meta.description)
-    setMeta("twitter:image", SITE_URL + "/logo-bg.png")
+    setMeta("twitter:image", SITE_URL + "/newlogo.png")
     let link = document.head.querySelector('link[rel="canonical"]')
     if (!link) {
       link = document.createElement("link")

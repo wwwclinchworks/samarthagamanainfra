@@ -1,5 +1,36 @@
 export const SITE_URL = "https://samarthagamanainfra.com"
 
+/** MCA / public registry facts for Samartha Gamana Infra Private Limited */
+export const company = {
+  tradeName: "Samartha Gamana Infra",
+  short: "SGI",
+  legalName: "Samartha Gamana Infra Private Limited",
+  entityType: "Private Limited Company",
+  notLlp: "Not an LLP — incorporated as a Private Limited Company under the Companies Act.",
+  cin: "U43300AP2026PTC124637",
+  registrationNumber: "124637",
+  state: "Andhra Pradesh",
+  roc: "RoC — Andhra Pradesh",
+  activityCode: "U43300",
+  activity:
+    "Specialized construction and infrastructure activities (MCA class U43300), with real-estate development for plots, homes and commercial work.",
+  incorporatedYear: "2026",
+  status: "Active",
+  addressLines: [
+    "No. 28-5-154, 1st Floor",
+    "Housing Board Colony",
+    "Anantapur, Andhra Pradesh 515001",
+    "India",
+  ],
+  addressOneLine:
+    "No. 28-5-154, 1st Floor, Housing Board Colony, Anantapur, Andhra Pradesh 515001",
+  email: "connect@samarthagamana.in",
+  phoneDisplay: "+91 63025 56139",
+  phone: "+916302556139",
+  website: SITE_URL,
+  github: "https://github.com/wwwclinchworks/samarthagamanainfra",
+}
+
 export const founder = {
   name: "Nara Sudharshan",
   givenName: "Sudharshan",
@@ -8,116 +39,119 @@ export const founder = {
   city: "Anantapur",
   region: "Andhra Pradesh",
   country: "India",
-  email: "connect@samarthagamana.in",
-  phoneDisplay: "+91 78158 72759",
-  phone: "+917815872759",
+  email: company.email,
+  phoneDisplay: company.phoneDisplay,
+  phone: company.phone,
   sameAs: ["https://samarthagamanainfra.com/nara-sudharshan"],
   short:
-    "Nara Sudharshan is the founder and owner of Samartha Gamana Infra. He is from Anantapur, Andhra Pradesh.",
+    "Nara Sudharshan is the founder and owner of Samartha Gamana Infra Private Limited. He is from Anantapur, Andhra Pradesh.",
   bio: [
-    "Nara Sudharshan founded Samartha Gamana Infra to hold land, roads and homes to the same drawing. He is from Anantapur in Andhra Pradesh — the first city on the company's map is the one he knows by street and survey number.",
-    "Samartha (capability) and Gamana (journey) is the name he gave the house: townships, residences, commercial work, road infrastructure, construction and land development across Anantapur, Kurnool, Hyderabad, Bengaluru, Nandyal, Ballari, Kadapa, Gadwal, Warangal and Tadipatri.",
-    "Public desk: WhatsApp +91 78158 72759 and connect@samarthagamana.in. Searches for Nara Sudharshan, Nara Sudharshan Anantapur, or Samartha Gamana Infra should lead here — this is the company's official site.",
+    "Nara Sudharshan founded Samartha Gamana Infra Private Limited in Anantapur to hold land, roads and homes to the same drawing. The registered office is at Housing Board Colony, Anantapur (CIN U43300AP2026PTC124637).",
+    "Samartha (capability) and Gamana (journey) is the name of the house: plots, residences, commercial work, road infrastructure, construction and land development rooted in Anantapur and Rayalaseema, Andhra Pradesh.",
+    `Public desk: WhatsApp ${company.phoneDisplay} and ${company.email}. Searches for Nara Sudharshan, Nara Sudharshan Anantapur, or Samartha Gamana Infra should lead here — this is the company's official site.`,
   ],
 }
 
 export const publicDesk = {
-  email: "connect@samarthagamana.in",
-  whatsapp: "+91 78158 72759",
+  email: company.email,
+  whatsapp: company.phoneDisplay,
   website: SITE_URL,
-  github: "https://github.com/wwwclinchworks/samarthagamanainfra",
+  github: company.github,
+  address: company.addressOneLine,
+  legalName: company.legalName,
+  cin: company.cin,
 }
 
 export const routeMeta: Record<string, { title: string; description: string }> = {
   "/": {
-    title: "Samartha Gamana Infra | Founded by Nara Sudharshan, Anantapur",
+    title: "Samartha Gamana Infra Pvt Ltd | Anantapur | Nara Sudharshan",
     description:
-      "Samartha Gamana Infra is a real-estate and infrastructure house founded by Nara Sudharshan of Anantapur. Townships, 2 BHK homes, villas, roads and land development.",
+      "Samartha Gamana Infra Private Limited (CIN U43300AP2026PTC124637), Housing Board Colony, Anantapur. Founded by Nara Sudharshan. Plots, homes, roads and infrastructure.",
   },
   "/nara-sudharshan": {
     title: "Nara Sudharshan | Founder of Samartha Gamana Infra | Anantapur",
     description:
-      "Nara Sudharshan is the founder and owner of Samartha Gamana Infra. From Anantapur, Andhra Pradesh. Official profile, company and contact.",
+      "Nara Sudharshan is the founder and owner of Samartha Gamana Infra Private Limited, Anantapur, Andhra Pradesh. Official profile and contact.",
   },
   "/founder": {
     title: "Nara Sudharshan | Founder of Samartha Gamana Infra | Anantapur",
     description:
-      "Nara Sudharshan, founder and owner of Samartha Gamana Infra, Anantapur. Official company profile.",
+      "Nara Sudharshan, founder and owner of Samartha Gamana Infra Private Limited, Anantapur. Official company profile.",
   },
   "/about": {
-    title: "About Samartha Gamana Infra | Nara Sudharshan, Founder",
+    title: "About Samartha Gamana Infra Private Limited | Anantapur",
     description:
-      "About Samartha Gamana Infra, founded by Nara Sudharshan from Anantapur. Values, vision and the journey from land to landmark.",
+      "About Samartha Gamana Infra Private Limited — CIN, registered office at Housing Board Colony, Anantapur, founded by Nara Sudharshan.",
   },
   "/team": {
     title: "Team | Nara Sudharshan, Founder | Samartha Gamana Infra",
-    description: "Meet Nara Sudharshan, founder and owner of Samartha Gamana Infra, Anantapur, and the project desk.",
+    description: "Meet Nara Sudharshan, founder of Samartha Gamana Infra Private Limited, Anantapur.",
   },
   "/gallery": {
-    title: "Gallery | 2 BHK, Villas, Houses | Samartha Gamana Infra",
-    description: "Sample 2 BHK flats, villas and houses from Samartha Gamana Infra. Enquire with the Anantapur desk.",
+    title: "Gallery | Anantapur & Andhra Pradesh | Samartha Gamana Infra",
+    description:
+      "Anantapur and Andhra Pradesh place gallery for Samartha Gamana Infra Private Limited — Lepakshi, Rayalaseema, Housing Board Colony desk.",
   },
   "/projects": {
-    title: "Projects | Samartha Gamana Infra | Nara Sudharshan",
-    description: "Selected developments by Samartha Gamana Infra, founded by Nara Sudharshan of Anantapur.",
+    title: "Developments | Samartha Gamana Infra | Anantapur",
+    description:
+      "Developments and lines of work by Samartha Gamana Infra Private Limited in Anantapur and Rayalaseema.",
   },
   "/ongoing": {
-    title: "Ongoing projects | Samartha Gamana Infra",
-    description: "Work on site now — Samartha Gamana Infra, Nara Sudharshan, Anantapur.",
+    title: "Ongoing work | Samartha Gamana Infra | Anantapur",
+    description: "Current focus of Samartha Gamana Infra Private Limited in Anantapur.",
   },
   "/upcoming": {
-    title: "Upcoming projects | Samartha Gamana Infra",
-    description: "Next streets and waitlists from Samartha Gamana Infra.",
+    title: "Upcoming | Samartha Gamana Infra | Anantapur",
+    description: "Next parcels from Samartha Gamana Infra Private Limited, Anantapur.",
   },
   "/process": {
     title: "Process | Samartha Gamana Infra",
-    description: "Land, design, build, deliver — how Samartha Gamana Infra, founded by Nara Sudharshan, works.",
+    description: "Land, design, build, deliver — how Samartha Gamana Infra Private Limited works from Anantapur.",
   },
   "/cities": {
-    title: "Cities | Anantapur and South India | Samartha Gamana Infra",
-    description:
-      "Anantapur, Hyderabad, Bengaluru, Kurnool and more. Samartha Gamana Infra, founded by Nara Sudharshan of Anantapur.",
+    title: "Cities | Anantapur focus | Samartha Gamana Infra",
+    description: "Anantapur is home. Samartha Gamana Infra Private Limited also works across Rayalaseema and neighbouring towns.",
   },
   "/careers": {
-    title: "Careers | Samartha Gamana Infra",
-    description: "Roles at Samartha Gamana Infra. Founded by Nara Sudharshan, Anantapur.",
+    title: "Careers | Samartha Gamana Infra | Anantapur",
+    description: "Roles at Samartha Gamana Infra Private Limited, Anantapur.",
   },
   "/press": {
-    title: "Press | Samartha Gamana Infra",
-    description: "Notes and mentions for Samartha Gamana Infra and founder Nara Sudharshan.",
+    title: "Press | Samartha Gamana Infra Private Limited",
+    description: "Company facts for Samartha Gamana Infra Private Limited and founder Nara Sudharshan.",
   },
   "/faq": {
-    title: "FAQ | Samartha Gamana Infra",
-    description: "Questions for Samartha Gamana Infra, Anantapur. WhatsApp the desk founded by Nara Sudharshan.",
+    title: "FAQ | Samartha Gamana Infra | Anantapur",
+    description: `Questions for Samartha Gamana Infra Private Limited. WhatsApp ${company.phoneDisplay}.`,
   },
   "/journal": {
     title: "Journal | Samartha Gamana Infra",
-    description: "Field notes from Samartha Gamana Infra.",
+    description: "Field notes from Samartha Gamana Infra, Anantapur.",
   },
   "/contact": {
-    title: "Contact Nara Sudharshan | Samartha Gamana Infra | Anantapur",
-    description:
-      "Contact Samartha Gamana Infra and founder Nara Sudharshan. WhatsApp +91 78158 72759. Anantapur, Andhra Pradesh.",
+    title: "Contact Samartha Gamana Infra | Anantapur | 6302556139",
+    description: `Contact Samartha Gamana Infra Private Limited and founder Nara Sudharshan. WhatsApp ${company.phoneDisplay}. Housing Board Colony, Anantapur.`,
   },
   "/what-we-do/plots": {
-    title: "Plots | Samartha Gamana Infra | Nara Sudharshan, Anantapur",
-    description: "Open plots from Samartha Gamana Infra, founded by Nara Sudharshan of Anantapur.",
+    title: "Plots | Samartha Gamana Infra | Anantapur",
+    description: "Open plots from Samartha Gamana Infra Private Limited, Anantapur.",
   },
   "/what-we-do/apartments": {
-    title: "Apartments | Samartha Gamana Infra | Nara Sudharshan",
-    description: "2 BHK and apartment living from Samartha Gamana Infra, Anantapur.",
+    title: "Apartments | Samartha Gamana Infra | Anantapur",
+    description: "Apartment living from Samartha Gamana Infra Private Limited, Anantapur.",
   },
   "/what-we-do/villas": {
-    title: "Villas | Samartha Gamana Infra | Nara Sudharshan",
-    description: "Villa communities by Samartha Gamana Infra, founded by Nara Sudharshan.",
+    title: "Villas & houses | Samartha Gamana Infra | Anantapur",
+    description: "Independent houses and villas by Samartha Gamana Infra Private Limited.",
   },
   "/what-we-do/commercial": {
-    title: "Commercial | Samartha Gamana Infra | Nara Sudharshan",
-    description: "Commercial complexes from Samartha Gamana Infra, Anantapur.",
+    title: "Commercial | Samartha Gamana Infra | Anantapur",
+    description: "Commercial work from Samartha Gamana Infra Private Limited, Anantapur.",
   },
   "/what-we-do/farmlands": {
-    title: "Farmlands | Samartha Gamana Infra | Nara Sudharshan",
-    description: "Farm plots from Samartha Gamana Infra, founded by Nara Sudharshan of Anantapur.",
+    title: "Farmlands | Samartha Gamana Infra | Anantapur",
+    description: "Farm and orchard parcels from Samartha Gamana Infra Private Limited, Anantapur district.",
   },
 }
 
@@ -152,31 +186,45 @@ export function siteJsonLd() {
       {
         "@type": "Organization",
         "@id": SITE_URL + "/#org",
-        name: "Samartha Gamana Infra",
-        legalName: "Samartha Gamana Infra Developers",
-        alternateName: ["SGI", "SamarthaGamanaInfra", "Samartha Gamana"],
+        name: company.tradeName,
+        legalName: company.legalName,
+        alternateName: ["SGI", "SamarthaGamanaInfra", "Samartha Gamana", company.legalName],
         url: SITE_URL,
-        logo: SITE_URL + "/logo-bg.png",
-        image: SITE_URL + "/logo-bg.png",
-        email: publicDesk.email,
-        telephone: founder.phone,
+        logo: SITE_URL + "/newlogo.png",
+        image: SITE_URL + "/newlogo.png",
+        email: company.email,
+        telephone: company.phone,
+        identifier: company.cin,
+        taxID: company.cin,
         foundingLocation: {
           "@type": "Place",
           name: "Anantapur, Andhra Pradesh, India",
         },
         address: {
           "@type": "PostalAddress",
+          streetAddress: "No. 28-5-154, 1st Floor, Housing Board Colony",
           addressLocality: "Anantapur",
+          postalCode: "515001",
           addressRegion: "Andhra Pradesh",
           addressCountry: "IN",
         },
         founder: { "@id": SITE_URL + "/nara-sudharshan#person" },
         owner: { "@id": SITE_URL + "/nara-sudharshan#person" },
         employee: { "@id": SITE_URL + "/nara-sudharshan#person" },
-        sameAs: [publicDesk.github, SITE_URL + "/nara-sudharshan", SITE_URL + "/founder"],
-        description: founder.short + " Townships, residences, commercial, roads and land development.",
-        areaServed: ["Anantapur", "Hyderabad", "Bengaluru", "Kurnool", "Andhra Pradesh", "Karnataka", "Telangana"],
-        knowsAbout: ["Nara Sudharshan", "Anantapur real estate", "townships", "2 BHK", "villas", "infrastructure"],
+        sameAs: [company.github, SITE_URL + "/nara-sudharshan", SITE_URL + "/founder"],
+        description:
+          founder.short +
+          " Registered as a Private Limited Company (CIN " +
+          company.cin +
+          ").",
+        areaServed: ["Anantapur", "Rayalaseema", "Andhra Pradesh"],
+        knowsAbout: [
+          "Nara Sudharshan",
+          "Anantapur real estate",
+          "Samartha Gamana Infra Private Limited",
+          "plots",
+          "infrastructure",
+        ],
       },
       {
         "@type": "Person",
@@ -187,9 +235,9 @@ export function siteJsonLd() {
         familyName: "Nara",
         jobTitle: "Founder and owner",
         url: SITE_URL + "/nara-sudharshan",
-        image: SITE_URL + "/logo-bg.png",
-        email: publicDesk.email,
-        telephone: founder.phone,
+        image: SITE_URL + "/newlogo.png",
+        email: company.email,
+        telephone: company.phone,
         homeLocation: {
           "@type": "Place",
           name: "Anantapur, Andhra Pradesh, India",
@@ -216,21 +264,23 @@ export function siteJsonLd() {
         "@type": "WebSite",
         "@id": SITE_URL + "/#website",
         url: SITE_URL,
-        name: "Samartha Gamana Infra",
+        name: company.tradeName,
         publisher: { "@id": SITE_URL + "/#org" },
         inLanguage: "en-IN",
       },
       {
         "@type": "RealEstateAgent",
         "@id": SITE_URL + "/#agent",
-        name: "Samartha Gamana Infra",
+        name: company.tradeName,
         url: SITE_URL,
         founder: { "@id": SITE_URL + "/nara-sudharshan#person" },
-        telephone: founder.phone,
-        email: publicDesk.email,
+        telephone: company.phone,
+        email: company.email,
         address: {
           "@type": "PostalAddress",
+          streetAddress: "No. 28-5-154, 1st Floor, Housing Board Colony",
           addressLocality: "Anantapur",
+          postalCode: "515001",
           addressRegion: "Andhra Pradesh",
           addressCountry: "IN",
         },

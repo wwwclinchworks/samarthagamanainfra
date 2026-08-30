@@ -1,11 +1,14 @@
 /* TEAM */
 Founder and owner: Nara Sudharshan
 From: Anantapur, Andhra Pradesh, India
-Company: Samartha Gamana Infra (SGI)
+Company: Samartha Gamana Infra Private Limited (SGI)
+CIN: U43300AP2026PTC124637
+Entity: Private Limited Company (not LLP)
+Registered office: No. 28-5-154, 1st Floor, Housing Board Colony, Anantapur 515001
 Site: https://samarthagamanainfra.com
 Profile: https://samarthagamanainfra.com/nara-sudharshan
 Contact: connect@samarthagamana.in
-WhatsApp: +91 78158 72759
+WhatsApp: +91 63025 56139
 
 /* SITE */
 Standards: HTML5, Schema.org Organization + Person
