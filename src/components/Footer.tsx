@@ -10,7 +10,10 @@ export function Footer() {
   return (
     <footer id="site-footer">
       <div className="container footer__row">
-        <span className="footer__stamp">SG / Gamana — Est. Parcel 00 · © {new Date().getFullYear()} Samartha Gamana Infra Developers</span>
+        <Link to="/" className="footer__brand" aria-label="Samartha Gamana Infra home">
+          <img src="/logo.png" alt="Samartha Gamana Infra — Building better tomorrows" className="footer__logo" width={220} height={147} />
+        </Link>
+        <span className="footer__stamp">© {new Date().getFullYear()} Samartha Gamana Infra Developers</span>
         <div className="footer__links">
           <a href="/#chapter-parcels">Parcels</a>
           <Link to="/gallery">Gallery</Link>

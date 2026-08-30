@@ -19,12 +19,12 @@ export function Header() {
 
   return (
     <nav id="site-nav" className={scrolled ? "scrolled" : ""}>
-      <Link to="/" className="nav__brand">
-        <svg className="nav__mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-          <path d="M2 8V2h6M22 8V2h-6M2 16v6h6M22 16v6h-6" />
-          <path d="M12 9v6M9 12h6" />
-        </svg>
-        <span className="nav__word">Samartha Gamana</span>
+      <Link to="/" className="nav__brand" aria-label="Samartha Gamana Infra home">
+        <img src="/logo-mark.svg" alt="" className="nav__mark" width={44} height={44} />
+        <span className="nav__lockup">
+          <span className="nav__word">Samartha Gamana</span>
+          <span className="nav__infra">Infra</span>
+        </span>
       </Link>
       <button
         className={open ? "nav__toggle open" : "nav__toggle"}

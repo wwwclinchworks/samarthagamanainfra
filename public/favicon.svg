@@ -1,6 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="14" fill="#f6f1ea"/>
-  <path d="M12 46V18l20-8 20 8v28" stroke="#5d6b5a" stroke-width="2.4" stroke-linejoin="round"/>
-  <path d="M22 46V30h20v16" stroke="#c4a574" stroke-width="2.4"/>
-  <path d="M32 10v8" stroke="#c4a574" stroke-width="2.4"/>
+  <rect width="64" height="64" rx="12" fill="#0B0E13"/>
+  <g transform="translate(6,4) scale(0.26)">
+    <path d="M28 148C28 82 78 32 144 32c42 0 76 28 88 66" stroke="#C59C5E" stroke-width="10" stroke-linecap="round"/>
+    <path d="M42 176C58 164 62 148 58 134c-6-22 18-34 40-42 14-5 28-4 40 2" stroke="#C59C5E" stroke-width="14" stroke-linecap="round"/>
+    <path d="M50 180C66 168 70 152 66 138c-6-22 18-34 40-42 14-5 28-4 40 2" stroke="#2A2A2A" stroke-width="14" stroke-linecap="round"/>
+    <g transform="translate(78,52)">
+      <polygon points="26,72 26,28 42,18 42,62" fill="#C59C5E"/>
+      <polygon points="42,62 42,18 54,26 54,70" fill="#242424"/>
+      <polygon points="48,68 48,10 66,0 66,58" fill="#C59C5E"/>
+      <polygon points="66,58 66,0 80,10 80,68" fill="#1F1F1F"/>
+      <polygon points="70,70 70,22 84,14 84,62" fill="#B89050"/>
+      <polygon points="84,62 84,14 96,22 96,70" fill="#2A2A2A"/>
+    </g>
+  </g>
 </svg>
