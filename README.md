@@ -24,6 +24,8 @@ Do **not** deploy from a laptop for production. Push to `main` on GitHub; Cloudf
 5. Deploy command: `npx wrangler deploy`
 6. Save. Every push to `main` deploys automatically.
 
+Builds use **Node.js 22** (see `.nvmrc`). If deploy fails with a Node version error, set build variable `NODE_VERSION=22` under Settings → Build → Build variables.
+
 ### Optional: GitHub Actions instead
 
 Template: `docs/github-actions-deploy.yml` — copy to `.github/workflows/deploy.yml`, then add secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` under GitHub → Settings → Secrets → Actions.
