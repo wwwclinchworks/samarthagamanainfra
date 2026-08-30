@@ -1,6 +1,7 @@
 import { Link, NavLink, useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { BrandLogo } from "./BrandLogo"
+import { ThemeToggle } from "./ThemeToggle"
 
 export function Header() {
   const [open, setOpen] = useState(false)
@@ -23,16 +24,6 @@ export function Header() {
       <Link to="/" className="nav__brand" aria-label="Samartha Gamana Infra home">
         <BrandLogo className="nav__logo" />
       </Link>
-      <button
-        className={open ? "nav__toggle open" : "nav__toggle"}
-        type="button"
-        aria-label="Toggle menu"
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span />
-        <span />
-        <span />
-      </button>
       <div className={open ? "nav__links open" : "nav__links"}>
         <a className="nav__link" href="/#chapter-parcels">
           Parcels
@@ -49,6 +40,19 @@ export function Header() {
         <NavLink className="nav__cta" to="/contact">
           Contact
         </NavLink>
+      </div>
+      <div className="nav__end">
+        <ThemeToggle />
+        <button
+          className={open ? "nav__toggle open" : "nav__toggle"}
+          type="button"
+          aria-label="Toggle menu"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </div>
     </nav>
   )

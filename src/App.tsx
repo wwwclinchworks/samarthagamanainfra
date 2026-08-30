@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import { Layout } from "./components/Layout"
+import { ThemeProvider } from "./lib/theme"
 import { AboutPage } from "./pages/About"
 import { CareersPage } from "./pages/Careers"
 import { CitiesPage } from "./pages/Cities"
@@ -18,7 +19,8 @@ import { VerticalPage } from "./pages/Vertical"
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<HomePage />} />
@@ -39,6 +41,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }

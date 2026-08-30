@@ -1,4 +1,27 @@
-:root {
+:root,
+html[data-theme="light"] {
+  --basalt: #f3eee4;
+  --basalt-soft: #ebe4d6;
+  --basalt-soft-2: #e3dccb;
+  --paper: #0b0e13;
+  --paper-ink: #edeae1;
+  --paper-line: rgba(237, 234, 225, 0.14);
+  --ink: #16141a;
+  --ink-dim: rgba(22, 20, 26, 0.64);
+  --ink-dimmer: rgba(22, 20, 26, 0.4);
+  --sandstone: #c9a176;
+  --brass: #8f6a32;
+  --brass-bright: #7a5624;
+  --blueprint: #3d5c78;
+  --line: rgba(22, 20, 26, 0.12);
+  --nav-scrolled: rgba(243, 238, 228, 0.9);
+  --logo-stage: #fffaf2;
+  --container: min(1360px, 92vw);
+  --pad-y: clamp(5rem, 11vw, 9.5rem);
+  --ease-out: cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+html[data-theme="dark"] {
   --basalt: #0b0e13;
   --basalt-soft: #12161d;
   --basalt-soft-2: #171c24;
@@ -13,9 +36,8 @@
   --brass-bright: #e0b472;
   --blueprint: #6c93b8;
   --line: rgba(237, 234, 225, 0.14);
-  --container: min(1360px, 92vw);
-  --pad-y: clamp(5rem, 11vw, 9.5rem);
-  --ease-out: cubic-bezier(0.16, 0.84, 0.44, 1);
+  --nav-scrolled: rgba(11, 14, 19, 0.78);
+  --logo-stage: #f4efe6;
 }
 
 *,
@@ -206,7 +228,7 @@ button {
   position: fixed;
   inset: 0;
   z-index: 10000;
-  background: var(--basalt);
+  background: #0b0e13;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -277,6 +299,11 @@ body.loading {
   pointer-events: none;
 }
 
+html[data-theme="light"] #scene-canvas {
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+}
+
 #site-nav {
   position: fixed;
   top: 0;
@@ -296,7 +323,7 @@ body.loading {
 }
 
 #site-nav.scrolled {
-  background: rgba(11, 14, 19, 0.78);
+  background: var(--nav-scrolled);
   backdrop-filter: blur(10px);
   padding: 16px clamp(20px, 4vw, 48px);
   border-bottom-color: var(--line);
@@ -316,6 +343,15 @@ body.loading {
   object-fit: contain;
 }
 
+html[data-theme="dark"] .nav__logo,
+html[data-theme="dark"] .hero__logo,
+html[data-theme="dark"] .page-logo,
+html[data-theme="dark"] .footer__logo {
+  background: var(--logo-stage);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
 .hero__logo,
 .page-logo {
   height: 92px;
@@ -328,7 +364,7 @@ body.loading {
 
 .logo-plate {
   border: 1px solid var(--line);
-  background: #000;
+  background: var(--logo-stage);
   display: grid;
   place-items: center;
   padding: 1.2rem;
@@ -344,6 +380,7 @@ body.loading {
   display: flex;
   gap: clamp(16px, 3vw, 36px);
   align-items: center;
+  margin-left: auto;
 }
 
 .nav__link {
@@ -398,11 +435,46 @@ body.loading {
   background: rgba(185, 143, 75, 0.08);
 }
 
+.nav__end {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 14px;
+  z-index: 961;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
+  padding: 0.55em 0.85em;
+  z-index: 2;
+}
+
+.theme-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.theme-toggle:hover {
+  color: var(--brass-bright);
+  border-color: var(--brass);
+}
+
 .nav__toggle {
   display: none;
 }
 
 @media (max-width: 820px) {
+  .theme-toggle span {
+    display: none;
+  }
   .nav__links {
     position: fixed;
     inset: 0 0 0 auto;

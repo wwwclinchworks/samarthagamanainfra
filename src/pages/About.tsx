@@ -25,7 +25,7 @@ export function AboutPage() {
             <p>{about.body}</p>
           </div>
           <div className="logo-plate">
-            <BrandLogo variant="bg" className="logo-plate__img" alt="Samartha Gamana Infra — with background" />
+            <BrandLogo className="logo-plate__img" />
           </div>
         </div>
       </section>
