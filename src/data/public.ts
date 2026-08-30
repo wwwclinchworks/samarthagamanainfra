@@ -10,20 +10,20 @@ export const company = {
   cin: "U43300AP2026PTC124637",
   registrationNumber: "124637",
   state: "Andhra Pradesh",
-  roc: "RoC — Andhra Pradesh",
+  roc: "Vijayawada",
   activityCode: "U43300",
   activity:
     "Specialized construction and infrastructure activities (MCA class U43300), with real-estate development for plots, homes and commercial work.",
   incorporatedYear: "2026",
   status: "Active",
   addressLines: [
-    "No. 28-5-154, 1st Floor",
+    "No-28-5-154, 1st Floor",
     "Housing Board Colony",
     "Anantapur, Andhra Pradesh 515001",
     "India",
   ],
   addressOneLine:
-    "No. 28-5-154, 1st Floor, Housing Board Colony, Anantapur, Andhra Pradesh 515001",
+    "No-28-5-154, 1st Floor, Housing Board Colony, Anantapur, Andhra Pradesh 515001",
   email: "connect@samarthagamana.in",
   phoneDisplay: "+91 63025 56139",
   phone: "+916302556139",
@@ -40,20 +40,22 @@ export const founder = {
   region: "Andhra Pradesh",
   country: "India",
   email: company.email,
+  founderEmail: "narashudharshan@gmail.com",
   phoneDisplay: company.phoneDisplay,
   phone: company.phone,
   sameAs: ["https://samarthagamanainfra.com/nara-sudharshan"],
   short:
     "Nara Sudharshan is the founder and owner of Samartha Gamana Infra Private Limited. He is from Anantapur, Andhra Pradesh.",
   bio: [
-    "Nara Sudharshan founded Samartha Gamana Infra Private Limited in Anantapur to hold land, roads and homes to the same drawing. The registered office is at Housing Board Colony, Anantapur (CIN U43300AP2026PTC124637).",
-    "Samartha (capability) and Gamana (journey) is the name of the house: plots, residences, commercial work, road infrastructure, construction and land development rooted in Anantapur and Rayalaseema, Andhra Pradesh.",
-    `Public desk: WhatsApp ${company.phoneDisplay} and ${company.email}. Searches for Nara Sudharshan, Nara Sudharshan Anantapur, or Samartha Gamana Infra should lead here — this is the company's official site.`,
+    "Nara Sudharshan is the founder and owner of Samartha Gamana Infra. With the company based in Anantapur, his vision is centred on building a trusted infrastructure and real-estate enterprise with a strong focus on thoughtful development and long-term value.",
+    "Under his leadership, Samartha Gamana Infra aims to create a growing portfolio of opportunities while maintaining a customer-focused and transparent approach.",
+    `Founder's vision: “Build with purpose. Grow with trust. Create value that lasts.” Public desk: WhatsApp ${company.phoneDisplay}, ${company.email}, and narashudharshan@gmail.com.`,
   ],
 }
 
 export const publicDesk = {
   email: company.email,
+  founderEmail: "narashudharshan@gmail.com",
   whatsapp: company.phoneDisplay,
   website: SITE_URL,
   github: company.github,
@@ -153,6 +155,31 @@ export const routeMeta: Record<string, { title: string; description: string }> =
     title: "Farmlands | Samartha Gamana Infra | Anantapur",
     description: "Farm and orchard parcels from Samartha Gamana Infra Private Limited, Anantapur district.",
   },
+  "/why-anantapur": {
+    title: "Why Anantapur | Samartha Gamana Infra",
+    description:
+      "Anantapur connectivity, industry and growth — why Samartha Gamana Infra is based here.",
+  },
+  "/legal": {
+    title: "Corporate Information | Samartha Gamana Infra Private Limited",
+    description:
+      "CIN U43300AP2026PTC124637, ROC Vijayawada, Housing Board Colony, Anantapur.",
+  },
+  "/disclaimer": {
+    title: "Disclaimer | Samartha Gamana Infra",
+    description:
+      "General information disclaimer for Samartha Gamana Infra Private Limited.",
+  },
+  "/privacy": {
+    title: "Privacy Policy | Samartha Gamana Infra",
+    description:
+      "Privacy policy for Samartha Gamana Infra Private Limited.",
+  },
+  "/terms": {
+    title: "Terms & Conditions | Samartha Gamana Infra",
+    description:
+      "Website terms for Samartha Gamana Infra Private Limited.",
+  },
 }
 
 export const sitemapPaths = [
@@ -163,15 +190,17 @@ export const sitemapPaths = [
   "/team",
   "/gallery",
   "/projects",
-  "/ongoing",
-  "/upcoming",
   "/process",
-  "/cities",
+  "/why-anantapur",
   "/careers",
   "/press",
   "/faq",
   "/journal",
   "/contact",
+  "/legal",
+  "/disclaimer",
+  "/privacy",
+  "/terms",
   "/what-we-do/plots",
   "/what-we-do/apartments",
   "/what-we-do/villas",
@@ -193,6 +222,7 @@ export function siteJsonLd() {
         logo: SITE_URL + "/newlogo.png",
         image: SITE_URL + "/newlogo.png",
         email: company.email,
+  founderEmail: "narashudharshan@gmail.com",
         telephone: company.phone,
         identifier: company.cin,
         taxID: company.cin,
@@ -202,7 +232,7 @@ export function siteJsonLd() {
         },
         address: {
           "@type": "PostalAddress",
-          streetAddress: "No. 28-5-154, 1st Floor, Housing Board Colony",
+          streetAddress: "No-28-5-154, 1st Floor, Housing Board Colony",
           addressLocality: "Anantapur",
           postalCode: "515001",
           addressRegion: "Andhra Pradesh",
@@ -237,6 +267,7 @@ export function siteJsonLd() {
         url: SITE_URL + "/nara-sudharshan",
         image: SITE_URL + "/newlogo.png",
         email: company.email,
+  founderEmail: "narashudharshan@gmail.com",
         telephone: company.phone,
         homeLocation: {
           "@type": "Place",
@@ -276,9 +307,10 @@ export function siteJsonLd() {
         founder: { "@id": SITE_URL + "/nara-sudharshan#person" },
         telephone: company.phone,
         email: company.email,
+  founderEmail: "narashudharshan@gmail.com",
         address: {
           "@type": "PostalAddress",
-          streetAddress: "No. 28-5-154, 1st Floor, Housing Board Colony",
+          streetAddress: "No-28-5-154, 1st Floor, Housing Board Colony",
           addressLocality: "Anantapur",
           postalCode: "515001",
           addressRegion: "Andhra Pradesh",

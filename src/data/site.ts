@@ -1,3 +1,5 @@
+import { contact } from "./content"
+
 /** Gallery: Anantapur & Andhra Pradesh place imagery (Wikimedia Commons). */
 export type GalleryKind = "2bhk" | "villa" | "house"
 
@@ -10,7 +12,7 @@ export const gallery = [
     title: "Anantapur clock tower",
     place: "Anantapur",
     area: "City centre",
-    note: "Landmark of Anantapur city — home of Samartha Gamana Infra Private Limited.",
+    note: "Landmark of Anantapur — home of Samartha Gamana Infra Private Limited.",
     img: w("c/c8/Anantapur_Clock_tower_at_night.jpg"),
   },
   {
@@ -19,7 +21,7 @@ export const gallery = [
     title: "Rock country, Anantapur district",
     place: "Anantapur district",
     area: "Rayalaseema",
-    note: "Hard stone and open sky — the ground Samartha Gamana Infra builds on.",
+    note: "The ground of the region Samartha Gamana Infra serves.",
     img: w("e/e6/Rock_formations_in_Anantapur_dt_Andhra_Pradesh_JEG9139.JPG"),
   },
   {
@@ -28,7 +30,7 @@ export const gallery = [
     title: "Anantapur district outcrops",
     place: "Anantapur",
     area: "Rayalaseema",
-    note: "Contour before cut-and-fill. Local stone sets the drawing.",
+    note: "Location, contour and long-term potential come first.",
     img: w("5/54/Rock_formations_in_Anantapur_dt_Andhra_Pradesh_JEG9135.JPG"),
   },
   {
@@ -37,7 +39,7 @@ export const gallery = [
     title: "Lepakshi temple precinct",
     place: "Lepakshi, Anantapur district",
     area: "Heritage town",
-    note: "Veerabhadra temple town in Anantapur district — craft and stone the company knows by name.",
+    note: "Veerabhadra temple town in Anantapur district.",
     img: w("5/5a/LEPAKSHI_TEMPLE.jpg"),
   },
   {
@@ -46,7 +48,7 @@ export const gallery = [
     title: "Lepakshi, second court",
     place: "Lepakshi",
     area: "Anantapur district",
-    note: "Vijayanagara stonework a short drive from the Housing Board Colony desk.",
+    note: "Heritage stone a short drive from Housing Board Colony.",
     img: w("7/76/LEPAKSHI_TEMPLE_02.jpg"),
   },
   {
@@ -55,7 +57,7 @@ export const gallery = [
     title: "Lepakshi Nandi & eagle lore",
     place: "Lepakshi",
     area: "Anantapur district",
-    note: "Place memory for families buying land in the district.",
+    note: "Place memory for families exploring the district.",
     img: w("2/23/Eagle_at_Lepakshi.jpg"),
   },
   {
@@ -64,7 +66,7 @@ export const gallery = [
     title: "Veerabhadra Temple sculptures",
     place: "Lepakshi, Andhra Pradesh",
     area: "Heritage",
-    note: "Detail that reminds us drawings must survive the site.",
+    note: "Craft and detail that remind us planning must endure.",
     img: w("f/fc/Sculptures_at_the_Veerabhadra_Temple%2C_Lepakshi%2C_Andhra_Pradesh%2C_India_%282017%29.jpg"),
   },
   {
@@ -73,7 +75,7 @@ export const gallery = [
     title: "Rayalaseema parkland",
     place: "Anantapur, Rayalaseema",
     area: "Andhra Pradesh",
-    note: "Open green in Anantapur country — how a township spine should feel.",
+    note: "Open green in Anantapur country.",
     img: w("9/91/National_park%2C_Anantapur%2C_Rayalaseema%2C_Andhra_Pradesh%2C_India_%282018%29_1.jpg"),
   },
   {
@@ -91,7 +93,7 @@ export const gallery = [
     title: "Rayalaseema morning light",
     place: "Anantapur district",
     area: "Andhra Pradesh",
-    note: "East light that a good 2 BHK should catch.",
+    note: "Light and location shape every plan.",
     img: w("a/a8/National_park%2C_Anantapur%2C_Rayalaseema%2C_Andhra_Pradesh%2C_India_%282018%29_3.jpg"),
   },
   {
@@ -100,7 +102,7 @@ export const gallery = [
     title: "Anantapur hills edge",
     place: "Anantapur",
     area: "Rayalaseema",
-    note: "Where farm parcels and weekend houses sit.",
+    note: "Where regional growth meets open land.",
     img: w("f/f9/National_park%2C_Anantapur%2C_Rayalaseema%2C_Andhra_Pradesh%2C_India_%282018%29_4.jpg"),
   },
   {
@@ -109,7 +111,7 @@ export const gallery = [
     title: "Rayalaseema canopy",
     place: "Anantapur district",
     area: "Andhra Pradesh",
-    note: "Tree line along a future spine road.",
+    note: "Thoughtful development respects the landscape.",
     img: w("3/31/National_park%2C_Anantapur%2C_Rayalaseema%2C_Andhra_Pradesh%2C_India_%282018%29_5.jpg"),
   },
   {
@@ -118,7 +120,7 @@ export const gallery = [
     title: "Anantapur reserve trail",
     place: "Anantapur",
     area: "Rayalaseema",
-    note: "Walkable edges — how Samartha Gamana Infra thinks about approach roads.",
+    note: "Connectivity and place — why Anantapur matters.",
     img: w("8/88/National_park%2C_Anantapur%2C_Rayalaseema%2C_Andhra_Pradesh%2C_India_%282018%29_6.jpg"),
   },
   {
@@ -127,7 +129,7 @@ export const gallery = [
     title: "Rayalaseema plateau",
     place: "Anantapur district",
     area: "Andhra Pradesh",
-    note: "Survey before design. Contour first.",
+    note: "Understand the location before the plan.",
     img: w("9/9b/National_park%2C_Anantapur%2C_Rayalaseema%2C_Andhra_Pradesh%2C_India_%282018%29_7.jpg"),
   },
   {
@@ -136,7 +138,7 @@ export const gallery = [
     title: "Anantapur green belt",
     place: "Anantapur",
     area: "Rayalaseema",
-    note: "Parks and setbacks that stay on the drawing.",
+    note: "Long-term value starts with the land.",
     img: w("c/c1/National_park%2C_Anantapur%2C_Rayalaseema%2C_Andhra_Pradesh%2C_India_%282018%29_9.jpg"),
   },
   {
@@ -145,7 +147,7 @@ export const gallery = [
     title: "Sri Krishnadevaraya statue",
     place: "Andhra Pradesh",
     area: "Heritage",
-    note: "Regional history that sits beside every Rayalaseema survey number.",
+    note: "Regional history beside Anantapur's growth story.",
     img: w("6/66/Sri_Krishnadevaraya_Statue.jpg"),
   },
 ]
@@ -153,160 +155,112 @@ export const gallery = [
 export const team = [
   {
     name: "Nara Sudharshan",
-    role: "Founder and owner",
-    note: "From Anantapur. Founded Samartha Gamana Infra Private Limited (CIN U43300AP2026PTC124637). Desk: WhatsApp +91 63025 56139.",
-  },
-  {
-    name: "Projects desk",
-    role: "Site & sequence",
-    note: "Weekly counts on Anantapur and Rayalaseema parcels. Concrete, safety, and the date on the board.",
-  },
-  {
-    name: "Customer desk",
-    role: "Families",
-    note: "The number families call — WhatsApp +91 63025 56139. Sample walks and title questions.",
-  },
-  {
-    name: "Titles & legal",
-    role: "Documents",
-    note: "Survey numbers that match the sale deed. EC, layout, and the Housing Board Colony file.",
+    role: "Founder & Owner",
+    note: "Founder and owner of Samartha Gamana Infra Private Limited, Anantapur. WhatsApp " + contact.whatsapp + ".",
   },
 ]
 
 export const journal = [
   {
-    title: "Why Anantapur is the first city on the map",
+    title: "Building with purpose from Anantapur",
     kicker: "Origin",
-    date: "12 Mar 2026",
-    body: "Samartha Gamana Infra Private Limited is registered at Housing Board Colony, Anantapur. The founder, Nara Sudharshan, builds from the city he knows by street and survey number — not from a brochure map drawn elsewhere.",
+    date: "2026",
+    body: "Samartha Gamana Infra Private Limited was established with a vision to create a modern and trusted presence in infrastructure and property development — from Housing Board Colony, Anantapur.",
   },
   {
-    title: "Private Limited, not LLP",
-    kicker: "Company",
-    date: "02 Apr 2026",
-    body: "Public MCA listings show Samartha Gamana Infra as a Private Limited Company (CIN U43300AP2026PTC124637), class U43300 specialised construction. It is not an LLP. Ask the desk for the CIN on any agreement.",
-  },
-  {
-    title: "Lepakshi stone, Anantapur roads",
-    kicker: "Place",
-    date: "21 Apr 2026",
-    body: "Lepakshi sits in Anantapur district. The same hard stone that carved Veerabhadra is the geology under local plots — contour first, then the road, then the house.",
-  },
-  {
-    title: "Keys from the Housing Board Colony desk",
-    kicker: "Handover",
-    date: "18 May 2026",
-    body: "A lock that turns, a file that matches the unit, and WhatsApp +91 63025 56139 that still answers after the board comes down.",
+    title: "A region with momentum",
+    kicker: "Anantapur",
+    date: "2026",
+    body: "NH-44, NH-205, an A-category railway station and airport access via Bengaluru place Anantapur on Andhra Pradesh's growth map — the context for our long-term vision.",
   },
 ]
 
 export const faqs = [
   {
-    q: "Is Samartha Gamana Infra a Private Limited or an LLP?",
-    a: "Private Limited Company — Samartha Gamana Infra Private Limited, CIN U43300AP2026PTC124637. Not an LLP. Registered office: Housing Board Colony, Anantapur 515001.",
+    q: "Where is Samartha Gamana Infra based?",
+    a: "Samartha Gamana Infra is based in Anantapur, Andhra Pradesh.",
   },
   {
     q: "Who founded Samartha Gamana Infra?",
-    a: "Nara Sudharshan, from Anantapur, Andhra Pradesh. Official page: /nara-sudharshan. WhatsApp +91 63025 56139.",
+    a: "The company was founded and is owned by Nara Sudharshan.",
+  },
+  {
+    q: "What does Samartha Gamana Infra do?",
+    a: "Samartha Gamana Infra operates in the infrastructure and real-estate space, with a focus on development opportunities and long-term growth.",
+  },
+  {
+    q: "Where can I find project information?",
+    a: "Project information will be published on the official website as individual developments are formally announced.",
+  },
+  {
+    q: "How can I contact Samartha Gamana Infra?",
+    a: `You can contact the team through WhatsApp at ${contact.whatsapp} or by email at ${contact.founderEmail} / ${contact.email}.`,
   },
   {
     q: "Where is the registered office?",
-    a: "No. 28-5-154, 1st Floor, Housing Board Colony, Anantapur, Andhra Pradesh 515001.",
+    a: `The registered office is at ${contact.addressOneLine}.`,
   },
   {
-    q: "What work does the company do?",
-    a: "MCA class U43300 — specialised construction and infrastructure, with plots, independent houses, apartments, commercial and land development rooted in Anantapur and Rayalaseema.",
-  },
-  {
-    q: "Where do you build?",
-    a: "Anantapur is home. Work also reaches neighbouring Rayalaseema towns. Confirm a live parcel on WhatsApp.",
-  },
-  {
-    q: "How do I enquire?",
-    a: "WhatsApp +91 63025 56139 or email connect@samarthagamana.in. Quote the gallery place name or the parcel you have in mind.",
-  },
-  {
-    q: "Is the gallery live inventory?",
-    a: "Gallery shows Anantapur and Andhra Pradesh place photography for context. Live stock, floor and facing are confirmed on WhatsApp.",
-  },
-  {
-    q: "What is the email?",
-    a: "connect@samarthagamana.in — WhatsApp is faster for site visits.",
+    q: "Is Samartha Gamana Infra a Private Limited or an LLP?",
+    a: "Private Limited Company — Samartha Gamana Infra Private Limited, CIN U43300AP2026PTC124637, ROC Vijayawada. Not an LLP.",
   },
 ]
 
 export const jobs = [
   {
-    title: "Site engineer",
+    title: "Join the Anantapur desk",
     place: "Anantapur",
-    note: "RCC, safety counts, weekly reports on local parcels. Apply on WhatsApp with the role title.",
-  },
-  {
-    title: "Sales associate",
-    place: "Anantapur",
-    note: "Walk families through plots and homes without inflating the carpet. Housing Board Colony desk.",
-  },
-  {
-    title: "CAD drafter",
-    place: "Anantapur",
-    note: "Revisions held to the last redline. Township streets and house types.",
+    note: "As the portfolio grows, roles will be announced here. Introduce yourself on WhatsApp " + contact.whatsapp + ".",
   },
 ]
 
 export const press = [
   {
-    title: "MCA listing — Private Limited",
+    title: "Corporate information",
     year: "2026",
-    outlet: "Company registry (public)",
-    body: "Samartha Gamana Infra Private Limited, CIN U43300AP2026PTC124637, registered at Housing Board Colony, Anantapur 515001. Class: Private Limited (not LLP).",
-  },
-  {
-    title: "Founder — Nara Sudharshan",
-    year: "2026",
-    outlet: "Official site",
-    body: "Nara Sudharshan of Anantapur is the founder and owner. Profile: samarthagamanainfra.com/nara-sudharshan.",
+    outlet: "MCA / public registry",
+    body: "Samartha Gamana Infra Private Limited, CIN U43300AP2026PTC124637, ROC Vijayawada. Registered office: Housing Board Colony, Anantapur 515001.",
   },
 ]
 
 export const cityCopy = [
-  {
-    name: "Anantapur",
-    note: "Home city. Registered office at Housing Board Colony. Founder Nara Sudharshan. Clock tower, Lepakshi district, Rayalaseema ground.",
-  },
-  { name: "Lepakshi", note: "Anantapur district heritage town — Veerabhadra temple stone and local plots." },
-  { name: "Tadipatri", note: "Neighbouring Rayalaseema town on the company map for mixed-use and house enquiries." },
-  { name: "Kurnool", note: "Rayalaseema neighbour — plots and independent houses by enquiry." },
-  { name: "Kadapa", note: "Rayalaseema corridor — farm and weekend house interest." },
-  { name: "Ballari", note: "Border town enquiries for plotted work." },
-  { name: "Nandyal", note: "Regional town for residential walkthroughs by appointment." },
-  { name: "Gadwal", note: "Street-house and plotted parcel enquiries." },
-  { name: "Hyderabad", note: "Buyer desk for families moving between Hyderabad and Anantapur." },
-  { name: "Bengaluru", note: "NRI and metro buyers looking at Anantapur district land — by appointment." },
+  { name: "Anantapur", note: "Home city and registered office. NH-44 and NH-205 connectivity. A-category railway station." },
+  { name: "Bengaluru corridor", note: "NH-44 toward Bengaluru; Kempegowda International Airport approx. 184 km." },
+  { name: "Hyderabad corridor", note: "NH-44 linking Anantapur toward Hyderabad." },
+  { name: "Chennai corridor", note: "NH-205 connectivity toward Chennai through the Renigunta corridor." },
+  { name: "Lepakshi", note: "Heritage town in Anantapur district." },
+  { name: "Industrial Anantapur", note: "Manufacturing ecosystem including Kia India in Anantapur district." },
 ]
 
 export const processCopy = [
   {
     n: "01",
-    t: "Land",
-    d: "Survey, title, and soil on Anantapur ground before design.",
-    long: "EC, layout, and a boundary a tape can find. Housing Board Colony desk holds the file.",
+    t: "Understand",
+    d: "We study the location, requirements and potential of the opportunity.",
+    long: "Every development begins with understanding people, place and long-term potential.",
   },
   {
     n: "02",
-    t: "Design",
-    d: "Master plan and approvals drawn to the same scale as what gets built.",
-    long: "House types, plot grids and approach roads share one brass line.",
+    t: "Plan",
+    d: "We focus on practical planning, usability, accessibility and long-term value.",
+    long: "Thoughtful planning before execution.",
   },
   {
     n: "03",
-    t: "Build",
-    d: "Sequence against the drawing. Weekly board.",
-    long: "Roads and drains before the first plaster. RCC counts and a date that is not a slogan.",
+    t: "Develop",
+    d: "Responsible execution and attention to development quality remain central.",
+    long: "Quality and responsibility throughout the journey.",
   },
   {
     n: "04",
-    t: "Deliver",
-    d: "Keys, documents, and a lock that turns.",
-    long: "Snag list closed, file matching the unit, WhatsApp +91 63025 56139 still answers.",
+    t: "Connect",
+    d: "We maintain clear communication with customers and stakeholders.",
+    long: "Transparency at every step.",
+  },
+  {
+    n: "05",
+    t: "Grow",
+    d: "We continue building our portfolio with a long-term vision for the region.",
+    long: "Growing alongside Anantapur and Rayalaseema.",
   },
 ]

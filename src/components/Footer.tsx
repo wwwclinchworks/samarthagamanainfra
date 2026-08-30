@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useEffect } from "react"
 import { magnetic } from "../lib/motion"
 import { BrandLogo } from "./BrandLogo"
+import { brand, contact } from "../data/content"
 
 export function Footer() {
   useEffect(() => {
@@ -14,22 +15,29 @@ export function Footer() {
         <Link to="/" className="footer__brand" aria-label="Samartha Gamana Infra home">
           <BrandLogo className="footer__logo" />
         </Link>
-        <span className="footer__stamp">
-          © {new Date().getFullYear()} Samartha Gamana Infra Private Limited · CIN U43300AP2026PTC124637
-        </span>
+        <div className="footer__stamp">
+          <strong>{brand.name}</strong>
+          <br />
+          {brand.tagline}
+          <br />
+          Anantapur, Andhra Pradesh
+          <br />
+          © {new Date().getFullYear()} {brand.legal}. All Rights Reserved.
+          <br />
+          WhatsApp {contact.whatsapp} · {contact.email}
+        </div>
         <div className="footer__links">
-          <Link to="/nara-sudharshan">Nara Sudharshan</Link>
-          <a href="/#chapter-parcels">Parcels</a>
-          <Link to="/gallery">Gallery</Link>
-          <Link to="/projects">Work</Link>
-          <Link to="/process">Process</Link>
-          <Link to="/team">Team</Link>
-          <Link to="/cities">Cities</Link>
-          <Link to="/careers">Careers</Link>
-          <Link to="/press">Press</Link>
-          <Link to="/journal">Journal</Link>
-          <Link to="/faq">FAQ</Link>
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/nara-sudharshan">Founder</Link>
+          <Link to="/projects">Projects</Link>
+          <Link to="/why-anantapur">Why Anantapur</Link>
           <Link to="/contact">Contact</Link>
+          <Link to="/faq">FAQ</Link>
+          <Link to="/legal">Corporate info</Link>
+          <Link to="/privacy">Privacy Policy</Link>
+          <Link to="/terms">Terms &amp; Conditions</Link>
+          <Link to="/disclaimer">Disclaimer</Link>
         </div>
         <button
           id="back-to-top"

@@ -25,20 +25,17 @@ export function Header() {
         <BrandLogo className="nav__logo" />
       </Link>
       <div className={open ? "nav__links open" : "nav__links"}>
-        <a className="nav__link" href="/#chapter-parcels">
-          Parcels
-        </a>
-        <NavLink className="nav__link" to="/gallery">
-          Gallery
-        </NavLink>
-        <NavLink className="nav__link" to="/projects">
-          Developments
-        </NavLink>
         <NavLink className="nav__link" to="/about">
           About
         </NavLink>
         <NavLink className="nav__link" to="/nara-sudharshan">
           Founder
+        </NavLink>
+        <NavLink className="nav__link" to="/projects">
+          Projects
+        </NavLink>
+        <NavLink className="nav__link" to="/why-anantapur">
+          Why Anantapur
         </NavLink>
         <NavLink className="nav__cta" to="/contact">
           Contact
