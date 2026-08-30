@@ -19,11 +19,21 @@ export function Header() {
     setOpen(false)
   }, [loc.pathname])
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : ""
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [open])
+
   return (
-    <nav id="site-nav" className={scrolled ? "scrolled" : ""}>
+    <nav id="site-nav" className={scrolled || open ? "scrolled" : ""}>
       <Link to="/" className="nav__brand" aria-label="Samartha Gamana Infra home">
         <BrandLogo className="nav__logo" />
       </Link>
+      {open ? (
+        <button type="button" className="nav-scrim" aria-label="Close menu" onClick={() => setOpen(false)} />
+      ) : null}
       <div className={open ? "nav__links open" : "nav__links"}>
         <NavLink className="nav__link" to="/about">
           About
@@ -46,7 +56,8 @@ export function Header() {
         <button
           className={open ? "nav__toggle open" : "nav__toggle"}
           type="button"
-          aria-label="Toggle menu"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
           <span />

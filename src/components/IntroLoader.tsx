@@ -16,6 +16,7 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const isMobile = window.matchMedia("(max-width: 820px)").matches
     let skipped = false
     let running = true
     let raf = 0
@@ -48,14 +49,15 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
       loader.style.pointerEvents = "none"
       gsap.to(loader, {
         opacity: 0,
-        duration: 0.45,
+        duration: 0.4,
         ease: "power2.out",
         onComplete: notify,
       })
-      window.setTimeout(notify, 520)
+      window.setTimeout(notify, 480)
     }
 
-    const failsafe = window.setTimeout(finish, 3600)
+    // Faster failsafe on phones so the intro cannot stick
+    const failsafe = window.setTimeout(finish, isMobile ? 2400 : 3600)
     if (reduce) {
       finish()
       return () => window.clearTimeout(failsafe)
@@ -68,16 +70,15 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
       return () => window.clearTimeout(failsafe)
     }
 
-    const isSmall = window.innerWidth < 820
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.25)
-    const maxW = Math.min(innerWidth, 1100)
-    const maxH = Math.min(innerHeight, 720)
-    const W = (canvas.width = Math.floor(maxW * dpr))
-    const H = (canvas.height = Math.floor(maxH * dpr))
-    canvas.style.width = "100%"
-    canvas.style.height = "100%"
+    const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.1 : 1.25)
+    const cssW = window.innerWidth
+    const cssH = window.innerHeight
+    const W = (canvas.width = Math.floor(cssW * dpr))
+    const H = (canvas.height = Math.floor(cssH * dpr))
+    canvas.style.width = `${cssW}px`
+    canvas.style.height = `${cssH}px`
 
-    const POOL = isSmall ? 180 : 420
+    const POOL = isMobile ? 110 : 420
     const particles: Particle[] = []
     for (let i = 0; i < POOL; i++) {
       particles.push({
@@ -85,14 +86,14 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
         y: Math.random() * H,
         tx: Math.random() * W,
         ty: Math.random() * H,
-        r: Math.random() * 1.4 + 0.5,
+        r: Math.random() * (isMobile ? 1.1 : 1.4) + 0.45,
         brass: Math.random() < 0.45,
       })
     }
 
     const sampleText = (text: string, size: number) => {
-      const offW = 640
-      const offH = 280
+      const offW = isMobile ? 420 : 640
+      const offH = isMobile ? 200 : 280
       const off = document.createElement("canvas")
       off.width = offW
       off.height = offH
@@ -103,7 +104,7 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
       octx.textBaseline = "middle"
       octx.font = "800 " + size + 'px "Big Shoulders Display", sans-serif'
       octx.fillText(text, offW / 2, offH / 2)
-      const step = 8
+      const step = isMobile ? 10 : 8
       let data: Uint8ClampedArray
       try {
         data = octx.getImageData(0, 0, offW, offH).data
@@ -113,9 +114,11 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
       const pts: { x: number; y: number }[] = []
       const sx = W / offW
       const sy = H / offH
+      // Keep particle text in the vertical middle so it clears caption/skip chrome
+      const yOffset = isMobile ? H * 0.02 : 0
       for (let y = 0; y < offH; y += step) {
         for (let x = 0; x < offW; x += step) {
-          if (data[(y * offW + x) * 4 + 3] > 140) pts.push({ x: x * sx, y: y * sy })
+          if (data[(y * offW + x) * 4 + 3] > 140) pts.push({ x: x * sx, y: y * sy + yOffset })
         }
       }
       return pts
@@ -150,8 +153,8 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
     loop()
 
     const fontSizeFor = (text: string) => {
-      const base = text.length > 7 ? 72 : 96
-      return base
+      if (isMobile) return text.length > 7 ? 48 : 58
+      return text.length > 7 ? 72 : 96
     }
 
     const onSkip = (e: Event) => {
@@ -166,17 +169,17 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
 
     ;(async () => {
       try {
-        await Promise.race([document.fonts.ready, wait(400)])
+        await Promise.race([document.fonts.ready, wait(300)])
       } catch {
         /* ignore */
       }
-      await wait(280)
+      await wait(isMobile ? 160 : 280)
       if (skipped || doneRef.current) return
       assignTargets(sampleText("SAMARTHA", fontSizeFor("SAMARTHA")))
-      await wait(900)
+      await wait(isMobile ? 700 : 900)
       if (skipped || doneRef.current) return
       assignTargets(sampleText("GAMANA", fontSizeFor("GAMANA") * 1.05))
-      await wait(900)
+      await wait(isMobile ? 700 : 900)
       if (skipped || doneRef.current) return
       finish()
     })()
@@ -191,12 +194,14 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
   }, [onDone])
 
   return (
-    <div id="loader">
-      <canvas id="intro-canvas" ref={canvasRef} />
-      <div id="loader-caption">Calibrating coordinates</div>
-      <button id="skip-intro" ref={skipRef} type="button">
-        Skip intro →
-      </button>
+    <div id="loader" role="dialog" aria-label="Site introduction">
+      <canvas id="intro-canvas" ref={canvasRef} aria-hidden />
+      <div className="loader__chrome">
+        <p id="loader-caption">Samartha Gamana Infra</p>
+        <button id="skip-intro" ref={skipRef} type="button">
+          Skip intro →
+        </button>
+      </div>
     </div>
   )
 }
