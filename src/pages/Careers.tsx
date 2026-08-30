@@ -1,11 +1,13 @@
 import { jobs } from "../data/site"
 import { waLink } from "../lib/whatsapp"
+import { BrandLogo } from "../components/BrandLogo"
 
 export function CareersPage() {
   return (
     <>
       <section className="page-hero">
         <div className="hero__inner">
+          <BrandLogo className="page-logo" />
           <p className="eyebrow">Careers</p>
           <h1 className="hero__title">
             <span className="line-small">Open</span>

@@ -1,5 +1,6 @@
 import { Link, NavLink, useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
+import { BrandLogo } from "./BrandLogo"
 
 export function Header() {
   const [open, setOpen] = useState(false)
@@ -20,11 +21,7 @@ export function Header() {
   return (
     <nav id="site-nav" className={scrolled ? "scrolled" : ""}>
       <Link to="/" className="nav__brand" aria-label="Samartha Gamana Infra home">
-        <img src="/logo-mark.svg" alt="" className="nav__mark" width={44} height={44} />
-        <span className="nav__lockup">
-          <span className="nav__word">Samartha Gamana</span>
-          <span className="nav__infra">Infra</span>
-        </span>
+        <BrandLogo className="nav__logo" />
       </Link>
       <button
         className={open ? "nav__toggle open" : "nav__toggle"}

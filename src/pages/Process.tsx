@@ -1,10 +1,12 @@
 import { processCopy } from "../data/site"
+import { BrandLogo } from "../components/BrandLogo"
 
 export function ProcessPage() {
   return (
     <>
       <section className="page-hero">
         <div className="hero__inner">
+          <BrandLogo className="page-logo" />
           <p className="eyebrow">Method</p>
           <h1 className="hero__title">
             <span className="line-small">Four stages</span>

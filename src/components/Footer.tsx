@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useEffect } from "react"
 import { magnetic } from "../lib/motion"
+import { BrandLogo } from "./BrandLogo"
 
 export function Footer() {
   useEffect(() => {
@@ -11,7 +12,7 @@ export function Footer() {
     <footer id="site-footer">
       <div className="container footer__row">
         <Link to="/" className="footer__brand" aria-label="Samartha Gamana Infra home">
-          <img src="/logo.png" alt="Samartha Gamana Infra — Building better tomorrows" className="footer__logo" width={220} height={147} />
+          <BrandLogo className="footer__logo" />
         </Link>
         <span className="footer__stamp">© {new Date().getFullYear()} Samartha Gamana Infra Developers</span>
         <div className="footer__links">

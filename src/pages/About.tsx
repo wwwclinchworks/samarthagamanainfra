@@ -1,10 +1,12 @@
 import { about, awards } from "../data/content"
+import { BrandLogo } from "../components/BrandLogo"
 
 export function AboutPage() {
   return (
     <>
       <section className="page-hero">
         <div className="hero__inner">
+          <BrandLogo className="page-logo" />
           <p className="eyebrow">About us</p>
           <h1 className="hero__title">
             <span className="line-small">The house</span>
@@ -22,7 +24,9 @@ export function AboutPage() {
             </h2>
             <p>{about.body}</p>
           </div>
-          <img className="origin__diagram" src="/logo.png" alt="Samartha Gamana Infra" width={640} height={427} style={{ width: "100%", height: "auto", justifySelf: "center" }} />
+          <div className="logo-plate">
+            <BrandLogo variant="bg" className="logo-plate__img" alt="Samartha Gamana Infra — with background" />
+          </div>
         </div>
       </section>
       <section className="chapter chapter--solid">

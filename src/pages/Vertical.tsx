@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom"
 import { verticals } from "../data/content"
 import { waLink } from "../lib/whatsapp"
+import { BrandLogo } from "../components/BrandLogo"
 
 export function VerticalPage() {
   const { slug } = useParams()
@@ -10,6 +11,7 @@ export function VerticalPage() {
     return (
       <section className="page-hero">
         <div className="hero__inner">
+          <BrandLogo className="page-logo" />
           <p className="eyebrow">Offerings</p>
           <h1 className="hero__title">
             <span className="line-big">Unlisted</span>
@@ -27,6 +29,7 @@ export function VerticalPage() {
     <>
       <section className="page-hero">
         <div className="hero__inner">
+          <BrandLogo className="page-logo" />
           <p className="eyebrow">{item.kicker}</p>
           <h1 className="hero__title">
             <span className="line-big">{item.title}</span>

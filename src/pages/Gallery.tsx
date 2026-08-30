@@ -1,6 +1,7 @@
 import { gallery, type GalleryKind } from "../data/site"
 import { waLink } from "../lib/whatsapp"
 import { useMemo, useState } from "react"
+import { BrandLogo } from "../components/BrandLogo"
 
 const tabs: { id: "all" | GalleryKind; label: string }[] = [
   { id: "all", label: "All" },
@@ -17,6 +18,7 @@ export function GalleryPage() {
     <>
       <section className="page-hero">
         <div className="hero__inner">
+          <BrandLogo className="page-logo" />
           <p className="eyebrow">Gallery</p>
           <h1 className="hero__title">
             <span className="line-small">2 BHK · Villas</span>

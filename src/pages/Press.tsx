@@ -1,10 +1,12 @@
 import { press } from "../data/site"
+import { BrandLogo } from "../components/BrandLogo"
 
 export function PressPage() {
   return (
     <>
       <section className="page-hero">
         <div className="hero__inner">
+          <BrandLogo className="page-logo" />
           <p className="eyebrow">Press</p>
           <h1 className="hero__title">
             <span className="line-small">Desk</span>

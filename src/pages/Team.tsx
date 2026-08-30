@@ -1,10 +1,12 @@
 import { team } from "../data/site"
+import { BrandLogo } from "../components/BrandLogo"
 
 export function TeamPage() {
   return (
     <>
       <section className="page-hero">
         <div className="hero__inner">
+          <BrandLogo className="page-logo" />
           <p className="eyebrow">People</p>
           <h1 className="hero__title">
             <span className="line-small">The</span>
