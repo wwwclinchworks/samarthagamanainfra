@@ -1,13 +1,11 @@
 import { faqs } from "../data/site"
 import { waLink } from "../lib/whatsapp"
-import { BrandLogo } from "../components/BrandLogo"
 
 export function FaqPage() {
   return (
     <>
       <section className="page-hero">
         <div className="hero__inner">
-          <BrandLogo className="page-logo" />
           <p className="eyebrow">FAQ</p>
           <h1 className="hero__title">
             <span className="line-small">Straight</span>

@@ -1,13 +1,11 @@
 import { cityCopy } from "../data/site"
 import { locations } from "../data/content"
-import { BrandLogo } from "../components/BrandLogo"
 
 export function CitiesPage() {
   return (
     <>
       <section className="page-hero">
         <div className="hero__inner">
-          <BrandLogo className="page-logo" />
           <p className="eyebrow">Footprint</p>
           <h1 className="hero__title">
             <span className="line-small">Ten</span>

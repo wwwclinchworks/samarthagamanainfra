@@ -1,12 +1,10 @@
 import { about, awards } from "../data/content"
-import { BrandLogo } from "../components/BrandLogo"
 
 export function AboutPage() {
   return (
     <>
       <section className="page-hero">
         <div className="hero__inner">
-          <BrandLogo className="page-logo" />
           <p className="eyebrow">About us</p>
           <h1 className="hero__title">
             <span className="line-small">The house</span>
@@ -24,9 +22,17 @@ export function AboutPage() {
             </h2>
             <p>{about.body}</p>
           </div>
-          <div className="logo-plate">
-            <BrandLogo className="logo-plate__img" />
-          </div>
+          <svg className="origin__diagram" viewBox="0 0 400 320" fill="none">
+            <g className="grid-line">
+              <path d="M0 40H400M0 90H400M0 140H400M0 190H400M0 240H400M0 290H400" />
+              <path d="M40 0V320M90 0V320M140 0V320M190 0V320M240 0V320M290 0V320M340 0V320" />
+            </g>
+            <g className="tower">
+              <rect x="90" y="110" width="50" height="180" />
+              <rect x="170" y="70" width="50" height="220" />
+              <rect x="250" y="150" width="50" height="140" />
+            </g>
+          </svg>
         </div>
       </section>
       <section className="chapter chapter--solid">

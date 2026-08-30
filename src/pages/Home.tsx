@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { IntroLoader } from "../components/IntroLoader"
-import { BrandLogo } from "../components/BrandLogo"
 import { mountCityScene, playCityIntro } from "../lib/cityScene"
 import { initHomeMotion, magnetic, tiltCard } from "../lib/motion"
 import { waLink } from "../lib/whatsapp"
@@ -91,7 +90,6 @@ export function HomePage() {
 
       <section id="hero">
         <div className="hero__inner">
-          <BrandLogo className="hero__logo" />
           <p className="eyebrow hero__eyebrow">Samartha Gamana · Infra Developers</p>
           <h1 className="hero__title">
             <span className="line-small">Samartha</span>

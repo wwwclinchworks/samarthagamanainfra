@@ -11,7 +11,7 @@ html[data-theme="light"] {
   --ink-dimmer: rgba(22, 20, 26, 0.4);
   --sandstone: #c9a176;
   --brass: #8f6a32;
-  --brass-bright: #7a5624;
+  --brass-bright: #b8893c;
   --blueprint: #3d5c78;
   --line: rgba(22, 20, 26, 0.12);
   --nav-scrolled: rgba(243, 238, 228, 0.9);
@@ -344,36 +344,10 @@ html[data-theme="light"] #scene-canvas {
 }
 
 html[data-theme="dark"] .nav__logo,
-html[data-theme="dark"] .hero__logo,
-html[data-theme="dark"] .page-logo,
 html[data-theme="dark"] .footer__logo {
   background: var(--logo-stage);
   border-radius: 8px;
   padding: 6px 10px;
-}
-
-.hero__logo,
-.page-logo {
-  height: 92px;
-  width: auto;
-  max-width: min(280px, 70vw);
-  display: block;
-  margin: 0 auto 1.4rem;
-  object-fit: contain;
-}
-
-.logo-plate {
-  border: 1px solid var(--line);
-  background: var(--logo-stage);
-  display: grid;
-  place-items: center;
-  padding: 1.2rem;
-}
-
-.logo-plate__img {
-  width: 100%;
-  height: auto;
-  display: block;
 }
 
 .nav__links {

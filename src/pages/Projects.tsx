@@ -1,6 +1,5 @@
 import { completed, locations } from "../data/content"
 import { Link } from "react-router-dom"
-import { BrandLogo } from "../components/BrandLogo"
 
 const tones = [
   "linear-gradient(135deg,#2b2f22,#5c6b3f 55%,#c9a176)",
@@ -13,7 +12,6 @@ export function ProjectsPage() {
     <>
       <section className="page-hero">
         <div className="hero__inner">
-          <BrandLogo className="page-logo" />
           <p className="eyebrow">Developments</p>
           <h1 className="hero__title">
             <span className="line-small">Selected</span>

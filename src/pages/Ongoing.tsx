@@ -1,12 +1,10 @@
 import { locations, ongoing } from "../data/content"
-import { BrandLogo } from "../components/BrandLogo"
 
 export function OngoingPage() {
   return (
     <>
       <section className="page-hero">
         <div className="hero__inner">
-          <BrandLogo className="page-logo" />
           <p className="eyebrow">Ongoing</p>
           <h1 className="hero__title">
             <span className="line-small">On site</span>

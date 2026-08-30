@@ -1,6 +1,5 @@
 import { contactIntents, waLink } from "../lib/whatsapp"
 import { IconHome, IconBuildings, IconPlot, IconPhone } from "../components/Icons"
-import { BrandLogo } from "../components/BrandLogo"
 
 const map = {
   house: IconHome,
@@ -15,7 +14,6 @@ export function ContactPage() {
     <>
       <section className="page-hero">
         <div className="hero__inner">
-          <BrandLogo className="page-logo" />
           <p className="eyebrow">Contact</p>
           <h1 className="hero__title">
             <span className="line-small">The next</span>

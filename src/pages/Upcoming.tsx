@@ -1,12 +1,10 @@
 import { upcoming } from "../data/content"
-import { BrandLogo } from "../components/BrandLogo"
 
 export function UpcomingPage() {
   return (
     <>
       <section className="page-hero">
         <div className="hero__inner">
-          <BrandLogo className="page-logo" />
           <p className="eyebrow">Upcoming</p>
           <h1 className="hero__title">
             <span className="line-small">Next</span>

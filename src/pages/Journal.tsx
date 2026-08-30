@@ -1,5 +1,4 @@
 import { journal } from "../data/site"
-import { BrandLogo } from "../components/BrandLogo"
 
 const tones = [
   "linear-gradient(135deg,#2b2f22,#5c6b3f 55%,#c9a176)",
@@ -12,7 +11,6 @@ export function JournalPage() {
     <>
       <section className="page-hero">
         <div className="hero__inner">
-          <BrandLogo className="page-logo" />
           <p className="eyebrow">Journal</p>
           <h1 className="hero__title">
             <span className="line-small">Field</span>
