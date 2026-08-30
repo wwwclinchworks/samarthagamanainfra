@@ -15,18 +15,18 @@ Dev server: [http://127.0.0.1:45217](http://127.0.0.1:45217).
 
 Do **not** deploy from a laptop for production. Push to `main` on GitHub; Cloudflare Workers deploys automatically.
 
-### One-time setup (required once)
+### One-time setup (required once) — Cloudflare Workers Builds
 
-1. Open [GitHub → Settings → Secrets and variables → Actions](https://github.com/wwwclinchworks/samarthagamanainfra/settings/secrets/actions).
-2. Add repository secrets:
-   - `CLOUDFLARE_API_TOKEN` — token with **Workers Scripts Edit** (and **Zone DNS Edit** if custom domains are managed by Wrangler).
-   - `CLOUDFLARE_ACCOUNT_ID` — your Cloudflare account ID.
-3. Ensure Actions are enabled for the repo.
-4. Push to `main` (or run the **Deploy to Cloudflare Workers** workflow manually).
+1. Open [Cloudflare dashboard → Workers → samartha-gamana-infra → Settings → Builds](https://dash.cloudflare.com/?to=/:account/workers/services/view/samartha-gamana-infra/settings).
+2. **Connect** GitHub repo `wwwclinchworks/samarthagamanainfra`.
+3. Production branch: `main`
+4. Build command: `npm run build`
+5. Deploy command: `npx wrangler deploy`
+6. Save. Every push to `main` deploys automatically.
 
-Workflow file: `.github/workflows/deploy.yml` (`npm ci` → `npm run build` → `wrangler deploy`).
+### Optional: GitHub Actions instead
 
-**Optional alternative:** Cloudflare dashboard → Workers → `samartha-gamana-infra` → Settings → Builds → Connect GitHub repo `wwwclinchworks/samarthagamanainfra`, build `npm run build`, deploy `npx wrangler deploy`, production branch `main`.
+Template: `docs/github-actions-deploy.yml` — copy to `.github/workflows/deploy.yml`, then add secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` under GitHub → Settings → Secrets → Actions.
 
 Live:
 
