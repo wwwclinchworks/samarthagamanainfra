@@ -10,7 +10,7 @@
     "html_handling": "auto-trailing-slash"
   },
   "routes": [
-    { "pattern": "samarthagamana.in", "custom_domain": true },
-    { "pattern": "www.samarthagamana.in", "custom_domain": true }
+    { "pattern": "samarthagamanainfra.com", "custom_domain": true, "zone_name": "samarthagamanainfra.com" },
+    { "pattern": "www.samarthagamanainfra.com", "custom_domain": true, "zone_name": "samarthagamanainfra.com" }
   ]
 }

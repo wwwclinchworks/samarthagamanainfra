@@ -1,7 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom"
 import { Header } from "./Header"
 import { Footer } from "./Footer"
-import { Cursor } from "./Cursor"
 import { RouteTrack } from "./RouteTrack"
 import { ContactDock } from "./ContactDock"
 import { useEffect } from "react"
@@ -20,7 +19,6 @@ export function Layout() {
 
   return (
     <>
-      <Cursor />
       <RouteTrack />
       <Header />
       <main>

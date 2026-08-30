@@ -23,10 +23,10 @@ npm run deploy
 
 That publishes to `https://samartha-gamana-infra.<your-subdomain>.workers.dev` and, if the zone is on the same Cloudflare account, attaches:
 
-- `https://samarthagamana.in`
-- `https://www.samarthagamana.in`
+- `https://samarthagamanainfra.com`
+- `https://www.samarthagamanainfra.com`
 
-Custom domains only work when the domain’s nameservers are already on Cloudflare. Wrangler then creates the DNS record and certificate — you do not point the domain at Vercel.
+Custom domains only work when the domain’s nameservers are already on Cloudflare. Delete any leftover Vercel CNAME/A records on `@` and `www` first, then Wrangler (or Workers → Domains & Routes) attaches the Worker.
 
 To attach a domain from the dashboard instead: **Workers & Pages → samartha-gamana-infra → Settings → Domains & Routes → Add → Custom Domain**.
 
