@@ -32,8 +32,13 @@ Template: `docs/github-actions-deploy.yml` — copy to `.github/workflows/deploy
 
 Live:
 
-- https://samarthagamanainfra.com
-- https://www.samarthagamanainfra.com
+- **Current (real brand copy):** https://samarthagamanainfra.com · https://www.samarthagamanainfra.com  
+  Worker: `samartha-gamana-infra` · auto-deploys from GitHub `main`
+- **Previous site (for client comparison):** https://preview.samarthagamanainfra.com  
+  Worker: `samartha-gamana-infra-preview` · frozen snapshot of commit `a80685f` (pre brand-copy rewrite) · `noindex`  
+  Redeploy snapshot: `bash scripts/redeploy-preview.sh` (requires `CLOUDFLARE_API_TOKEN`; does not follow `main`)
+
+The preview Worker is **not** connected to GitHub Builds, so production pushes will not overwrite it.
 
 ## Company facts (public)
 

@@ -38,6 +38,9 @@ export function Footer() {
           <Link to="/privacy">Privacy Policy</Link>
           <Link to="/terms">Terms &amp; Conditions</Link>
           <Link to="/disclaimer">Disclaimer</Link>
+          <a href="https://preview.samarthagamanainfra.com" rel="noreferrer">
+            Previous site preview
+          </a>
         </div>
         <button
           id="back-to-top"
