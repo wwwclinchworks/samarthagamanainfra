@@ -267,6 +267,7 @@ button {
   inset: 0;
   width: 100%;
   height: 100%;
+  pointer-events: none;
 }
 
 #loader-caption {
@@ -285,6 +286,7 @@ button {
   position: absolute;
   bottom: 40px;
   right: 40px;
+  z-index: 5;
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.68rem;
   letter-spacing: 0.14em;
@@ -292,8 +294,8 @@ button {
   color: var(--ink-dim);
   border: 1px solid var(--line);
   padding: 0.75em 1.2em;
-  opacity: 0;
-  pointer-events: none;
+  opacity: 1;
+  pointer-events: auto;
   transition:
     opacity 0.5s,
     border-color 0.3s,
@@ -1052,7 +1054,10 @@ body.loading {
 
 .footer__links {
   display: flex;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  justify-content: flex-end;
+  max-width: 42rem;
 }
 
 .footer__links a:hover {
@@ -1161,6 +1166,105 @@ body.loading {
 
 .wa-item:hover {
   color: var(--brass-bright);
+}
+
+.gallery-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 2.4rem;
+}
+
+.gallery-tab {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  padding: 0.7em 1.2em;
+  color: var(--ink-dim);
+}
+
+.gallery-tab.is-on,
+.gallery-tab:hover {
+  border-color: var(--brass);
+  color: var(--brass-bright);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.gallery-card {
+  background: var(--basalt-soft);
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+.gallery-card__body {
+  padding: 1.4rem 1.5rem 1.8rem;
+}
+
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  #skip-intro {
+    right: 16px;
+    bottom: 22px;
+  }
+}
+
+.gallery-empty {
+  border: 1px solid var(--line);
+  padding: 2.4rem 1.6rem;
+  color: var(--ink-dim);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--line);
+  padding: 1.4rem 0;
+}
+
+.faq-item h3 {
+  font-family: Fraunces, serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  margin: 0 0 0.5em;
+}
+
+.inner-copy {
+  max-width: 42rem;
+  color: var(--ink-dim);
+  font-size: 1.02rem;
+  line-height: 1.75;
+  margin: 0 0 2.4rem;
+}
+
+.press-item {
+  border-bottom: 1px solid var(--line);
+  padding: 1.6rem 0;
+}
+
+.press-item h3 {
+  font-family: Fraunces, serif;
+  font-weight: 500;
+  font-size: 1.35rem;
+  margin: 0.35rem 0 0.55rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

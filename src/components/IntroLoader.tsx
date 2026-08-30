@@ -11,63 +11,73 @@ function wait(ms: number) {
 
 export function IntroLoader({ onDone }: { onDone: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const skipRef = useRef<HTMLButtonElement>(null)
+  const doneRef = useRef(false)
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    const skip = document.getElementById("skip-intro")
     let skipped = false
-    let done = false
     let running = true
     let raf = 0
 
-    const finish = () => {
-      if (done) return
-      done = true
-      running = false
-      cancelAnimationFrame(raf)
-      document.body.classList.remove("loading")
-      const loader = document.getElementById("loader")
-      gsap.to(loader, {
-        opacity: 0,
-        duration: 0.9,
-        ease: "power2.out",
-        onComplete: () => {
-          onDone()
-        },
-      })
-      revealHero()
-      playCityIntro()
+    let notified = false
+    const notify = () => {
+      if (notified) return
+      notified = true
+      onDone()
     }
 
+    const finish = () => {
+      if (doneRef.current) return
+      doneRef.current = true
+      running = false
+      cancelAnimationFrame(raf)
+      try {
+        sessionStorage.setItem("sgi-intro", "1")
+      } catch {
+        /* ignore */
+      }
+      document.body.classList.remove("loading")
+      const loader = document.getElementById("loader")
+      revealHero()
+      playCityIntro()
+      if (!loader) {
+        notify()
+        return
+      }
+      loader.style.pointerEvents = "none"
+      gsap.to(loader, {
+        opacity: 0,
+        duration: 0.45,
+        ease: "power2.out",
+        onComplete: notify,
+      })
+      window.setTimeout(notify, 520)
+    }
+
+    const failsafe = window.setTimeout(finish, 3600)
     if (reduce) {
       finish()
-      return
+      return () => window.clearTimeout(failsafe)
     }
 
     const canvas = canvasRef.current
-    if (!canvas) {
+    const ctx = canvas?.getContext("2d", { alpha: false })
+    if (!canvas || !ctx) {
       finish()
-      return
-    }
-    const ctx = canvas.getContext("2d")
-    if (!ctx) {
-      finish()
-      return
+      return () => window.clearTimeout(failsafe)
     }
 
     const isSmall = window.innerWidth < 820
-    const dpr = Math.min(window.devicePixelRatio, 2)
-    let W = 0
-    let H = 0
-    const resize = () => {
-      W = canvas.width = innerWidth * dpr
-      H = canvas.height = innerHeight * dpr
-      canvas.style.width = innerWidth + "px"
-      canvas.style.height = innerHeight + "px"
-    }
-    resize()
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.25)
+    const maxW = Math.min(innerWidth, 1100)
+    const maxH = Math.min(innerHeight, 720)
+    const W = (canvas.width = Math.floor(maxW * dpr))
+    const H = (canvas.height = Math.floor(maxH * dpr))
+    canvas.style.width = "100%"
+    canvas.style.height = "100%"
 
-    const POOL = isSmall ? 700 : 1600
+    const POOL = isSmall ? 180 : 420
     const particles: Particle[] = []
     for (let i = 0; i < POOL; i++) {
       particles.push({
@@ -75,74 +85,61 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
         y: Math.random() * H,
         tx: Math.random() * W,
         ty: Math.random() * H,
-        r: Math.random() * 1.5 + 0.6,
+        r: Math.random() * 1.4 + 0.5,
         brass: Math.random() < 0.45,
       })
     }
 
     const sampleText = (text: string, size: number) => {
+      const offW = 640
+      const offH = 280
       const off = document.createElement("canvas")
-      off.width = W
-      off.height = H
-      const octx = off.getContext("2d")
+      off.width = offW
+      off.height = offH
+      const octx = off.getContext("2d", { willReadFrequently: true })
       if (!octx) return []
       octx.fillStyle = "#fff"
       octx.textAlign = "center"
       octx.textBaseline = "middle"
       octx.font = "800 " + size + 'px "Big Shoulders Display", sans-serif'
-      octx.fillText(text, W / 2, H / 2)
-      const step = isSmall ? 7 : 9
-      const data = octx.getImageData(0, 0, W, H).data
-      const pts: { x: number; y: number }[] = []
-      for (let y = 0; y < H; y += step) {
-        for (let x = 0; x < W; x += step) {
-          if (data[(y * W + x) * 4 + 3] > 140) pts.push({ x, y })
-        }
+      octx.fillText(text, offW / 2, offH / 2)
+      const step = 8
+      let data: Uint8ClampedArray
+      try {
+        data = octx.getImageData(0, 0, offW, offH).data
+      } catch {
+        return []
       }
-      for (let j = pts.length - 1; j > 0; j--) {
-        const k = (Math.random() * (j + 1)) | 0
-        const tmp = pts[j]
-        pts[j] = pts[k]
-        pts[k] = tmp
+      const pts: { x: number; y: number }[] = []
+      const sx = W / offW
+      const sy = H / offH
+      for (let y = 0; y < offH; y += step) {
+        for (let x = 0; x < offW; x += step) {
+          if (data[(y * offW + x) * 4 + 3] > 140) pts.push({ x: x * sx, y: y * sy })
+        }
       }
       return pts
     }
 
     const assignTargets = (pts: { x: number; y: number }[]) => {
       for (let i = 0; i < particles.length; i++) {
-        if (pts[i]) {
-          particles[i].tx = pts[i].x
-          particles[i].ty = pts[i].y
-        } else {
-          particles[i].tx = W / 2 + (Math.random() - 0.5) * W * 1.5
-          particles[i].ty = H / 2 + (Math.random() - 0.5) * H * 1.5
+        const pt = pts[i % Math.max(pts.length, 1)]
+        if (pts.length) {
+          particles[i].tx = pt.x
+          particles[i].ty = pt.y
         }
       }
     }
 
-    const mouse = { x: -9999, y: -9999 }
-    const onMove = (e: MouseEvent) => {
-      mouse.x = e.clientX * dpr
-      mouse.y = e.clientY * dpr
-    }
-    window.addEventListener("mousemove", onMove)
-
     const loop = () => {
       if (!running) return
-      ctx.clearRect(0, 0, W, H)
+      ctx.fillStyle = "#0B0E13"
+      ctx.fillRect(0, 0, W, H)
       for (let i = 0; i < particles.length; i++) {
         const pt = particles[i]
-        pt.x += (pt.tx - pt.x) * 0.07
-        pt.y += (pt.ty - pt.y) * 0.07
-        const dx = pt.x - mouse.x
-        const dy = pt.y - mouse.y
-        const dist = Math.hypot(dx, dy)
-        if (dist < 130 && dist > 0.01) {
-          const f = ((130 - dist) / 130) * 2.4
-          pt.x += (dx / dist) * f
-          pt.y += (dy / dist) * f
-        }
-        ctx.globalAlpha = 0.85
+        pt.x += (pt.tx - pt.x) * 0.08
+        pt.y += (pt.ty - pt.y) * 0.08
+        ctx.globalAlpha = 0.88
         ctx.fillStyle = pt.brass ? "#C9A176" : "#EDEAE1"
         ctx.beginPath()
         ctx.arc(pt.x, pt.y, pt.r * dpr, 0, Math.PI * 2)
@@ -153,40 +150,43 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
     loop()
 
     const fontSizeFor = (text: string) => {
-      const base = Math.min(innerWidth * 0.17, 230)
-      return text.length > 7 ? base * 0.82 : base
+      const base = text.length > 7 ? 72 : 96
+      return base
     }
 
-    const showSkip = window.setTimeout(() => skip?.classList.add("show"), 1100)
-    const onSkip = () => {
+    const onSkip = (e: Event) => {
+      e.preventDefault()
+      e.stopPropagation()
       skipped = true
       finish()
     }
-    skip?.addEventListener("click", onSkip)
+    const skipEl = skipRef.current
+    skipEl?.addEventListener("click", onSkip)
+    skipEl?.classList.add("show")
 
     ;(async () => {
       try {
-        await document.fonts.load('800 220px "Big Shoulders Display"')
+        await Promise.race([document.fonts.ready, wait(400)])
       } catch {
         /* ignore */
       }
-      await wait(700)
-      if (skipped) return
+      await wait(280)
+      if (skipped || doneRef.current) return
       assignTargets(sampleText("SAMARTHA", fontSizeFor("SAMARTHA")))
-      await wait(1250)
-      if (skipped) return
+      await wait(900)
+      if (skipped || doneRef.current) return
       assignTargets(sampleText("GAMANA", fontSizeFor("GAMANA") * 1.05))
-      await wait(1250)
-      if (skipped) return
+      await wait(900)
+      if (skipped || doneRef.current) return
       finish()
     })()
 
     return () => {
       running = false
       cancelAnimationFrame(raf)
-      window.removeEventListener("mousemove", onMove)
-      window.clearTimeout(showSkip)
-      skip?.removeEventListener("click", onSkip)
+      window.clearTimeout(failsafe)
+      skipEl?.removeEventListener("click", onSkip)
+      document.body.classList.remove("loading")
     }
   }, [onDone])
 
@@ -194,7 +194,7 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
     <div id="loader">
       <canvas id="intro-canvas" ref={canvasRef} />
       <div id="loader-caption">Calibrating coordinates</div>
-      <button id="skip-intro" type="button">
+      <button id="skip-intro" ref={skipRef} type="button">
         Skip intro →
       </button>
     </div>

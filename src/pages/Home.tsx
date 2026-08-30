@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { IntroLoader } from "../components/IntroLoader"
-import { mountCityScene } from "../lib/cityScene"
+import { mountCityScene, playCityIntro } from "../lib/cityScene"
 import { initHomeMotion, magnetic, tiltCard } from "../lib/motion"
 import { waLink } from "../lib/whatsapp"
 
@@ -50,17 +50,30 @@ const parcels = [
   },
 ]
 
+function introAlreadyDone() {
+  try {
+    return sessionStorage.getItem("sgi-intro") === "1"
+  } catch {
+    return false
+  }
+}
+
 export function HomePage() {
-  const [intro, setIntro] = useState(true)
+  const [intro, setIntro] = useState(() => !introAlreadyDone())
+  const closeIntro = useCallback(() => setIntro(false), [])
 
   useEffect(() => {
-    document.body.classList.add("loading")
+    if (intro) document.body.classList.add("loading")
+    else document.body.classList.remove("loading")
     const canvas = document.getElementById("scene-canvas") as HTMLCanvasElement | null
     const handle = canvas ? mountCityScene(canvas) : null
+    if (!intro) window.setTimeout(() => playCityIntro(), 120)
     return () => {
       handle?.dispose()
       document.body.classList.remove("loading")
     }
+    // City mounts once; intro overlay is independent.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -72,7 +85,7 @@ export function HomePage() {
 
   return (
     <>
-      {intro ? <IntroLoader onDone={() => setIntro(false)} /> : null}
+      {intro ? <IntroLoader onDone={closeIntro} /> : null}
       <canvas id="scene-canvas" />
 
       <section id="hero">

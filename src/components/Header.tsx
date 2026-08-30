@@ -40,9 +40,9 @@ export function Header() {
         <a className="nav__link" href="/#chapter-parcels">
           Parcels
         </a>
-        <a className="nav__link" href="/#chapter-process">
-          Process
-        </a>
+        <NavLink className="nav__link" to="/gallery">
+          Gallery
+        </NavLink>
         <NavLink className="nav__link" to="/projects">
           Developments
         </NavLink>

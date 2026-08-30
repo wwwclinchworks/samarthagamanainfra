@@ -13,8 +13,16 @@ export function Footer() {
         <span className="footer__stamp">SG / Gamana — Est. Parcel 00 · © {new Date().getFullYear()} Samartha Gamana Infra Developers</span>
         <div className="footer__links">
           <a href="/#chapter-parcels">Parcels</a>
-          <a href="/#chapter-process">Process</a>
-          <Link to="/projects">Developments</Link>
+          <Link to="/gallery">Gallery</Link>
+          <Link to="/projects">Work</Link>
+          <Link to="/process">Process</Link>
+          <Link to="/team">Team</Link>
+          <Link to="/cities">Cities</Link>
+          <Link to="/careers">Careers</Link>
+          <Link to="/press">Press</Link>
+          <Link to="/journal">Journal</Link>
+          <Link to="/faq">FAQ</Link>
+          <Link to="/contact">Contact</Link>
         </div>
         <button
           id="back-to-top"

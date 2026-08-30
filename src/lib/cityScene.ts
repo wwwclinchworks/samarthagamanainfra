@@ -276,6 +276,15 @@ export function mountCityScene(canvas: HTMLCanvasElement): SceneHandle | null {
 }
 
 export function playCityIntro() {
-  const fn = (window as unknown as { __sgiPlayCity?: () => void }).__sgiPlayCity
-  fn?.()
+  let n = 0
+  const run = () => {
+    const fn = (window as unknown as { __sgiPlayCity?: () => void }).__sgiPlayCity
+    if (fn) {
+      fn()
+      return
+    }
+    n += 1
+    if (n < 40) window.setTimeout(run, 50)
+  }
+  run()
 }
