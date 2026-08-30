@@ -37,6 +37,9 @@ export function Header() {
         <NavLink className="nav__link" to="/about">
           About
         </NavLink>
+        <NavLink className="nav__link" to="/nara-sudharshan">
+          Founder
+        </NavLink>
         <NavLink className="nav__cta" to="/contact">
           Contact
         </NavLink>

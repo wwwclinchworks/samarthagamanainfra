@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { about, awards } from "../data/content"
 
 export function AboutPage() {
@@ -11,6 +12,21 @@ export function AboutPage() {
             <span className="line-big">Gamana</span>
           </h1>
           <p className="hero__sub">{about.intro}</p>
+        </div>
+      </section>
+      <section className="chapter">
+        <div className="container origin__grid">
+          <div className="origin__text">
+            <p className="eyebrow">Founder and owner</p>
+            <h2 className="origin__title">
+              Nara Sudharshan, <em>Anantapur.</em>
+            </h2>
+            <p>
+              Nara Sudharshan is the founder and owner of Samartha Gamana Infra. He is from Anantapur, Andhra Pradesh.
+              Searches for his name should land on this house — the official profile is{" "}
+              <Link to="/nara-sudharshan">/nara-sudharshan</Link>.
+            </p>
+          </div>
         </div>
       </section>
       <section className="chapter">

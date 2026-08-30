@@ -17,9 +17,9 @@ export function CitiesPage() {
       <section className="chapter">
         <div className="container">
           <p className="inner-copy">
-            Dummy map of where Samartha Gamana Infra works. 2 BHKs in Hyderabad and Nandyal, villas in Bengaluru and
-            Nandyal, houses on serviced plots in Kurnool, Ballari, Gadwal and Tadipatri. Confirm a site visit on
-            WhatsApp — this page is not a live inventory.
+            Founder Nara Sudharshan is from Anantapur. Dummy map of where Samartha Gamana Infra also works: 2 BHKs in
+            Hyderabad and Nandyal, villas in Bengaluru and Nandyal, houses on serviced plots in Kurnool, Ballari, Gadwal
+            and Tadipatri. Confirm a site visit on WhatsApp — this page is not a live inventory.
           </p>
           <div className="parcels__grid">
             {cityCopy.map((c, i) => (

@@ -112,9 +112,15 @@ export function HomePage() {
             </h2>
             <p>
               Before a beam is set, a plot is measured, surveyed, and drawn to scale. That discipline — precision before
-              ambition — is what Samartha Gamana brings to every township, tower, and road it builds. We don't chase
-              height for its own sake. We plan movement: how people will arrive, live, work, and return, long after the
-              drawings are filed away.
+              ambition — is what Samartha Gamana brings to every township, tower, and road it builds. The house is
+              founded and owned by Nara Sudharshan, from Anantapur, Andhra Pradesh. We don't chase height for its own
+              sake. We plan movement: how people will arrive, live, work, and return, long after the drawings are filed
+              away.
+            </p>
+            <p>
+              <Link className="nav__link" to="/nara-sudharshan">
+                Nara Sudharshan, founder →
+              </Link>
             </p>
           </div>
           <svg className="origin__diagram" viewBox="0 0 400 320" fill="none">

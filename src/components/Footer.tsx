@@ -16,6 +16,7 @@ export function Footer() {
         </Link>
         <span className="footer__stamp">© {new Date().getFullYear()} Samartha Gamana Infra Developers</span>
         <div className="footer__links">
+          <Link to="/nara-sudharshan">Nara Sudharshan</Link>
           <a href="/#chapter-parcels">Parcels</a>
           <Link to="/gallery">Gallery</Link>
           <Link to="/projects">Work</Link>

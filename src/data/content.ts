@@ -67,8 +67,8 @@ export const about = {
   quote:
     "Every successful project is a result of our hard work and determination, gained by the trust and satisfaction of our customers.",
   intro:
-    "Samartha Gamana Infra is a real-estate house named for capability (Samartha) and journey (Gamana). We plan, we build, and we stay until the keys feel like they were always yours.",
-  body: "We create plans to achieve your ambitions and then execute them with cost discipline and quality that satisfies. Details of our cities, years and square-feet will be updated as the portfolio is published — the craft and the promise begin here.",
+    "Samartha Gamana Infra is a real-estate house founded and owned by Nara Sudharshan of Anantapur, Andhra Pradesh. Named for capability (Samartha) and journey (Gamana), we plan, we build, and we stay until the keys feel like they were always yours.",
+  body: "Nara Sudharshan started this desk in Anantapur so land, roads and homes stay on one drawing. We create plans to achieve your ambitions and then execute them with cost discipline and quality that satisfies. Details of our cities, years and square-feet will be updated as the portfolio is published — the craft and the promise begin here.",
   values: [
     {
       title: "Safety",

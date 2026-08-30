@@ -16,6 +16,7 @@ import { ProjectsPage } from "./pages/Projects"
 import { TeamPage } from "./pages/Team"
 import { UpcomingPage } from "./pages/Upcoming"
 import { VerticalPage } from "./pages/Vertical"
+import { FounderPage } from "./pages/Founder"
 
 export default function App() {
   return (
@@ -24,6 +25,8 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<HomePage />} />
+          <Route path="nara-sudharshan" element={<FounderPage />} />
+          <Route path="founder" element={<FounderPage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="gallery" element={<GalleryPage />} />
           <Route path="projects" element={<ProjectsPage />} />

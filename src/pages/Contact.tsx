@@ -19,7 +19,10 @@ export function ContactPage() {
             <span className="line-small">The next</span>
             <span className="line-big">Parcel</span>
           </h1>
-          <p className="hero__sub">Tell us where the land is. We'll tell you what it can become.</p>
+          <p className="hero__sub">
+            WhatsApp the desk founded by Nara Sudharshan of Anantapur. Tell us where the land is. We'll tell you what it
+            can become.
+          </p>
         </div>
       </section>
       <section id="chapter-cta" className="chapter">
@@ -48,8 +51,16 @@ export function ContactPage() {
               <span className="contact-row__value">+91 78158 72759</span>
             </div>
             <div className="contact-row">
+              <span className="contact-row__label">Founder</span>
+              <span className="contact-row__value">Nara Sudharshan</span>
+            </div>
+            <div className="contact-row">
+              <span className="contact-row__label">From</span>
+              <span className="contact-row__value">Anantapur, Andhra Pradesh</span>
+            </div>
+            <div className="contact-row">
               <span className="contact-row__label">Office</span>
-              <span className="contact-row__value">Bengaluru, Karnataka</span>
+              <span className="contact-row__value">Anantapur desk · dummy Bengaluru hours by appointment</span>
             </div>
           </div>
         </div>

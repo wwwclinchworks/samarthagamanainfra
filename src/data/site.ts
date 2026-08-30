@@ -185,9 +185,9 @@ export const gallery = [
 
 export const team = [
   {
-    name: "S. Rao",
-    role: "Managing Director",
-    note: "Dummy profile. Land, titles and the last signature on a drawing. Twenty years of holding a survey number until it matches the sale deed.",
+    name: "Nara Sudharshan",
+    role: "Founder and owner",
+    note: "From Anantapur, Andhra Pradesh. Founded Samartha Gamana Infra to hold land, roads and homes to the same drawing. Public desk: WhatsApp +91 78158 72759.",
   },
   {
     name: "Meera Iyer",
@@ -257,11 +257,15 @@ export const journal = [
 
 export const faqs = [
   { q: "Is this inventory real?", a: "Gallery units are dummy listings for the website. Live stock, floor, and facing are confirmed on WhatsApp at +91 78158 72759." },
-  { q: "Where do you build?", a: "Dummy footprint: Kurnool, Hyderabad, Bengaluru, Nandyal, Anantapur, Ballari, Kadapa, Gadwal, Warangal, Tadipatri." },
+  {
+    q: "Who founded Samartha Gamana Infra?",
+    a: "Nara Sudharshan, from Anantapur, Andhra Pradesh. He is the founder and owner. Official page: /nara-sudharshan. WhatsApp +91 78158 72759.",
+  },
+  { q: "Where do you build?", a: "Anantapur is the founder’s city. Dummy footprint also lists Kurnool, Hyderabad, Bengaluru, Nandyal, Ballari, Kadapa, Gadwal, Warangal, Tadipatri." },
   { q: "How do I book a 2 BHK?", a: "Open WhatsApp from Contact or the green dock. Quote the unit name from Gallery. Dummy process: hold letter, then agreement after title check." },
   { q: "Do villas include a garden?", a: "Dummy typical: private garden and a 6 m setback unless the drawing says otherwise. Confirm on the villa type plan." },
   { q: "Are independent houses on plotted layouts?", a: "Dummy mix: some houses sit on serviced plots with internal roads already cut. Ask for the layout number on WhatsApp." },
-  { q: "Is the office in Bengaluru?", a: "Dummy address: Bengaluru, Karnataka. Hours 10:00–18:00 weekdays. Site visits by appointment on Saturday." },
+  { q: "Where is the desk?", a: "Founder Nara Sudharshan is from Anantapur, Andhra Pradesh. WhatsApp +91 78158 72759. Dummy Bengaluru hours 10:00–18:00 weekdays; site visits by appointment." },
   { q: "What is the email?", a: "connect@samarthagamana.in — dummy desk mailbox. WhatsApp is faster for inventory." },
   { q: "Do you build roads and townships?", a: "Yes. The homepage parcels are the actual lines of work: townships, residences, commercial, roads, construction, land development." },
   { q: "Can NRIs book dummy units?", a: "Dummy answer: yes, through a local POA. The desk will send a checklist on WhatsApp." },
@@ -329,7 +333,7 @@ export const cityCopy = [
   { name: "Kurnool", note: "Dummy hub: Brindavanam township, Silpa Emerald, independent houses on serviced plots." },
   { name: "Warangal", note: "Dummy: Ekashila plotted work, delivered. Internal roads already in the photograph." },
   { name: "Nandyal", note: "Dummy: Sindhooram 2 BHKs and Nivaasa villas around a central green." },
-  { name: "Anantapur", note: "Dummy: Aarambh Econest farmlands and a caretaker house on the orchard grid." },
+  { name: "Anantapur", note: "Founder Nara Sudharshan is from Anantapur. Dummy listings: Aarambh Econest farmlands and a caretaker house on the orchard grid." },
   { name: "Ballari", note: "Dummy: Jasmine plots and row houses with a small front court." },
   { name: "Kadapa", note: "Dummy: Green Farms irrigation, weekend pavilion, caretaker house." },
   { name: "Gadwal", note: "Dummy: street houses and plotted parcels off the internal road." },

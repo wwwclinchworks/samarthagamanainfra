@@ -3,6 +3,7 @@ import { Header } from "./Header"
 import { Footer } from "./Footer"
 import { RouteTrack } from "./RouteTrack"
 import { ContactDock } from "./ContactDock"
+import { Seo } from "./Seo"
 import { useEffect } from "react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import gsap from "gsap"
@@ -19,6 +20,7 @@ export function Layout() {
 
   return (
     <>
+      <Seo />
       <RouteTrack />
       <Header />
       <main>

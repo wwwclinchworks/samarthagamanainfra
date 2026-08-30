@@ -36,6 +36,10 @@ Create an API token with **Account → Cloudflare Workers → Edit** (and **Zone
 
 ## Pages
 
-`/` intro + city · `/gallery` 2 BHK / villas / houses · `/about` `/projects` `/ongoing` `/upcoming` `/process` `/team` `/cities` `/careers` `/press` `/faq` `/journal` `/contact`
+`/` intro + city · `/nara-sudharshan` (alias `/founder`) Nara Sudharshan, founder from Anantapur · `/gallery` 2 BHK / villas / houses · `/about` `/projects` `/ongoing` `/upcoming` `/process` `/team` `/cities` `/careers` `/press` `/faq` `/journal` `/contact`
 
 WhatsApp **+91 78158 72759** · connect@samarthagamana.in
+
+## Search / indexing
+
+Public crawl files: `/sitemap.xml`, `/robots.txt`, `/humans.txt`, `/llms.txt`. Founder and company are marked up with Schema.org Person + Organization. Submit the sitemap in [Google Search Console](https://search.google.com/search-console) for `samarthagamanainfra.com` — Google does not index on deploy; it recrawls after you submit.
