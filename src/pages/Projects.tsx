@@ -1,12 +1,6 @@
 import { completed, locations } from "../data/content"
 import { Link } from "react-router-dom"
 
-const tones = [
-  "linear-gradient(135deg,#2b2f22,#5c6b3f 55%,#c9a176)",
-  "linear-gradient(135deg,#1c2530,#3e5c76 55%,#6c93b8)",
-  "linear-gradient(135deg,#2a221a,#8a6a3e 55%,#e0b472)",
-]
-
 export function ProjectsPage() {
   return (
     <>
@@ -20,28 +14,30 @@ export function ProjectsPage() {
           <p className="hero__sub">{locations.join(" · ")}</p>
         </div>
       </section>
-      {completed.map((p, i) => (
-        <div key={p.name} className={i % 2 ? "dev-panel dev-panel--reverse" : "dev-panel"}>
-          <div className="dev-panel__media" style={{ background: tones[i % tones.length] }}>
-            <span className="dev-panel__tag">
-              {p.type} · {p.status}
-            </span>
+      <section className="chapter chapter--solid">
+        <div className="container">
+          <div className="work-list">
+            {completed.map((p, i) => (
+              <article key={p.name} className="work-item">
+                <span className="work-item__index">
+                  {String(i + 1).padStart(2, "0")} / {p.place}
+                </span>
+                <p className="work-item__meta">
+                  {p.type} · {p.status}
+                </p>
+                <h3 className="work-item__title">{p.name}</h3>
+                <p className="work-item__desc">{p.desc}</p>
+              </article>
+            ))}
           </div>
-          <div className="dev-panel__content">
-            <span className="dev-panel__index">0{i + 1} / {p.place}</span>
-            <h3 className="dev-panel__title">{p.name}</h3>
-            <p className="dev-panel__desc">{p.desc}</p>
+          <div className="work-actions">
+            <Link className="btn-magnetic" to="/ongoing">
+              Ongoing →
+            </Link>
+            <Link className="nav__cta" to="/upcoming">
+              Upcoming
+            </Link>
           </div>
-        </div>
-      ))}
-      <section className="chapter">
-        <div className="container" style={{ display: "flex", gap: 32 }}>
-          <Link className="btn-magnetic" to="/ongoing">
-            Ongoing →
-          </Link>
-          <Link className="nav__cta" to="/upcoming">
-            Upcoming
-          </Link>
         </div>
       </section>
     </>

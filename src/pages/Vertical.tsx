@@ -34,19 +34,15 @@ export function VerticalPage() {
           <p className="hero__sub">{item.summary}</p>
         </div>
       </section>
-      <section className="chapter">
-        <div className="container origin__grid">
-          <div className="origin__text">
+      <section className="chapter chapter--solid">
+        <div className="container">
+          <div className="work-item work-item--solo">
             <p className="eyebrow">The brief</p>
-            <h2 className="origin__title">{item.copy}</h2>
+            <h2 className="work-item__title">{item.copy}</h2>
             <a className="btn-magnetic" href={waLink(item.title.toLowerCase())} target="_blank" rel="noreferrer">
               Enquire on WhatsApp →
             </a>
           </div>
-          <div
-            className="dev-panel__media"
-            style={{ minHeight: 320, background: "linear-gradient(135deg,#1c2530,#3e5c76 55%,#c9a176)" }}
-          />
         </div>
       </section>
     </>

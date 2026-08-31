@@ -157,8 +157,12 @@ export function HomePage() {
           </div>
           <div className="parcels__grid">
             {parcels.map((p) => {
-              const inner = (
-                <>
+              const highlighted = "highlight" in p && p.highlight
+              return (
+                <article
+                  key={p.num}
+                  className={"parcel-card" + (highlighted ? " parcel-card--highlight" : "")}
+                >
                   <div className="parcel-card__top">
                     <span className="parcel-card__coord">{p.coord}</span>
                     <span className="parcel-card__num">{p.num}</span>
@@ -176,19 +180,11 @@ export function HomePage() {
                   </svg>
                   <h3 className="parcel-card__title">{p.title}</h3>
                   <p className="parcel-card__desc">{p.desc}</p>
-                </>
-              )
-              const highlighted = "highlight" in p && p.highlight
-              if (highlighted) {
-                return (
-                  <Link key={p.num} to="/what-we-do/peb" className="parcel-card-link">
-                    <article className="parcel-card parcel-card--highlight">{inner}</article>
-                  </Link>
-                )
-              }
-              return (
-                <article key={p.num} className="parcel-card">
-                  {inner}
+                  {highlighted ? (
+                    <Link className="parcel-card__cta" to="/what-we-do/peb">
+                      Explore PEB →
+                    </Link>
+                  ) : null}
                 </article>
               )
             })}
@@ -197,10 +193,12 @@ export function HomePage() {
       </section>
 
       <section id="chapter-peb" className="chapter chapter--peb">
-        <div className="container peb-spotlight">
-          <div className="peb-spotlight__copy">
+        <div className="container">
+          <div className="chapter-head">
             <p className="eyebrow">Major business</p>
             <h2>PEB wall panels — pre-engineered buildings.</h2>
+          </div>
+          <div className="peb-spotlight__copy">
             <p>
               Samartha Gamana Infra PVT LTD supplies and erects Pre-Engineered Building (PEB) wall panels — insulated
               steel panels for warehouses, factories, cold storage, industrial sheds and large-span commercial shells
@@ -216,10 +214,6 @@ export function HomePage() {
                 Explore PEB wall panels →
               </Link>
             </p>
-          </div>
-          <div className="peb-spotlight__badge" aria-hidden>
-            <span>PEB</span>
-            <small>Wall panels · Steel structures</small>
           </div>
         </div>
       </section>
@@ -268,44 +262,34 @@ export function HomePage() {
             <p className="eyebrow">Selected developments</p>
             <h2>Three ways the journey has landed.</h2>
           </div>
-        </div>
-        <div className="dev-panel">
-          <div className="dev-panel__media" style={{ background: "linear-gradient(135deg,#2b2f22,#5c6b3f 55%,#c9a176)" }}>
-            <span className="dev-panel__tag">Concept render — for illustration</span>
-          </div>
-          <div className="dev-panel__content">
-            <span className="dev-panel__index">01 / Township</span>
-            <h3 className="dev-panel__title">Samartha Gamana — Anantapur plots</h3>
-            <p className="dev-panel__desc">
-              Open plots and independent houses on Anantapur survey numbers, drawn from the Housing Board Colony desk
-              of Samartha Gamana Infra PVT LTD (CIN U43300AP2026PTC124637).
-            </p>
-          </div>
-        </div>
-        <div className="dev-panel dev-panel--reverse">
-          <div className="dev-panel__media" style={{ background: "linear-gradient(135deg,#1c2530,#3e5c76 55%,#6c93b8)" }}>
-            <span className="dev-panel__tag">Concept render — for illustration</span>
-          </div>
-          <div className="dev-panel__content">
-            <span className="dev-panel__index">02 / PEB</span>
-            <h3 className="dev-panel__title">Samartha Gamana — PEB wall panels</h3>
-            <p className="dev-panel__desc">
-              Pre-Engineered Building wall panels for warehouses, factories and industrial sheds — factory-made steel
-              panels, fast on-site erection and clear spans for Rayalaseema clients.
-            </p>
-          </div>
-        </div>
-        <div className="dev-panel">
-          <div className="dev-panel__media" style={{ background: "linear-gradient(135deg,#2a221a,#8a6a3e 55%,#e0b472)" }}>
-            <span className="dev-panel__tag">Concept render — for illustration</span>
-          </div>
-          <div className="dev-panel__content">
-            <span className="dev-panel__index">03 / Residential</span>
-            <h3 className="dev-panel__title">Samartha Gamana — Lepakshi district</h3>
-            <p className="dev-panel__desc">
-              Plotted interest around Lepakshi in Anantapur district — heritage stone country, contour first, then the
-              foundation, then the home.
-            </p>
+          <div className="work-list">
+            <article className="work-item">
+              <span className="work-item__index">01 / Township</span>
+              <h3 className="work-item__title">Samartha Gamana — Anantapur plots</h3>
+              <p className="work-item__desc">
+                Open plots and independent houses on Anantapur survey numbers, drawn from the Housing Board Colony desk
+                of Samartha Gamana Infra PVT LTD (CIN U43300AP2026PTC124637).
+              </p>
+            </article>
+            <article className="work-item">
+              <span className="work-item__index">02 / PEB</span>
+              <h3 className="work-item__title">Samartha Gamana — PEB wall panels</h3>
+              <p className="work-item__desc">
+                Pre-Engineered Building wall panels for warehouses, factories and industrial sheds — factory-made steel
+                panels, fast on-site erection and clear spans for Rayalaseema clients.
+              </p>
+              <Link className="work-item__link" to="/what-we-do/peb">
+                View PEB offering →
+              </Link>
+            </article>
+            <article className="work-item">
+              <span className="work-item__index">03 / Residential</span>
+              <h3 className="work-item__title">Samartha Gamana — Lepakshi district</h3>
+              <p className="work-item__desc">
+                Plotted interest around Lepakshi in Anantapur district — heritage stone country, contour first, then the
+                foundation, then the home.
+              </p>
+            </article>
           </div>
         </div>
       </section>

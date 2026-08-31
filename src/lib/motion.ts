@@ -38,9 +38,7 @@ export function initHomeMotion() {
   homeMotionReady = true
 
   fadeUp(document.querySelectorAll<HTMLElement>(".chapter-head h2"))
-  fadeUp(document.querySelectorAll<HTMLElement>(".dev-panel__title"), { stagger: 0.12, start: "top 85%" })
-  fadeUp(document.querySelectorAll<HTMLElement>(".dev-panel__index"), { stagger: 0.1, start: "top 85%" })
-  fadeUp(document.querySelectorAll<HTMLElement>(".dev-panel__desc"), { stagger: 0.1, start: "top 82%" })
+  fadeUp(document.querySelectorAll<HTMLElement>(".work-item"), { stagger: 0.1, start: "top 90%" })
   fadeUp(document.querySelectorAll<HTMLElement>(".process__title"))
   fadeUp(document.querySelectorAll<HTMLElement>(".cta__headline"))
 
@@ -106,21 +104,6 @@ export function initHomeMotion() {
         ease: "power3.out",
         delay: (i % 3) * 0.05,
         scrollTrigger: { trigger: card, start: "top 94%", once: true },
-      },
-    )
-  })
-
-  gsap.utils.toArray<HTMLElement>(".dev-panel__media").forEach((media) => {
-    gsap.set(media, { clearProps: "opacity,transform,clipPath" })
-    gsap.fromTo(
-      media,
-      { opacity: 0, scale: 1.03 },
-      {
-        opacity: 1,
-        scale: 1,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: { trigger: media, start: "top 86%", once: true },
       },
     )
   })
