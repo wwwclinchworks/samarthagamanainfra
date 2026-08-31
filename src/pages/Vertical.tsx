@@ -25,7 +25,7 @@ export function VerticalPage() {
 
   return (
     <>
-      <section className="page-hero">
+      <section className={"page-hero" + (item.slug === "peb" ? " page-hero--peb" : "")}>
         <div className="hero__inner">
           <p className="eyebrow">{item.kicker}</p>
           <h1 className="hero__title">

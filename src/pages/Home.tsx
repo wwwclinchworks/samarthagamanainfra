@@ -153,27 +153,42 @@ export function HomePage() {
             <h2>Where Samartha Gamana Infra operates.</h2>
           </div>
           <div className="parcels__grid">
-            {parcels.map((p) => (
-              <article key={p.num} className={"parcel-card" + ("highlight" in p && p.highlight ? " parcel-card--highlight" : "")}>
-                <div className="parcel-card__top">
-                  <span className="parcel-card__coord">{p.coord}</span>
-                  <span className="parcel-card__num">{p.num}</span>
-                </div>
-                <svg
-                  className="parcel-card__icon"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d={p.icon} />
-                </svg>
-                <h3 className="parcel-card__title">{p.title}</h3>
-                <p className="parcel-card__desc">{p.desc}</p>
-              </article>
-            ))}
+            {parcels.map((p) => {
+              const inner = (
+                <>
+                  <div className="parcel-card__top">
+                    <span className="parcel-card__coord">{p.coord}</span>
+                    <span className="parcel-card__num">{p.num}</span>
+                  </div>
+                  <svg
+                    className="parcel-card__icon"
+                    viewBox="0 0 48 48"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d={p.icon} />
+                  </svg>
+                  <h3 className="parcel-card__title">{p.title}</h3>
+                  <p className="parcel-card__desc">{p.desc}</p>
+                </>
+              )
+              const highlighted = "highlight" in p && p.highlight
+              if (highlighted) {
+                return (
+                  <Link key={p.num} to="/what-we-do/peb" className="parcel-card-link">
+                    <article className="parcel-card parcel-card--highlight">{inner}</article>
+                  </Link>
+                )
+              }
+              return (
+                <article key={p.num} className="parcel-card">
+                  {inner}
+                </article>
+              )
+            })}
           </div>
         </div>
       </section>

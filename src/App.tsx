@@ -41,6 +41,11 @@ export default function App() {
           <Route path="journal" element={<JournalPage />} />
           <Route path="contact" element={<ContactPage />} />
           <Route path="what-we-do/:slug" element={<VerticalPage />} />
+          <Route path="why-anantapur" element={<Navigate to="/cities" replace />} />
+          <Route path="legal" element={<Navigate to="/about" replace />} />
+          <Route path="disclaimer" element={<Navigate to="/about" replace />} />
+          <Route path="privacy" element={<Navigate to="/contact" replace />} />
+          <Route path="terms" element={<Navigate to="/contact" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

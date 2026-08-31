@@ -727,6 +727,21 @@ html[data-theme="dark"] .footer__logo {
   color: var(--brass-bright);
 }
 
+.parcel-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.parcel-card-link:hover .parcel-card {
+  background: var(--basalt-soft-2);
+}
+
+.page-hero--peb .hero__eyebrow,
+.page-hero--peb .eyebrow {
+  color: var(--brass-bright);
+}
+
 .chapter--peb {
   background: linear-gradient(180deg, var(--basalt-soft) 0%, var(--surface) 100%);
 }

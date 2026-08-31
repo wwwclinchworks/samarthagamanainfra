@@ -52,7 +52,7 @@ export function ContactPage() {
             </div>
             <div className="contact-row">
               <span className="contact-row__label">CIN</span>
-              <span className="contact-row__value">U43300AP2026PTC124637 · Private Limited</span>
+              <span className="contact-row__value">U43300AP2026PTC124637 · PVT LTD</span>
             </div>
             <div className="contact-row">
               <span className="contact-row__label">Registered office</span>

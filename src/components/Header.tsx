@@ -25,6 +25,9 @@ export function Header() {
         <BrandLogo className="nav__logo" />
       </Link>
       <div className={open ? "nav__links open" : "nav__links"}>
+        <a className="nav__link" href="/#chapter-peb">
+          PEB
+        </a>
         <a className="nav__link" href="/#chapter-parcels">
           Parcels
         </a>
