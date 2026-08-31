@@ -289,18 +289,21 @@ html[data-theme="light"] #scene-canvas {
 }
 
 .nav__logo {
-  height: 52px;
+  height: 56px;
   width: auto;
-  max-width: min(220px, 42vw);
+  max-width: min(240px, 48vw);
   display: block;
   object-fit: contain;
+  background: #000;
+  border-radius: 6px;
+  padding: 2px;
 }
 
 html[data-theme="dark"] .nav__logo,
 html[data-theme="dark"] .footer__logo {
-  background: var(--logo-stage);
-  border-radius: 8px;
-  padding: 6px 10px;
+  background: #000;
+  border-radius: 6px;
+  padding: 2px;
 }
 
 .nav__links {
@@ -1159,10 +1162,13 @@ html[data-theme="dark"] .footer__logo {
 }
 
 .footer__logo {
-  width: 200px;
+  width: min(220px, 72vw);
   height: auto;
   display: block;
   object-fit: contain;
+  background: #000;
+  border-radius: 6px;
+  padding: 4px;
 }
 
 .footer__stamp,
