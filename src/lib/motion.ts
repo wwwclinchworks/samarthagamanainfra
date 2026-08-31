@@ -3,36 +3,50 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(ScrollTrigger)
 
-export function splitWords(el: HTMLElement) {
-  const words = el.textContent?.trim().split(/\s+/) ?? []
-  el.innerHTML = words
-    .map((w) => '<span class="split-word"><span>' + w + "</span></span>")
-    .join(" ")
-  return el.querySelectorAll<HTMLElement>(".split-word > span")
+let homeMotionReady = false
+
+function fadeUp(
+  elements: HTMLElement | HTMLElement[] | NodeListOf<HTMLElement>,
+  opts?: { stagger?: number; start?: string },
+) {
+  const list = Array.isArray(elements) ? elements : Array.from(elements as ArrayLike<HTMLElement>)
+  if (!list.length) return
+
+  list.forEach((el) => gsap.set(el, { clearProps: "opacity,transform" }))
+
+  gsap.fromTo(
+    list,
+    { opacity: 0, y: 28 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.85,
+      ease: "power3.out",
+      stagger: opts?.stagger ?? 0.08,
+      scrollTrigger: {
+        trigger: list[0],
+        start: opts?.start ?? "top 88%",
+        once: true,
+      },
+    },
+  )
 }
 
 export function initHomeMotion() {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  if (reduce) return
+  if (reduce || homeMotionReady) return
+  homeMotionReady = true
 
-  document.querySelectorAll<HTMLElement>(".chapter-head h2, .dev-panel__title, .process__title, .cta__headline").forEach((el) => {
-    const spans = splitWords(el)
-    gsap.fromTo(
-      spans,
-      { yPercent: 115, opacity: 0 },
-      {
-        yPercent: 0,
-        opacity: 1,
-        duration: 0.9,
-        ease: "power3.out",
-        stagger: 0.045,
-        scrollTrigger: { trigger: el, start: "top 88%" },
-      },
-    )
-  })
+  fadeUp(document.querySelectorAll<HTMLElement>(".chapter-head h2"))
+  fadeUp(document.querySelectorAll<HTMLElement>(".dev-panel__title"), { stagger: 0.12, start: "top 85%" })
+  fadeUp(document.querySelectorAll<HTMLElement>(".dev-panel__index"), { stagger: 0.1, start: "top 85%" })
+  fadeUp(document.querySelectorAll<HTMLElement>(".dev-panel__desc"), { stagger: 0.1, start: "top 82%" })
+  fadeUp(document.querySelectorAll<HTMLElement>(".process__title"))
+  fadeUp(document.querySelectorAll<HTMLElement>(".cta__headline"))
 
-  const originTitle = document.querySelector(".origin__title")
+  const originTitle = document.querySelector<HTMLElement>(".origin__title")
   if (originTitle) {
+    gsap.set(originTitle, { clearProps: "opacity,transform" })
     gsap.fromTo(
       originTitle,
       { opacity: 0, y: 26 },
@@ -41,7 +55,7 @@ export function initHomeMotion() {
         y: 0,
         duration: 0.9,
         ease: "power3.out",
-        scrollTrigger: { trigger: originTitle, start: "top 88%" },
+        scrollTrigger: { trigger: originTitle, start: "top 88%", once: true },
       },
     )
   }
@@ -76,40 +90,43 @@ export function initHomeMotion() {
       strokeDashoffset: 0,
       duration: 1.6,
       ease: "power2.out",
-      scrollTrigger: { trigger: path, start: "top 90%" },
+      scrollTrigger: { trigger: path, start: "top 90%", once: true },
     })
   }
 
   gsap.utils.toArray<HTMLElement>(".parcel-card").forEach((card, i) => {
+    gsap.set(card, { clearProps: "opacity,transform" })
     gsap.fromTo(
       card,
-      { opacity: 0, y: 36 },
+      { opacity: 0, y: 32 },
       {
         opacity: 1,
         y: 0,
-        duration: 0.8,
+        duration: 0.75,
         ease: "power3.out",
-        delay: (i % 3) * 0.06,
-        scrollTrigger: { trigger: card, start: "top 92%" },
+        delay: (i % 3) * 0.05,
+        scrollTrigger: { trigger: card, start: "top 94%", once: true },
       },
     )
   })
 
-  gsap.utils.toArray<HTMLElement>(".dev-panel__media").forEach((media, i) => {
-    const fromClip = i % 2 === 0 ? "inset(0 100% 0 0)" : "inset(0 0 0 100%)"
+  gsap.utils.toArray<HTMLElement>(".dev-panel__media").forEach((media) => {
+    gsap.set(media, { clearProps: "opacity,transform,clipPath" })
     gsap.fromTo(
       media,
-      { clipPath: fromClip },
+      { opacity: 0, scale: 1.03 },
       {
-        clipPath: "inset(0 0% 0 0)",
-        duration: 1.1,
-        ease: "power4.inOut",
-        scrollTrigger: { trigger: media, start: "top 80%" },
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: { trigger: media, start: "top 86%", once: true },
       },
     )
   })
 
   gsap.utils.toArray<HTMLElement>(".process__step").forEach((step, i) => {
+    gsap.set(step, { clearProps: "opacity,transform" })
     gsap.fromTo(
       step,
       { opacity: 0, y: 24 },
@@ -118,18 +135,23 @@ export function initHomeMotion() {
         y: 0,
         duration: 0.7,
         ease: "power3.out",
-        delay: i * 0.08,
-        scrollTrigger: { trigger: step, start: "top 92%" },
+        delay: i * 0.06,
+        scrollTrigger: { trigger: step, start: "top 92%", once: true },
       },
     )
   })
+
+  ScrollTrigger.refresh()
+}
+
+export function resetHomeMotion() {
+  homeMotionReady = false
 }
 
 export function revealHero() {
   const tl = gsap.timeline({ delay: 0.15 })
   tl.fromTo("#hero .eyebrow", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" })
-    .fromTo(".hero__title .line-small", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, "-=0.4")
-    .fromTo(".hero__title .line-big", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: "power4.out" }, "-=0.35")
+    .fromTo(".hero__title .line-equal", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.9, ease: "power4.out", stagger: 0.08 }, "-=0.4")
     .fromTo(".hero__sub", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.5")
     .fromTo(".hero__scroll", { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.3")
 }

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { IntroLoader } from "../components/IntroLoader"
 import { mountCityScene, playCityIntro } from "../lib/cityScene"
-import { initHomeMotion, magnetic, tiltCard } from "../lib/motion"
+import { initHomeMotion, magnetic, resetHomeMotion, tiltCard } from "../lib/motion"
 import { clearGsapScrollState } from "../lib/scrollReset"
 import { waLink } from "../lib/whatsapp"
 
@@ -80,6 +80,7 @@ export function HomePage() {
     return () => {
       handle?.dispose()
       document.body.classList.remove("loading")
+      resetHomeMotion()
       clearGsapScrollState()
     }
     // City mounts once; intro overlay is independent.
@@ -261,10 +262,12 @@ export function HomePage() {
         </div>
       </section>
 
-      <section id="chapter-developments" className="chapter">
-        <div className="chapter-head container">
-          <p className="eyebrow">Selected developments</p>
-          <h2>Three ways the journey has landed.</h2>
+      <section id="chapter-developments" className="chapter chapter--solid">
+        <div className="container">
+          <div className="chapter-head">
+            <p className="eyebrow">Selected developments</p>
+            <h2>Three ways the journey has landed.</h2>
+          </div>
         </div>
         <div className="dev-panel">
           <div className="dev-panel__media" style={{ background: "linear-gradient(135deg,#2b2f22,#5c6b3f 55%,#c9a176)" }}>
