@@ -19,8 +19,8 @@ export function Footer() {
         </span>
         <div className="footer__links">
           <Link to="/nara-sudharshan">Nara Sudharshan</Link>
-          <a href="/#chapter-peb">PEB panels</a>
-          <a href="/#chapter-parcels">Parcels</a>
+          <Link to="/#chapter-peb">PEB panels</Link>
+          <Link to="/#chapter-parcels">Parcels</Link>
           <Link to="/gallery">Gallery</Link>
           <Link to="/projects">Work</Link>
           <Link to="/process">Process</Link>

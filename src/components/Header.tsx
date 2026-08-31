@@ -17,7 +17,7 @@ export function Header() {
 
   useEffect(() => {
     setOpen(false)
-  }, [loc.pathname])
+  }, [loc.pathname, loc.hash])
 
   return (
     <nav id="site-nav" className={scrolled ? "scrolled" : ""}>
@@ -25,12 +25,12 @@ export function Header() {
         <BrandLogo className="nav__logo" />
       </Link>
       <div className={open ? "nav__links open" : "nav__links"}>
-        <a className="nav__link" href="/#chapter-peb">
+        <Link className="nav__link" to="/#chapter-peb">
           PEB
-        </a>
-        <a className="nav__link" href="/#chapter-parcels">
+        </Link>
+        <Link className="nav__link" to="/#chapter-parcels">
           Parcels
-        </a>
+        </Link>
         <NavLink className="nav__link" to="/gallery">
           Gallery
         </NavLink>
