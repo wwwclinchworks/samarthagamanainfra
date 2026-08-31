@@ -19,8 +19,8 @@ export function Footer() {
         </span>
         <div className="footer__links">
           <Link to="/nara-sudharshan">Nara Sudharshan</Link>
-          <Link to="/#chapter-peb">PEB panels</Link>
-          <Link to="/#chapter-parcels">Parcels</Link>
+          <Link to={{ pathname: "/", hash: "#chapter-peb" }}>PEB panels</Link>
+          <Link to={{ pathname: "/", hash: "#chapter-parcels" }}>Parcels</Link>
           <Link to="/gallery">Gallery</Link>
           <Link to="/projects">Work</Link>
           <Link to="/process">Process</Link>
@@ -36,7 +36,7 @@ export function Footer() {
           id="back-to-top"
           type="button"
           aria-label="Back to top"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={() => window.scrollTo(0, 0)}
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
             <path d="M12 19V5M5 12l7-7 7 7" />

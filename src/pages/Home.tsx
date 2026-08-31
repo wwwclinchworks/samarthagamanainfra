@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { IntroLoader } from "../components/IntroLoader"
 import { mountCityScene, playCityIntro } from "../lib/cityScene"
 import { initHomeMotion, magnetic, tiltCard } from "../lib/motion"
+import { clearGsapScrollState } from "../lib/scrollReset"
 import { waLink } from "../lib/whatsapp"
 
 const parcels = [
@@ -79,6 +80,7 @@ export function HomePage() {
     return () => {
       handle?.dispose()
       document.body.classList.remove("loading")
+      clearGsapScrollState()
     }
     // City mounts once; intro overlay is independent.
     // eslint-disable-next-line react-hooks/exhaustive-deps

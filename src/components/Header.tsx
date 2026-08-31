@@ -25,10 +25,10 @@ export function Header() {
         <BrandLogo className="nav__logo" />
       </Link>
       <div className={open ? "nav__links open" : "nav__links"}>
-        <Link className="nav__link" to="/#chapter-peb">
+        <Link className="nav__link" to={{ pathname: "/", hash: "#chapter-peb" }}>
           PEB
         </Link>
-        <Link className="nav__link" to="/#chapter-parcels">
+        <Link className="nav__link" to={{ pathname: "/", hash: "#chapter-parcels" }}>
           Parcels
         </Link>
         <NavLink className="nav__link" to="/gallery">

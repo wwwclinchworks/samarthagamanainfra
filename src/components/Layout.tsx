@@ -1,16 +1,14 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, useLocation } from "react-router-dom"
 import { Header } from "./Header"
 import { Footer } from "./Footer"
 import { RouteTrack } from "./RouteTrack"
 import { ContactDock } from "./ContactDock"
 import { Seo } from "./Seo"
 import { ScrollToTop } from "./ScrollToTop"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-
-gsap.registerPlugin(ScrollTrigger)
 
 export function Layout() {
+  const { pathname } = useLocation()
+
   return (
     <>
       <ScrollToTop />
@@ -18,7 +16,7 @@ export function Layout() {
       <RouteTrack />
       <Header />
       <main>
-        <Outlet />
+        <Outlet key={pathname} />
       </main>
       <Footer />
       <ContactDock />

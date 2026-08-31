@@ -469,11 +469,16 @@ export function mountCityScene(canvas: HTMLCanvasElement): SceneHandle | null {
   }
   window.addEventListener("scroll", checkVisible, { passive: true })
 
+  let cameraScrollTrigger: ScrollTrigger | null = null
+
   const dispose = () => {
     active = false
     cancelAnimationFrame(raf)
     window.removeEventListener("resize", onResize)
     window.removeEventListener("scroll", checkVisible)
+    cameraScrollTrigger?.kill()
+    cameraScrollTrigger = null
+    gsap.globalTimeline.clear()
     materials.forEach((m) => {
       m.map?.dispose()
       m.emissiveMap?.dispose()
@@ -515,7 +520,8 @@ export function mountCityScene(canvas: HTMLCanvasElement): SceneHandle | null {
         camera.lookAt(0, 2, 0)
       },
       onComplete: () => {
-        ScrollTrigger.create({
+        cameraScrollTrigger?.kill()
+        cameraScrollTrigger = ScrollTrigger.create({
           trigger: "#chapter-origin",
           start: "top bottom",
           end: "bottom top",
