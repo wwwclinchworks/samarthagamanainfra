@@ -11,8 +11,6 @@ export function BrandLogo({ className, alt = "Samartha Gamana Infra PVT LTD" }: 
         src="/apple-touch-icon.png"
         alt={alt}
         className={className}
-        width={180}
-        height={180}
         decoding="async"
       />
     </span>
