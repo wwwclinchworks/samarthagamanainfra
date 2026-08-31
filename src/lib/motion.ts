@@ -4,72 +4,70 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 gsap.registerPlugin(ScrollTrigger)
 
 let homeMotionReady = false
+const cleanups: Array<() => void> = []
 
-function fadeUp(
-  elements: HTMLElement | HTMLElement[] | NodeListOf<HTMLElement>,
-  opts?: { stagger?: number; start?: string },
-) {
-  const list = Array.isArray(elements) ? elements : Array.from(elements as ArrayLike<HTMLElement>)
-  if (!list.length) return
+/** Reveal with CSS class — content stays visible even if animation is interrupted. */
+function revealOnScroll(selector: string) {
+  const nodes = Array.from(document.querySelectorAll<HTMLElement>(selector))
+  if (!nodes.length) return
 
-  list.forEach((el) => gsap.set(el, { clearProps: "opacity,transform" }))
+  nodes.forEach((el) => {
+    el.classList.add("reveal")
+    el.classList.remove("is-in")
+  })
 
-  gsap.fromTo(
-    list,
-    { opacity: 0, y: 28 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.85,
-      ease: "power3.out",
-      stagger: opts?.stagger ?? 0.08,
-      scrollTrigger: {
-        trigger: list[0],
-        start: opts?.start ?? "top 88%",
-        once: true,
-      },
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return
+        entry.target.classList.add("is-in")
+        io.unobserve(entry.target)
+      })
     },
+    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
   )
+
+  nodes.forEach((el) => {
+    // If already on screen (e.g. after scroll reset), show immediately
+    const rect = el.getBoundingClientRect()
+    if (rect.top < window.innerHeight * 0.92) el.classList.add("is-in")
+    else io.observe(el)
+  })
+
+  cleanups.push(() => io.disconnect())
 }
 
 export function initHomeMotion() {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  if (reduce || homeMotionReady) return
+  if (homeMotionReady) return
   homeMotionReady = true
 
-  fadeUp(document.querySelectorAll<HTMLElement>(".chapter-head h2"))
-  fadeUp(document.querySelectorAll<HTMLElement>(".work-item"), { stagger: 0.1, start: "top 90%" })
-  fadeUp(document.querySelectorAll<HTMLElement>(".process__title"))
-  fadeUp(document.querySelectorAll<HTMLElement>(".cta__headline"))
-
-  const originTitle = document.querySelector<HTMLElement>(".origin__title")
-  if (originTitle) {
-    gsap.set(originTitle, { clearProps: "opacity,transform" })
-    gsap.fromTo(
-      originTitle,
-      { opacity: 0, y: 26 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        ease: "power3.out",
-        scrollTrigger: { trigger: originTitle, start: "top 88%", once: true },
-      },
-    )
+  if (reduce) {
+    document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-in"))
+    return
   }
+
+  revealOnScroll(".chapter-head")
+  revealOnScroll(".parcel-card")
+  revealOnScroll(".work-item")
+  revealOnScroll(".process__step")
+  revealOnScroll(".origin__title")
+  revealOnScroll(".cta__headline")
+  revealOnScroll(".statement-band")
+  revealOnScroll(".peb-spotlight__copy")
 
   document.querySelectorAll<HTMLElement>(".stat__num").forEach((el) => {
     const target = parseFloat(el.dataset.count || "0")
     const suffix = el.dataset.suffix || ""
     const obj = { val: 0 }
-    ScrollTrigger.create({
+    const trigger = ScrollTrigger.create({
       trigger: el,
       start: "top 85%",
       once: true,
       onEnter: () => {
         gsap.to(obj, {
           val: target,
-          duration: 1.8,
+          duration: 1.6,
           ease: "power2.out",
           onUpdate: () => {
             el.textContent = Math.floor(obj.val) + suffix
@@ -77,6 +75,7 @@ export function initHomeMotion() {
         })
       },
     })
+    cleanups.push(() => trigger.kill())
   })
 
   const path = document.getElementById("stats-path") as unknown as SVGPathElement | null
@@ -84,44 +83,27 @@ export function initHomeMotion() {
     const len = path.getTotalLength()
     path.style.strokeDasharray = String(len)
     path.style.strokeDashoffset = String(len)
-    gsap.to(path, {
+    const tween = gsap.to(path, {
       strokeDashoffset: 0,
       duration: 1.6,
       ease: "power2.out",
       scrollTrigger: { trigger: path, start: "top 90%", once: true },
     })
+    cleanups.push(() => tween.kill())
   }
 
-  gsap.utils.toArray<HTMLElement>(".parcel-card").forEach((card, i) => {
-    gsap.set(card, { clearProps: "opacity,transform" })
-    gsap.fromTo(
-      card,
-      { opacity: 0, y: 32 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.75,
-        ease: "power3.out",
-        delay: (i % 3) * 0.05,
-        scrollTrigger: { trigger: card, start: "top 94%", once: true },
-      },
-    )
-  })
-
-  gsap.utils.toArray<HTMLElement>(".process__step").forEach((step, i) => {
-    gsap.set(step, { clearProps: "opacity,transform" })
-    gsap.fromTo(
-      step,
-      { opacity: 0, y: 24 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        ease: "power3.out",
-        delay: i * 0.06,
-        scrollTrigger: { trigger: step, start: "top 92%", once: true },
-      },
-    )
+  // Rotating statement lines
+  document.querySelectorAll<HTMLElement>("[data-rotate-lines]").forEach((root) => {
+    const lines = Array.from(root.querySelectorAll<HTMLElement>(".rotate-line"))
+    if (lines.length < 2) return
+    let i = 0
+    lines.forEach((line, idx) => line.classList.toggle("is-active", idx === 0))
+    const timer = window.setInterval(() => {
+      lines[i].classList.remove("is-active")
+      i = (i + 1) % lines.length
+      lines[i].classList.add("is-active")
+    }, 2800)
+    cleanups.push(() => window.clearInterval(timer))
   })
 
   ScrollTrigger.refresh()
@@ -129,12 +111,23 @@ export function initHomeMotion() {
 
 export function resetHomeMotion() {
   homeMotionReady = false
+  while (cleanups.length) cleanups.pop()?.()
+  document.querySelectorAll(".reveal").forEach((el) => {
+    el.classList.remove("reveal", "is-in")
+    ;(el as HTMLElement).style.opacity = ""
+    ;(el as HTMLElement).style.transform = ""
+  })
 }
 
 export function revealHero() {
   const tl = gsap.timeline({ delay: 0.15 })
   tl.fromTo("#hero .eyebrow", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" })
-    .fromTo(".hero__title .line-equal", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.9, ease: "power4.out", stagger: 0.08 }, "-=0.4")
+    .fromTo(
+      ".hero__title .line-equal",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.9, ease: "power4.out", stagger: 0.08 },
+      "-=0.4",
+    )
     .fromTo(".hero__sub", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.5")
     .fromTo(".hero__scroll", { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.3")
 }

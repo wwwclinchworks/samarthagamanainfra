@@ -192,6 +192,18 @@ export function HomePage() {
         </div>
       </section>
 
+      <section className="statement-band" aria-label="Company focus">
+        <div className="container statement-band__inner" data-rotate-lines>
+          <p className="eyebrow">What we build</p>
+          <div className="rotate-stage">
+            <span className="rotate-line is-active">PEB wall panels for factories and warehouses</span>
+            <span className="rotate-line">Plotted land planned for Anantapur families</span>
+            <span className="rotate-line">Homes and townships drawn before the first pour</span>
+            <span className="rotate-line">Commercial shells built to stay useful for decades</span>
+          </div>
+        </div>
+      </section>
+
       <section id="chapter-peb" className="chapter chapter--peb">
         <div className="container">
           <div className="chapter-head">
@@ -270,6 +282,9 @@ export function HomePage() {
                 Open plots and independent houses on Anantapur survey numbers, drawn from the Housing Board Colony desk
                 of Samartha Gamana Infra PVT LTD (CIN U43300AP2026PTC124637).
               </p>
+              <Link className="work-item__link" to="/projects">
+                See plot developments →
+              </Link>
             </article>
             <article className="work-item">
               <span className="work-item__index">02 / PEB</span>
@@ -289,7 +304,30 @@ export function HomePage() {
                 Plotted interest around Lepakshi in Anantapur district — heritage stone country, contour first, then the
                 foundation, then the home.
               </p>
+              <Link className="work-item__link" to="/contact">
+                Enquire on WhatsApp →
+              </Link>
             </article>
+          </div>
+          <div className="work-actions">
+            <Link className="btn-magnetic" to="/projects">
+              All developments →
+            </Link>
+            <Link className="nav__cta" to="/ongoing">
+              Ongoing work
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="statement-band statement-band--dark" aria-label="How we work">
+        <div className="container statement-band__inner" data-rotate-lines>
+          <p className="eyebrow">From enquiry to keys</p>
+          <div className="rotate-stage">
+            <span className="rotate-line is-active">Survey the land before the first drawing</span>
+            <span className="rotate-line">Plan the layout to the same scale as the build</span>
+            <span className="rotate-line">Erect PEB panels and structure with site discipline</span>
+            <span className="rotate-line">Hand over documents, keys and a lock that turns</span>
           </div>
         </div>
       </section>

@@ -17,7 +17,6 @@ export function clearGsapScrollState() {
 /** Force the document scroll position to the top immediately. */
 export function scrollWindowToTop() {
   if (typeof window === "undefined") return
-  clearGsapScrollState()
   window.scrollTo(0, 0)
   document.documentElement.scrollTop = 0
   document.body.scrollTop = 0
