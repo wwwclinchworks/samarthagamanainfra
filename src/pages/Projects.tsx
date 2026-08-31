@@ -1,75 +1,47 @@
+import { completed, locations } from "../data/content"
 import { Link } from "react-router-dom"
-import { projectsCopy } from "../data/content"
-import { waLink } from "../lib/whatsapp"
+
+const tones = [
+  "linear-gradient(135deg,#2b2f22,#5c6b3f 55%,#c9a176)",
+  "linear-gradient(135deg,#1c2530,#3e5c76 55%,#6c93b8)",
+  "linear-gradient(135deg,#2a221a,#8a6a3e 55%,#e0b472)",
+]
 
 export function ProjectsPage() {
   return (
     <>
       <section className="page-hero">
         <div className="hero__inner">
-          <p className="eyebrow">Our projects</p>
+          <p className="eyebrow">Developments</p>
           <h1 className="hero__title">
-            <span className="line-equal">Developments</span>
-            <span className="line-equal">With Purpose</span>
+            <span className="line-small">Selected</span>
+            <span className="line-big">Work</span>
           </h1>
-          <p className="hero__sub">{projectsCopy.intro}</p>
+          <p className="hero__sub">{locations.join(" · ")}</p>
         </div>
       </section>
-
+      {completed.map((p, i) => (
+        <div key={p.name} className={i % 2 ? "dev-panel dev-panel--reverse" : "dev-panel"}>
+          <div className="dev-panel__media" style={{ background: tones[i % tones.length] }}>
+            <span className="dev-panel__tag">
+              {p.type} · {p.status}
+            </span>
+          </div>
+          <div className="dev-panel__content">
+            <span className="dev-panel__index">0{i + 1} / {p.place}</span>
+            <h3 className="dev-panel__title">{p.name}</h3>
+            <p className="dev-panel__desc">{p.desc}</p>
+          </div>
+        </div>
+      ))}
       <section className="chapter">
-        <div className="container origin__grid">
-          <div className="origin__text">
-            <p className="eyebrow">{projectsCopy.portfolioTitle}</p>
-            <h2 className="origin__title">Coming soon.</h2>
-            <p>{projectsCopy.portfolioBody}</p>
-            <p>{projectsCopy.publishNote}</p>
-            <p>{projectsCopy.infoNote}</p>
-            <p>
-              <a className="btn-magnetic" href={waLink("project information")} target="_blank" rel="noreferrer">
-                Request Project Information →
-              </a>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="chapter chapter--solid">
-        <div className="container">
-          <div className="chapter-head">
-            <p className="eyebrow">Portfolio categories</p>
-            <h2>How we organise future work.</h2>
-          </div>
-          <div className="parcels__grid">
-            {projectsCopy.categories.map((c, i) => (
-              <article key={c.title} className="parcel-card">
-                <div className="parcel-card__top">
-                  <span className="parcel-card__coord">Category 0{i + 1}</span>
-                  <span className="parcel-card__num">0{i + 1}</span>
-                </div>
-                <h3 className="parcel-card__title">{c.title}</h3>
-                <p className="parcel-card__desc">{c.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="chapter">
-        <div className="container">
-          <div className="chapter-head">
-            <p className="eyebrow">Project status</p>
-            <h2>{projectsCopy.statusTitle}</h2>
-          </div>
-          <p className="inner-copy">{projectsCopy.statusBody}</p>
-          <p className="inner-copy">{projectsCopy.futureBody}</p>
-          <p style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1.5rem" }}>
-            <a className="btn-magnetic" href={waLink("stay connected / projects")} target="_blank" rel="noreferrer">
-              Stay Connected →
-            </a>
-            <Link className="nav__cta" to="/contact">
-              Contact
-            </Link>
-          </p>
+        <div className="container" style={{ display: "flex", gap: 32 }}>
+          <Link className="btn-magnetic" to="/ongoing">
+            Ongoing →
+          </Link>
+          <Link className="nav__cta" to="/upcoming">
+            Upcoming
+          </Link>
         </div>
       </section>
     </>

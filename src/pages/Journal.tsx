@@ -16,7 +16,7 @@ export function JournalPage() {
             <span className="line-small">Field</span>
             <span className="line-big">Notes</span>
           </h1>
-          <p className="hero__sub">Dummy articles in the same voice as the homepage — roads, 2 BHKs, villas, houses.</p>
+          <p className="hero__sub">Dummy articles in the same voice as the homepage — PEB panels, 2 BHKs, villas, houses.</p>
         </div>
       </section>
       {journal.map((j, i) => (

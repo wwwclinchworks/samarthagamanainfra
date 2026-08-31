@@ -17,7 +17,7 @@ export function CitiesPage() {
       <section className="chapter">
         <div className="container">
           <p className="inner-copy">
-            Founder Nara Sudharshan is from Anantapur. Samartha Gamana Infra Private Limited is registered at Housing
+            Founder Nara Sudharshan is from Anantapur. Samartha Gamana Infra PVT LTD is registered at Housing
             Board Colony, Anantapur 515001. Neighbouring Rayalaseema towns appear on enquiry — confirm a site visit on
             WhatsApp +91 63025 56139.
           </p>

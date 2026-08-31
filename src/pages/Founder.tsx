@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-import { founderCopy, contact } from "../data/content"
 import { founder, publicDesk } from "../data/public"
 import { waLink } from "../lib/whatsapp"
 
@@ -8,12 +7,12 @@ export function FounderPage() {
     <>
       <section className="page-hero">
         <div className="hero__inner">
-          <p className="eyebrow">Our founder</p>
+          <p className="eyebrow">Founder · Owner</p>
           <h1 className="hero__title">
-            <span className="line-equal">Nara</span>
-            <span className="line-equal">Sudharshan</span>
+            <span className="line-small">Nara</span>
+            <span className="line-big">Sudharshan</span>
           </h1>
-          <p className="hero__sub">{founderCopy.role}</p>
+          <p className="hero__sub">{founder.short}</p>
         </div>
       </section>
       <section className="chapter">
@@ -21,15 +20,14 @@ export function FounderPage() {
           <div className="origin__text">
             <p className="eyebrow">Anantapur, Andhra Pradesh</p>
             <h2 className="origin__title">
-              Founder &amp; owner of <em>Samartha Gamana Infra.</em>
+              The name behind <em>Samartha Gamana Infra.</em>
             </h2>
-            <p>{founderCopy.intro}</p>
-            {founderCopy.body.map((p) => (
-              <p key={p.slice(0, 32)}>{p}</p>
+            {founder.bio.map((p) => (
+              <p key={p.slice(0, 24)}>{p}</p>
             ))}
             <p>
               <Link className="nav__link" to="/about">
-                About Samartha Gamana Infra →
+                About the house →
               </Link>
             </p>
           </div>
@@ -41,13 +39,11 @@ export function FounderPage() {
               </div>
               <h3 className="parcel-card__title">Nara Sudharshan</h3>
               <p className="parcel-card__desc">
-                {founderCopy.role} · Samartha Gamana Infra Private Limited
+                Founder and owner · Samartha Gamana Infra
                 <br />
                 From Anantapur, Andhra Pradesh, India
                 <br />
                 {publicDesk.email}
-                <br />
-                {contact.founderEmail}
                 <br />
                 WhatsApp {publicDesk.whatsapp}
               </p>
@@ -61,10 +57,15 @@ export function FounderPage() {
       <section className="chapter chapter--solid">
         <div className="container">
           <div className="chapter-head">
-            <p className="eyebrow">{founderCopy.visionLabel}</p>
-            <h2>“{founderCopy.visionQuote}”</h2>
+            <p className="eyebrow">Also searched as</p>
+            <h2>Nara Sudharshan, Anantapur.</h2>
           </div>
-          <p className="inner-copy">{founder.short}</p>
+          <p className="inner-copy">
+            If you looked up Nara Sudharshan, Nara Sudharshan Anantapur, Sudharshan Nara, Anatapur (common spelling of
+            Anantapur), or Samartha Gamana Infra founder, this is the official page. The company he owns builds
+            townships, 2 BHK homes, villas, houses, PEB wall panels and land development. Inventory on Gallery is sample stock;
+            live units are confirmed on WhatsApp.
+          </p>
         </div>
       </section>
     </>

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import { team } from "../data/site"
-import { founderCopy } from "../data/content"
 
 export function TeamPage() {
   return (
@@ -9,10 +8,27 @@ export function TeamPage() {
         <div className="hero__inner">
           <p className="eyebrow">People</p>
           <h1 className="hero__title">
-            <span className="line-equal">Our</span>
-            <span className="line-equal">Founder</span>
+            <span className="line-small">The</span>
+            <span className="line-big">Desk</span>
           </h1>
-          <p className="hero__sub">Led by {founderCopy.role.toLowerCase()} Nara Sudharshan of Anantapur.</p>
+          <p className="hero__sub">
+            Led by founder and owner Nara Sudharshan of Anantapur. Other names on this page are dummy desk chairs.
+          </p>
+        </div>
+      </section>
+      <section className="chapter">
+        <div className="container origin__grid">
+          <div className="origin__text">
+            <p className="eyebrow">Held to the drawing</p>
+            <h2 className="origin__title">
+              Six chairs. One <em>straight line.</em>
+            </h2>
+            <p>
+              Nara Sudharshan founded this house in Anantapur. The other chairs below are dummy names for land, design,
+              projects, the customer number, infrastructure, and legal. The homepage does not change because a name is
+              listed here — the brass line is still the brass line.
+            </p>
+          </div>
         </div>
       </section>
       <section className="chapter chapter--solid">
@@ -25,7 +41,11 @@ export function TeamPage() {
                   <span className="parcel-card__num">0{i + 1}</span>
                 </div>
                 <h3 className="parcel-card__title">
-                  <Link to="/nara-sudharshan">{p.name}</Link>
+                  {p.name === "Nara Sudharshan" ? (
+                    <Link to="/nara-sudharshan">{p.name}</Link>
+                  ) : (
+                    p.name
+                  )}
                 </h3>
                 <p className="parcel-card__desc">{p.note}</p>
               </article>

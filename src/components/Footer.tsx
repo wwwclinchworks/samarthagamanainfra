@@ -1,89 +1,47 @@
 import { Link } from "react-router-dom"
+import { useEffect } from "react"
+import { magnetic } from "../lib/motion"
 import { BrandLogo } from "./BrandLogo"
-import { brand, contact } from "../data/content"
-
-const primary = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/nara-sudharshan", label: "Founder" },
-  { to: "/projects", label: "Projects" },
-  { to: "/why-anantapur", label: "Why Anantapur" },
-  { to: "/contact", label: "Contact" },
-] as const
-
-const legal = [
-  { to: "/faq", label: "FAQ" },
-  { to: "/legal", label: "Corporate info" },
-  { to: "/privacy", label: "Privacy Policy" },
-  { to: "/terms", label: "Terms & Conditions" },
-  { to: "/disclaimer", label: "Disclaimer" },
-] as const
 
 export function Footer() {
+  useEffect(() => {
+    magnetic(document.getElementById("back-to-top"), 0.4)
+  }, [])
+
   return (
     <footer id="site-footer">
-      <div className="container footer__inner">
-        <div className="footer__brand-block">
-          <Link to="/" className="footer__brand" aria-label="Samartha Gamana Infra home">
-            <BrandLogo className="footer__logo" />
-          </Link>
-          <div className="footer__identity">
-            <p className="footer__name">{brand.name}</p>
-            <p className="footer__tagline">{brand.tagline}</p>
-            <p className="footer__place">Anantapur, Andhra Pradesh</p>
-          </div>
+      <div className="container footer__row">
+        <Link to="/" className="footer__brand" aria-label="Samartha Gamana Infra home">
+          <BrandLogo className="footer__logo" />
+        </Link>
+        <span className="footer__stamp">
+          © {new Date().getFullYear()} Samartha Gamana Infra PVT LTD · CIN U43300AP2026PTC124637
+        </span>
+        <div className="footer__links">
+          <Link to="/nara-sudharshan">Nara Sudharshan</Link>
+          <a href="/#chapter-peb">PEB panels</a>
+          <a href="/#chapter-parcels">Parcels</a>
+          <Link to="/gallery">Gallery</Link>
+          <Link to="/projects">Work</Link>
+          <Link to="/process">Process</Link>
+          <Link to="/team">Team</Link>
+          <Link to="/cities">Cities</Link>
+          <Link to="/careers">Careers</Link>
+          <Link to="/press">Press</Link>
+          <Link to="/journal">Journal</Link>
+          <Link to="/faq">FAQ</Link>
+          <Link to="/contact">Contact</Link>
         </div>
-
-        <div className="footer__cols">
-          <div className="footer__col">
-            <p className="footer__col-title">Explore</p>
-            <nav className="footer__nav" aria-label="Footer">
-              {primary.map((l) => (
-                <Link key={l.to} to={l.to}>
-                  {l.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-          <div className="footer__col">
-            <p className="footer__col-title">Legal</p>
-            <nav className="footer__nav" aria-label="Legal">
-              {legal.map((l) => (
-                <Link key={l.to} to={l.to}>
-                  {l.label}
-                </Link>
-              ))}
-              <a href="https://preview.samarthagamanainfra.com" rel="noreferrer">
-                Previous site preview
-              </a>
-            </nav>
-          </div>
-          <div className="footer__col">
-            <p className="footer__col-title">Contact</p>
-            <div className="footer__contact">
-              <a href={`https://wa.me/91${contact.phoneDigits}`}>{contact.whatsapp}</a>
-              <a href={`mailto:${contact.email}`}>{contact.email}</a>
-              <span>{contact.addressOneLine}</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="footer__bottom">
-          <p className="footer__copy">
-            © {new Date().getFullYear()} {brand.legal}. All Rights Reserved. · CIN {brand.cin}
-          </p>
-          <button
-            id="back-to-top"
-            type="button"
-            aria-label="Back to top"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
-              <path d="M12 19V5M5 12l7-7 7 7" />
-            </svg>
-            <span>Top</span>
-          </button>
-        </div>
+        <button
+          id="back-to-top"
+          type="button"
+          aria-label="Back to top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+            <path d="M12 19V5M5 12l7-7 7 7" />
+          </svg>
+        </button>
       </div>
     </footer>
   )

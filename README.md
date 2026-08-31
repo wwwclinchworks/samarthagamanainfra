@@ -1,6 +1,6 @@
 # Samartha Gamana Infra
 
-Official site for **Samartha Gamana Infra Private Limited** (CIN `U43300AP2026PTC124637`) — Housing Board Colony, Anantapur, Andhra Pradesh. Founded by **Nara Sudharshan**.
+Official site for **Samartha Gamana Infra PVT LTD** (CIN `U43300AP2026PTC124637`) — Housing Board Colony, Anantapur, Andhra Pradesh. Founded by **Nara Sudharshan**.
 
 ## Local
 
@@ -32,19 +32,14 @@ Template: `docs/github-actions-deploy.yml` — copy to `.github/workflows/deploy
 
 Live:
 
-- **Current (real brand copy):** https://samarthagamanainfra.com · https://www.samarthagamanainfra.com  
-  Worker: `samartha-gamana-infra` · auto-deploys from GitHub `main`
-- **Previous site (for client comparison):** https://preview.samarthagamanainfra.com  
-  Worker: `samartha-gamana-infra-preview` · frozen snapshot of commit `a80685f` (pre brand-copy rewrite) · `noindex`  
-  Redeploy snapshot: `bash scripts/redeploy-preview.sh` (requires `CLOUDFLARE_API_TOKEN`; does not follow `main`)
-
-The preview Worker is **not** connected to GitHub Builds, so production pushes will not overwrite it.
+- https://samarthagamanainfra.com
+- https://www.samarthagamanainfra.com
 
 ## Company facts (public)
 
 | Field | Value |
 | --- | --- |
-| Legal name | Samartha Gamana Infra Private Limited |
+| Legal name | Samartha Gamana Infra PVT LTD |
 | Entity | Private Limited Company (**not** an LLP) |
 | CIN | U43300AP2026PTC124637 |
 | Registered office | No. 28-5-154, 1st Floor, Housing Board Colony, Anantapur, AP 515001 |
