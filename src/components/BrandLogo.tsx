@@ -3,16 +3,16 @@ type BrandLogoProps = {
   alt?: string
 }
 
-/** Official Samartha Gamana Infra mark — public/newlogo.png */
+/** Official Samartha Gamana Infra mark — background-free apple-touch-icon asset. */
 export function BrandLogo({ className, alt = "Samartha Gamana Infra PVT LTD" }: BrandLogoProps) {
   return (
-    <img
-      src="/newlogo.png"
-      alt={alt}
-      className={className}
-      width={1536}
-      height={1024}
-      decoding="async"
-    />
+    <span className="brand-logo-stage">
+      <img
+        src="/apple-touch-icon.png"
+        alt={alt}
+        className={className}
+        decoding="async"
+      />
+    </span>
   )
 }
