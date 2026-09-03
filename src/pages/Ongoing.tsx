@@ -1,4 +1,5 @@
-import { locations, ongoing } from "../data/content"
+import { locations } from "../data/content"
+import { ongoingProjects } from "../data/ongoingProjects"
 
 export function OngoingPage() {
   return (
@@ -16,11 +17,35 @@ export function OngoingPage() {
       <section className="chapter chapter--solid">
         <div className="container">
           <div className="parcels__grid">
-            {ongoing.map((p, i) => (
+            {ongoingProjects.map((p, i) => (
               <article key={p.name} className="parcel-card">
+                {p.image ? (
+                  <div
+                    style={{
+                      width: "100%",
+                      aspectRatio: "16 / 9",
+                      overflow: "hidden",
+                      marginBottom: "1.25rem",
+                      borderRadius: "0.35rem",
+                      background: "var(--basalt-soft-2)",
+                    }}
+                  >
+                    <img
+                      src={p.image}
+                      alt={`${p.name} — ${p.type}`}
+                      loading="lazy"
+                      decoding="async"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+                ) : null}
                 <div className="parcel-card__top">
                   <span className="parcel-card__coord">{p.type}</span>
-                  <span className="parcel-card__num">0{i + 1}</span>
+                  <span className="parcel-card__num">{String(i + 1).padStart(2, "0")}</span>
                 </div>
                 <h3 className="parcel-card__title">{p.name}</h3>
                 <p className="parcel-card__desc">
