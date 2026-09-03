@@ -4,7 +4,7 @@ export const ongoingProjects = [
     place: "Anantapur",
     type: "Ongoing Project",
     note: "Contemporary villa development with premium materials, landscaped frontage and a refined gated-community arrival experience.",
-    image: "/aanvi-villas.jpg",
+    image: "/aanvi-villas.webp",
   },
   {
     name: "Anantapur residential walks",
