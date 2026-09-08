@@ -11,7 +11,7 @@ function readTheme(): Theme {
   } catch {
     /* ignore */
   }
-  return "light"
+  return "dark"
 }
 
 function applyTheme(theme: Theme) {
@@ -22,13 +22,13 @@ function applyTheme(theme: Theme) {
 }
 
 const ThemeContext = createContext<{ theme: Theme; toggle: () => void }>({
-  theme: "light",
+  theme: "dark",
   toggle: () => {},
 })
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() =>
-    typeof document !== "undefined" ? (document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light") : "light",
+    typeof document !== "undefined" ? (document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark") : "dark",
   )
 
   useEffect(() => {
