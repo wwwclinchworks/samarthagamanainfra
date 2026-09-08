@@ -101,12 +101,12 @@ export function HomePage() {
 
       <section id="hero">
         <div className="hero__inner">
-          <p className="eyebrow hero__eyebrow">Samartha Gamana · Infra Developers</p>
-          <h1 className="hero__title">
-            <span className="line-equal">Samartha</span>
-            <span className="line-equal">Gamana</span>
+          <p className="eyebrow hero__eyebrow hero-brandline"><span>Samartha Gamana</span><span className="hero-brandline__dot">·</span><span>Infra Developers</span></p>
+          <h1 className="hero__title hero-brand-title">
+            <span className="hero-brand-title__word"><span className="hero-brand-title__core">Samartha</span></span>
+            <span className="hero-brand-title__word"><span className="hero-brand-title__core">Gamana</span></span>
           </h1>
-          <p className="hero__sub">the journey from land to landmark.</p>
+          <p className="hero__sub"><span className="hero-sub__prefix">the journey from </span><span className="hero-sub__word"><span className="hero-sub__text hero-sub__land">land</span><span className="hero-sub__text hero-sub__landmark">landmark</span></span><span className="hero-sub__period">.</span></p>
         </div>
         <div className="hero__scroll">
           <span className="hero__scroll-line" />
@@ -335,64 +335,27 @@ export function HomePage() {
       <section id="chapter-process" className="chapter chapter--mid">
         <div className="container">
           <div className="chapter-head">
-            <p className="eyebrow">How the journey moves</p>
-            <h2>Four stages. One straight line.</h2>
+            <p className="eyebrow">The method</p>
+            <h2>A measured path from site to handover.</h2>
           </div>
-          <div className="process__track">
-            <div className="process__step">
-              <div className="process__node" />
-              <span className="process__num">01</span>
-              <h3 className="process__title">Land</h3>
-              <p className="process__desc">Survey, title, and soil — the ground truth before any design begins.</p>
-            </div>
-            <div className="process__step">
-              <div className="process__node" />
-              <span className="process__num">02</span>
-              <h3 className="process__title">Design</h3>
-              <p className="process__desc">Master plan, structural drawings, and approvals, drawn to the same scale as what gets built.</p>
-            </div>
-            <div className="process__step">
-              <div className="process__node" />
-              <span className="process__num">03</span>
-              <h3 className="process__title">Build</h3>
-              <p className="process__desc">Construction sequenced against the drawing, not around convenience.</p>
-            </div>
-            <div className="process__step">
-              <div className="process__node" />
-              <span className="process__num">04</span>
-              <h3 className="process__title">Deliver</h3>
-              <p className="process__desc">Handover and documentation, ending with an actual key in an actual lock.</p>
-            </div>
+          <div className="process__grid">
+            <div className="process__step"><span>01</span><h3>Survey</h3><p>Understand the site, title, levels, access and constraints before anything is committed.</p></div>
+            <div className="process__step"><span>02</span><h3>Plan</h3><p>Turn the survey into layouts, scope and sequencing that can actually be executed.</p></div>
+            <div className="process__step"><span>03</span><h3>Build</h3><p>Coordinate fabrication, site work and erection with discipline at every handoff.</p></div>
+            <div className="process__step"><span>04</span><h3>Hand over</h3><p>Close the loop with the drawings, documentation and keys that make the project usable.</p></div>
           </div>
         </div>
       </section>
 
-      <section id="chapter-cta" className="chapter">
-        <div className="container">
-          <h2 className="cta__headline">Let's put your next parcel in motion.</h2>
-          <p className="cta__sub">Tell us where the land is. We'll tell you what it can become.</p>
-          <a className="btn-magnetic" id="cta-btn" href={waLink("a new parcel")} target="_blank" rel="noreferrer">
-            Start a conversation →
-          </a>
-          <div className="contact-grid">
-            <div className="contact-row">
-              <span className="contact-row__label">Email</span>
-              <span className="contact-row__value">connect@samarthagamana.in</span>
-            </div>
-            <div className="contact-row">
-              <span className="contact-row__label">WhatsApp</span>
-              <span className="contact-row__value">+91 63025 56139</span>
-            </div>
-            <div className="contact-row">
-              <span className="contact-row__label">Office</span>
-              <span className="contact-row__value">Housing Board Colony, Anantapur 515001</span>
-            </div>
+      <section className="cta-band">
+        <div className="container cta-band__inner">
+          <p className="eyebrow">Start the conversation</p>
+          <h2 className="cta__headline">Have land? Let's give it somewhere to go.</h2>
+          <p>For plotted developments, PEB enquiries and construction partnerships across Anantapur and Rayalaseema.</p>
+          <div className="cta-band__actions">
+            <Link id="cta-btn" className="btn-magnetic" to="/contact">Talk to Samartha Gamana →</Link>
+            <a className="nav__link" href={waLink} target="_blank" rel="noreferrer">WhatsApp</a>
           </div>
-          <p style={{ marginTop: "2.5rem" }}>
-            <Link to="/projects" className="nav__link">
-              See developments →
-            </Link>
-          </p>
         </div>
       </section>
     </>
