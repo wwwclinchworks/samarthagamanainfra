@@ -160,7 +160,7 @@ export function mountCityScene(canvas: HTMLCanvasElement): SceneHandle | null {
   const isSmall = window.innerWidth < 820
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true })
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isSmall ? 1.3 : 2))
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isSmall ? 1.15 : 1.5))
   renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.outputColorSpace = THREE.SRGBColorSpace
 
@@ -315,9 +315,9 @@ export function mountCityScene(canvas: HTMLCanvasElement): SceneHandle | null {
   taillightMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage)
   scene.add(headlightMesh, taillightMesh)
 
+  const carDummy = new THREE.Object3D()
+  const lightDummy = new THREE.Object3D()
   const updateTraffic = (time: number) => {
-    const carDummy = new THREE.Object3D()
-    const lightDummy = new THREE.Object3D()
     carMeshes.forEach((g) => {
       g.slot = 0
     })
@@ -333,8 +333,7 @@ export function mountCityScene(canvas: HTMLCanvasElement): SceneHandle | null {
 
       carDummy.position.set(car.axis === "x" ? wrapped : car.lane, 0.42, car.axis === "z" ? wrapped : car.lane)
       carDummy.scale.set(car.length, 0.42, 0.55)
-      if (car.speed < 0) carDummy.rotation.y = Math.PI
-      else carDummy.rotation.y = 0
+      carDummy.rotation.y = car.speed < 0 ? Math.PI : 0
       carDummy.updateMatrix()
       group.mesh.setMatrixAt(idx, carDummy.matrix)
 
@@ -445,8 +444,9 @@ export function mountCityScene(canvas: HTMLCanvasElement): SceneHandle | null {
   const frame = () => {
     if (!active) return
     raf = requestAnimationFrame(frame)
-    const elapsed = clock.getElapsedTime()
-    particles.rotation.y += clock.getDelta() * 0.008
+    const delta = clock.getDelta()
+    const elapsed = clock.elapsedTime
+    particles.rotation.y += delta * 0.008
     if (!reduce) updateTraffic(elapsed)
     renderer.render(scene, camera)
   }
@@ -470,6 +470,7 @@ export function mountCityScene(canvas: HTMLCanvasElement): SceneHandle | null {
   window.addEventListener("scroll", checkVisible, { passive: true })
 
   let cameraScrollTrigger: ScrollTrigger | null = null
+  const introTweens: gsap.core.Tween[] = []
 
   const dispose = () => {
     active = false
@@ -478,66 +479,93 @@ export function mountCityScene(canvas: HTMLCanvasElement): SceneHandle | null {
     window.removeEventListener("scroll", checkVisible)
     cameraScrollTrigger?.kill()
     cameraScrollTrigger = null
-    gsap.globalTimeline.clear()
-    materials.forEach((m) => {
-      m.map?.dispose()
-      m.emissiveMap?.dispose()
-      m.dispose()
+    introTweens.forEach((tween) => tween.kill())
+    introTweens.length = 0
+
+    const global = window as unknown as { __sgiPlayCity?: () => void }
+    if (global.__sgiPlayCity === playIntro) delete global.__sgiPlayCity
+
+    scene.traverse((object) => {
+      const mesh = object as THREE.Mesh
+      if (mesh.geometry) mesh.geometry.dispose()
+      const material = mesh.material
+      if (!material) return
+      const list = Array.isArray(material) ? material : [material]
+      list.forEach((item) => {
+        const withMaps = item as THREE.MeshStandardMaterial
+        withMaps.map?.dispose()
+        withMaps.emissiveMap?.dispose()
+        item.dispose()
+      })
     })
     renderer.dispose()
   }
 
   const playIntro = () => {
+    introTweens.forEach((tween) => tween.kill())
+    introTweens.length = 0
+
     const camState = { x: 0, y: 95, z: 6 }
     const cityState = { p: 0 }
-    gsap.to(cityState, {
-      p: 1,
-      duration: reduce ? 0.6 : 2.6,
-      ease: "power2.out",
-      onUpdate: () => updateBuildings(cityState.p),
-    })
-    gsap.to(
-      roadMeshes.map((m) => m.scale),
-      { x: 1, duration: 1.2, delay: reduce ? 0 : 1.5, ease: "power3.out", stagger: 0.06 },
+    introTweens.push(
+      gsap.to(cityState, {
+        p: 1,
+        duration: reduce ? 0.6 : 2.6,
+        ease: "power2.out",
+        onUpdate: () => updateBuildings(cityState.p),
+      }),
     )
-    gsap.to([trunkMesh.scale, canopyMesh.scale, lampMesh.scale, lampGlowMesh.scale], {
-      x: 1,
-      y: 1,
-      z: 1,
-      duration: 0.9,
-      delay: reduce ? 0 : 1.9,
-      ease: "back.out(2)",
-    })
-    gsap.to(camState, {
-      y: 15,
-      z: 34,
-      x: 2,
-      duration: reduce ? 0.6 : 2.8,
-      ease: "power3.inOut",
-      delay: 0.1,
-      onUpdate: () => {
-        camera.position.set(camState.x, camState.y, camState.z)
-        camera.lookAt(0, 2, 0)
-      },
-      onComplete: () => {
-        cameraScrollTrigger?.kill()
-        cameraScrollTrigger = ScrollTrigger.create({
-          trigger: "#chapter-origin",
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-          onUpdate: (self) => {
-            const p = self.progress
-            const angle = p * Math.PI * 0.55
-            const radius = 34 + p * 8
-            camera.position.x = Math.sin(angle) * radius
-            camera.position.z = Math.cos(angle) * radius
-            camera.position.y = 15 + p * 9
-            camera.lookAt(0, 2, 0)
-          },
-        })
-      },
-    })
+    introTweens.push(
+      gsap.to(roadMeshes.map((m) => m.scale), {
+        x: 1,
+        duration: 1.2,
+        delay: reduce ? 0 : 1.5,
+        ease: "power3.out",
+        stagger: 0.06,
+      }),
+    )
+    introTweens.push(
+      gsap.to([trunkMesh.scale, canopyMesh.scale, lampMesh.scale, lampGlowMesh.scale], {
+        x: 1,
+        y: 1,
+        z: 1,
+        duration: 0.9,
+        delay: reduce ? 0 : 1.9,
+        ease: "back.out(2)",
+      }),
+    )
+    introTweens.push(
+      gsap.to(camState, {
+        y: 15,
+        z: 34,
+        x: 2,
+        duration: reduce ? 0.6 : 2.8,
+        ease: "power3.inOut",
+        delay: 0.1,
+        onUpdate: () => {
+          camera.position.set(camState.x, camState.y, camState.z)
+          camera.lookAt(0, 2, 0)
+        },
+        onComplete: () => {
+          cameraScrollTrigger?.kill()
+          cameraScrollTrigger = ScrollTrigger.create({
+            trigger: "#chapter-origin",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+            onUpdate: (self) => {
+              const p = self.progress
+              const angle = p * Math.PI * 0.55
+              const radius = 34 + p * 8
+              camera.position.x = Math.sin(angle) * radius
+              camera.position.z = Math.cos(angle) * radius
+              camera.position.y = 15 + p * 9
+              camera.lookAt(0, 2, 0)
+            },
+          })
+        },
+      }),
+    )
   }
 
   ;(window as unknown as { __sgiPlayCity?: () => void }).__sgiPlayCity = playIntro
