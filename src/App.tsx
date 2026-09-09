@@ -1,7 +1,5 @@
-import { useState } from "react"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import { Layout } from "./components/Layout"
-import { IntroLoader } from "./components/IntroLoader"
 import { ThemeProvider } from "./lib/theme"
 import { AboutPage } from "./pages/About"
 import { CareersPage } from "./pages/Careers"
@@ -21,12 +19,9 @@ import { VerticalPage } from "./pages/Vertical"
 import { FounderPage } from "./pages/Founder"
 
 export default function App() {
-  const [introDone, setIntroDone] = useState(false)
-
   return (
     <ThemeProvider>
       <BrowserRouter>
-        {!introDone && <IntroLoader onDone={() => setIntroDone(true)} />}
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<HomePage />} />
