@@ -41,7 +41,7 @@ export function Header() {
       <Link to="/" className="nav__brand" aria-label="Samartha Gamana Infra home">
         <BrandLogo className="nav__logo" />
       </Link>
-      <div className={open ? "nav__links open" : "nav__links"}>
+      <div id="site-nav-links" className={open ? "nav__links open" : "nav__links"}>
         <Link className="nav__link" to={{ pathname: "/", hash: "#chapter-peb" }}>
           PEB
         </Link>
