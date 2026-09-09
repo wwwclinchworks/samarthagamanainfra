@@ -1,23 +1,30 @@
 import { useEffect, useRef } from "react"
+import * as THREE from "three"
 import gsap from "gsap"
 import { playCityIntro } from "../lib/cityScene"
 import { revealHero } from "../lib/motion"
 import "./introLoader.css"
 
-type Particle = {
+type Point = {
   x: number
   y: number
   z: number
   tx: number
   ty: number
   tz: number
-  r: number
-  brass: boolean
-  phase: number
+  vx: number
+  vy: number
+  vz: number
+  seed: number
 }
 
 function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+function cssColor(name: string, fallback: string) {
+  const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim()
+  return value || fallback
 }
 
 export function IntroLoader({ onDone }: { onDone: () => void }) {
@@ -44,177 +51,261 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
       running = false
       cancelAnimationFrame(raf)
       document.body.classList.remove("loading")
+
       const loader = document.getElementById("loader")
       revealHero()
       playCityIntro()
+
       if (!loader) {
         notify()
         return
       }
+
       loader.style.pointerEvents = "none"
       gsap.to(loader, {
         opacity: 0,
-        scale: 1.02,
-        duration: 0.55,
+        duration: 0.5,
         ease: "power3.out",
         onComplete: notify,
       })
-      window.setTimeout(notify, 650)
+      window.setTimeout(notify, 620)
     }
 
-    const failsafe = window.setTimeout(finish, 4200)
+    const failsafe = window.setTimeout(finish, 5200)
+
     if (reduce) {
       finish()
       return () => window.clearTimeout(failsafe)
     }
 
     document.body.classList.add("loading")
+
     const canvas = canvasRef.current
-    const ctx = canvas?.getContext("2d", { alpha: false })
-    if (!canvas || !ctx) {
+    if (!canvas) {
       finish()
       return () => window.clearTimeout(failsafe)
     }
 
-    const isSmall = window.innerWidth < 820
-    const dpr = Math.min(window.devicePixelRatio || 1, isSmall ? 1.5 : 1.75)
-    const W = Math.floor(window.innerWidth * dpr)
-    const H = Math.floor(window.innerHeight * dpr)
-    canvas.width = W
-    canvas.height = H
-
-    const particleCount = isSmall ? 560 : 1050
-    const depth = isSmall ? 72 : 105
-    const particles: Particle[] = []
-
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        z: (Math.random() - 0.5) * depth,
-        tx: W / 2,
-        ty: H / 2,
-        tz: 0,
-        r: (Math.random() * 1.35 + 0.45) * dpr,
-        brass: Math.random() < 0.2,
-        phase: Math.random() * Math.PI * 2,
+    let renderer: THREE.WebGLRenderer
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: true,
+        powerPreference: "high-performance",
       })
+    } catch {
+      finish()
+      return () => window.clearTimeout(failsafe)
     }
 
-    const sampleSG = () => {
-      const offW = 720
-      const offH = 420
+    const scene = new THREE.Scene()
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 800)
+    camera.position.z = 360
+
+    const small = window.innerWidth < 820
+    const dpr = Math.min(window.devicePixelRatio || 1, small ? 1.35 : 1.75)
+    const count = small ? 900 : 2400
+    const points: Point[] = []
+    const positions = new Float32Array(count * 3)
+    const sizes = new Float32Array(count)
+
+    const resize = () => {
+      const width = Math.max(1, window.innerWidth)
+      const height = Math.max(1, window.innerHeight)
+      renderer.setPixelRatio(dpr)
+      renderer.setSize(width, height, false)
+      const worldH = 1000
+      const worldW = worldH * (width / height)
+      camera.left = -worldW / 2
+      camera.right = worldW / 2
+      camera.top = worldH / 2
+      camera.bottom = -worldH / 2
+      camera.updateProjectionMatrix()
+    }
+    resize()
+
+    for (let i = 0; i < count; i++) {
+      const u = Math.random()
+      const v = Math.random()
+      const w = Math.random()
+      const theta = u * Math.PI * 2
+      const phi = Math.acos(2 * v - 1)
+      const radius = 130 + Math.pow(w, 0.45) * 240
+      const x = Math.sin(phi) * Math.cos(theta) * radius
+      const y = Math.cos(phi) * radius * 0.62
+      const z = Math.sin(phi) * Math.sin(theta) * radius * 0.78
+
+      points.push({
+        x,
+        y,
+        z,
+        tx: x,
+        ty: y,
+        tz: z,
+        vx: (Math.random() - 0.5) * 0.7,
+        vy: (Math.random() - 0.5) * 0.7,
+        vz: (Math.random() - 0.5) * 0.45,
+        seed: Math.random() * Math.PI * 2,
+      })
+      positions[i * 3] = x
+      positions[i * 3 + 1] = y
+      positions[i * 3 + 2] = z
+      sizes[i] = Math.random() * 2.8 + 1.2
+    }
+
+    const geometry = new THREE.BufferGeometry()
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3))
+
+    const white = cssColor("--ink", "#EDEAE1")
+    const brass = cssColor("--brass-bright", "#E0B472")
+    const colors = new Float32Array(count * 3)
+    const whiteColor = new THREE.Color(white)
+    const brassColor = new THREE.Color(brass)
+
+    for (let i = 0; i < count; i++) {
+      const color = i % 9 === 0 ? brassColor : whiteColor
+      colors[i * 3] = color.r
+      colors[i * 3 + 1] = color.g
+      colors[i * 3 + 2] = color.b
+    }
+    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3))
+
+    const material = new THREE.PointsMaterial({
+      size: small ? 2.6 : 3.1,
+      sizeAttenuation: true,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.9,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    })
+
+    const cloud = new THREE.Points(geometry, material)
+    scene.add(cloud)
+
+    const sampleGlyph = async () => {
+      try {
+        await Promise.race([document.fonts.ready, wait(700)])
+      } catch {
+        /* font availability is non-critical */
+      }
+
       const off = document.createElement("canvas")
-      off.width = offW
-      off.height = offH
-      const octx = off.getContext("2d", { willReadFrequently: true })
-      if (!octx) return [] as { x: number; y: number }[]
+      off.width = 900
+      off.height = 500
+      const ctx = off.getContext("2d", { willReadFrequently: true })
+      if (!ctx) return [] as Array<[number, number]>
 
-      octx.fillStyle = "#fff"
-      octx.textAlign = "center"
-      octx.textBaseline = "middle"
-      octx.font = '900 285px "Big Shoulders Display", sans-serif'
-      octx.fillText("SG", offW / 2, offH / 2 + 4)
+      ctx.clearRect(0, 0, off.width, off.height)
+      ctx.fillStyle = "#fff"
+      ctx.textAlign = "center"
+      ctx.textBaseline = "middle"
+      ctx.font = '900 330px "Big Shoulders Display", sans-serif'
+      ctx.fillText("SG", off.width / 2, off.height / 2 + 6)
 
-      const data = octx.getImageData(0, 0, offW, offH).data
-      const points: { x: number; y: number }[] = []
-      const step = isSmall ? 6 : 5
-      const cx = W / 2
-      const cy = H / 2
-      const maxWidth = Math.min(W * 0.72, 980 * dpr)
-      const scale = maxWidth / offW
-      const yScale = Math.min(1.45, H / W)
+      let data: Uint8ClampedArray
+      try {
+        data = ctx.getImageData(0, 0, off.width, off.height).data
+      } catch {
+        return [] as Array<[number, number]>
+      }
 
-      for (let y = 0; y < offH; y += step) {
-        for (let x = 0; x < offW; x += step) {
-          if (data[(y * offW + x) * 4 + 3] > 150) {
-            points.push({
-              x: cx + (x - offW / 2) * scale,
-              y: cy + (y - offH / 2) * scale * yScale,
-            })
+      const result: Array<[number, number]> = []
+      const step = small ? 8 : 6
+      const scale = Math.min((window.innerWidth / window.innerHeight) * 300, 690)
+      for (let y = 0; y < off.height; y += step) {
+        for (let x = 0; x < off.width; x += step) {
+          if (data[(y * off.width + x) * 4 + 3] > 150) {
+            const nx = ((x - off.width / 2) / off.width) * scale
+            const ny = ((off.height / 2 - y) / off.height) * 520
+            result.push([nx, ny])
           }
         }
       }
-      return points
+      return result
     }
 
-    const targets = sampleSG()
-    for (let i = 0; i < particles.length; i++) {
-      const target = targets[i % Math.max(targets.length, 1)]
-      const layer = ((i * 17) % 11) / 10
-      particles[i].tx = target?.x ?? W / 2
-      particles[i].ty = target?.y ?? H / 2
-      particles[i].tz = (layer - 0.5) * depth
-      particles[i].z = (Math.random() - 0.5) * depth
-    }
-
-    let pointerX = 0
-    let pointerY = 0
+    const pointer = { x: 0, y: 0, active: false }
     const updatePointer = (clientX: number, clientY: number) => {
-      pointerX = (clientX / window.innerWidth - 0.5) * 2
-      pointerY = (clientY / window.innerHeight - 0.5) * 2
+      pointer.x = clientX / window.innerWidth - 0.5
+      pointer.y = clientY / window.innerHeight - 0.5
+      pointer.active = true
     }
-    const onPointer = (event: PointerEvent) => updatePointer(event.clientX, event.clientY)
-    const onTouch = (event: TouchEvent) => {
-      const touch = event.touches[0]
-      if (touch) updatePointer(touch.clientX, touch.clientY)
+    const onPointerMove = (event: PointerEvent) => updatePointer(event.clientX, event.clientY)
+    const onPointerLeave = () => {
+      pointer.active = false
     }
-    window.addEventListener("pointermove", onPointer, { passive: true })
-    window.addEventListener("touchmove", onTouch, { passive: true })
+    window.addEventListener("pointermove", onPointerMove, { passive: true })
+    window.addEventListener("pointerleave", onPointerLeave, { passive: true })
+    window.addEventListener("resize", resize, { passive: true })
 
-    const project = (x: number, y: number, z: number) => {
-      const yaw = pointerX * 0.1
-      const pitch = pointerY * 0.075
-      const cyaw = Math.cos(yaw)
-      const syaw = Math.sin(yaw)
-      const cp = Math.cos(pitch)
-      const sp = Math.sin(pitch)
-      const rx = x * cyaw - z * syaw
-      const rz = x * syaw + z * cyaw
-      const ry = y * cp - rz * sp
-      const rz2 = y * sp + rz * cp
-      const perspective = 1 + rz2 / 520
-      return {
-        x: W / 2 + rx * perspective,
-        y: H / 2 + ry * perspective,
-        scale: Math.max(0.55, perspective),
-        depth: rz2,
-      }
-    }
+    const glyphPromise = sampleGlyph()
+    const start = performance.now()
 
     const draw = (time: number) => {
       if (!running) return
-      const t = time * 0.001
-      ctx.fillStyle = "#0B0E13"
-      ctx.fillRect(0, 0, W, H)
 
-      const glow = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.min(W, H) * 0.46)
-      glow.addColorStop(0, "rgba(201,161,118,0.075)")
-      glow.addColorStop(0.5, "rgba(201,161,118,0.025)")
-      glow.addColorStop(1, "rgba(11,14,19,0)")
-      ctx.fillStyle = glow
-      ctx.fillRect(0, 0, W, H)
+      const elapsed = time - start
+      const morph = Math.min(1, Math.max(0, (elapsed - 1150) / 1350))
+      const morphEase = 1 - Math.pow(1 - morph, 4)
+      const drift = 1 - morphEase
+      const targetGlyph = glyphCache.current
+      const elapsedSeconds = time * 0.001
 
-      const projected = particles.map((particle) => {
-        particle.x += (particle.tx - particle.x) * 0.055
-        particle.y += (particle.ty - particle.y) * 0.055
-        particle.z += (particle.tz - particle.z) * 0.045
-        const float = Math.sin(t * 1.25 + particle.phase) * 2.2
-        return { particle, p: project(particle.x - W / 2, particle.y - H / 2 + float, particle.z) }
-      })
-      projected.sort((a, b) => a.p.depth - b.p.depth)
+      cloud.rotation.y += 0.0008 + drift * 0.0017
+      cloud.rotation.x = Math.sin(elapsedSeconds * 0.25) * 0.045 * drift
 
-      for (const { particle, p } of projected) {
-        ctx.globalAlpha = Math.min(0.96, Math.max(0.2, 0.52 + p.depth / 210))
-        ctx.fillStyle = particle.brass ? "#C9A176" : "#EDEAE1"
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, particle.r * p.scale, 0, Math.PI * 2)
-        ctx.fill()
+      for (let i = 0; i < count; i++) {
+        const p = points[i]
+
+        const noiseX = Math.sin(elapsedSeconds * 0.75 + p.seed) * (2.2 * drift)
+        const noiseY = Math.cos(elapsedSeconds * 0.9 + p.seed * 1.7) * (1.8 * drift)
+        const noiseZ = Math.sin(elapsedSeconds * 0.6 + p.seed * 0.8) * (1.5 * drift)
+
+        if (targetGlyph.length) {
+          const target = targetGlyph[i % targetGlyph.length]
+          p.tx = target[0]
+          p.ty = target[1]
+          p.tz = ((i % 17) - 8) * (small ? 2.2 : 3.4)
+        }
+
+        const px = p.tx * morphEase + p.x * drift
+        const py = p.ty * morphEase + p.y * drift
+        const pz = p.tz * morphEase + p.z * drift
+
+        let repelX = 0
+        let repelY = 0
+        if (pointer.active) {
+          const dx = px / 900 - pointer.x
+          const dy = py / 520 + pointer.y
+          const distance = Math.sqrt(dx * dx + dy * dy)
+          if (distance < 0.42) {
+            const force = Math.pow((0.42 - distance) / 0.42, 2) * (small ? 42 : 58)
+            repelX = dx / Math.max(distance, 0.001) * force
+            repelY = dy / Math.max(distance, 0.001) * force
+          }
+        }
+
+        p.x += (px + repelX - p.x) * (morph > 0.65 ? 0.075 : 0.045)
+        p.y += (py + repelY - p.y) * (morph > 0.65 ? 0.075 : 0.045)
+        p.z += (pz + noiseZ - p.z) * 0.04
+
+        positions[i * 3] = p.x + noiseX
+        positions[i * 3 + 1] = p.y + noiseY
+        positions[i * 3 + 2] = p.z
       }
 
-      ctx.globalAlpha = 1
+      geometry.attributes.position.needsUpdate = true
+      renderer.render(scene, camera)
       raf = requestAnimationFrame(draw)
     }
+
+    const glyphCache = { current: [] as Array<[number, number]> }
+    void glyphPromise.then((glyph) => {
+      glyphCache.current = glyph
+    })
+
     raf = requestAnimationFrame(draw)
 
     const skip = (event: Event) => {
@@ -227,41 +318,39 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
     skipEl?.addEventListener("click", skip)
     skipEl?.classList.add("show")
 
-    ;(async () => {
-      try {
-        await Promise.race([document.fonts.ready, wait(450)])
-      } catch {
-        /* font loading is non-critical */
-      }
-      await wait(180)
-      if (skipped || doneRef.current) return
-      await wait(1900)
+    const timeline = window.setTimeout(() => {
       if (skipped || doneRef.current) return
       finish()
-    })()
+    }, 3300)
 
     return () => {
       running = false
       cancelAnimationFrame(raf)
       window.clearTimeout(failsafe)
-      window.removeEventListener("pointermove", onPointer)
-      window.removeEventListener("touchmove", onTouch)
+      window.clearTimeout(timeline)
+      window.removeEventListener("pointermove", onPointerMove)
+      window.removeEventListener("pointerleave", onPointerLeave)
+      window.removeEventListener("resize", resize)
       skipEl?.removeEventListener("click", skip)
       document.body.classList.remove("loading")
+      geometry.dispose()
+      material.dispose()
+      renderer.dispose()
     }
   }, [onDone])
 
   return (
-    <div id="loader" aria-label="Loading Samartha Gamana Infra">
+    <div id="loader" role="dialog" aria-label="Loading Samartha Gamana Infra">
       <canvas id="intro-canvas" ref={canvasRef} aria-hidden="true" />
-      <div className="loader__brand">SG</div>
       <div className="loader__meta">
         <span>Samartha Gamana Infra</span>
         <span className="loader__rule" />
         <span>Establishing presence</span>
       </div>
       <div id="loader-caption">Building the experience</div>
-      <button id="skip-intro" ref={skipRef} type="button">Skip intro →</button>
+      <button id="skip-intro" ref={skipRef} type="button">
+        Skip intro →
+      </button>
     </div>
   )
 }
