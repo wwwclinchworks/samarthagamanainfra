@@ -80,7 +80,7 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
 
     failsafe = window.setTimeout(finish, 5200)
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce").matches
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     if (reduced) {
       finish()
       return () => window.clearTimeout(failsafe)
@@ -319,17 +319,17 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
         renderer.dispose()
       }
 
-      ;(cleanupRef.current as { runtime?: () => void }).runtime = cleanupRuntime
+      cleanupRef.current = cleanupRuntime
     }
 
+    const cleanupRef = { current: (() => {}) as () => void }
     void start()
 
-    const cleanupRef = { current: {} as { runtime?: () => void } }
     return () => {
       running = false
       window.clearTimeout(failsafe)
       window.clearTimeout(timeline)
-      cleanupRef.current.runtime?.()
+      cleanupRef.current()
       document.body.classList.remove("loading")
     }
   }, [onDone])
