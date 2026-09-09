@@ -14,6 +14,7 @@ function stampSeoPages(): Plugin {
       const indexPath = join(dist, "index.html")
       const html = readFileSync(indexPath, "utf8")
       const graph = JSON.stringify(siteJsonLd())
+
       for (const path of sitemapPaths) {
         const meta = routeMeta[path] ?? {
           title: "Samartha Gamana Infra | Nara Sudharshan, Anantapur",
@@ -75,5 +76,41 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 45217,
     strictPort: true,
+  },
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: "react-vendor",
+              test: /node_modules[\\/]react(?:-|$)/,
+              priority: 30,
+            },
+            {
+              name: "animation-vendor",
+              test: /node_modules[\\/](?:gsap|framer-motion|lenis)[\\/]/,
+              priority: 25,
+            },
+            {
+              name: "three-vendor",
+              test: /node_modules[\\/]three[\\/]/,
+              priority: 24,
+            },
+            {
+              name: "ui-vendor",
+              test: /node_modules[\\/](?:lucide-react|lottie-react)[\\/]/,
+              priority: 20,
+            },
+            {
+              name: "vendor",
+              test: /node_modules[\\/]/,
+              priority: 10,
+              minSize: 20000,
+            },
+          ],
+        },
+      },
+    },
   },
 })
