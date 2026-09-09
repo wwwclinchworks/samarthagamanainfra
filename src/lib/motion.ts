@@ -28,7 +28,6 @@ function revealOnScroll(selector: string) {
   )
 
   nodes.forEach((el) => {
-    // If already on screen (e.g. after scroll reset), show immediately
     const rect = el.getBoundingClientRect()
     if (rect.top < window.innerHeight * 0.92) el.classList.add("is-in")
     else io.observe(el)
@@ -92,7 +91,6 @@ export function initHomeMotion() {
     cleanups.push(() => tween.kill())
   }
 
-  // Rotating statement lines
   document.querySelectorAll<HTMLElement>("[data-rotate-lines]").forEach((root) => {
     const lines = Array.from(root.querySelectorAll<HTMLElement>(".rotate-line"))
     if (lines.length < 2) return
@@ -112,6 +110,8 @@ export function initHomeMotion() {
 export function resetHomeMotion() {
   homeMotionReady = false
   while (cleanups.length) cleanups.pop()?.()
+  ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+  gsap.killTweensOf(document.querySelectorAll<HTMLElement>(".stat__num"))
   document.querySelectorAll(".reveal").forEach((el) => {
     el.classList.remove("reveal", "is-in")
     ;(el as HTMLElement).style.opacity = ""
@@ -130,30 +130,64 @@ export function revealHero() {
     )
     .fromTo(".hero__sub", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.5")
     .fromTo(".hero__scroll", { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.3")
+  return () => tl.kill()
 }
 
 export function magnetic(el: HTMLElement | null, strength = 0.35) {
-  if (!el || window.matchMedia("(pointer: coarse)").matches) return
-  el.addEventListener("mousemove", (e) => {
+  if (!el || window.matchMedia("(pointer: coarse)").matches) return () => {}
+
+  const quickX = gsap.quickTo(el, "x", { duration: 0.38, ease: "power2.out" })
+  const quickY = gsap.quickTo(el, "y", { duration: 0.38, ease: "power2.out" })
+
+  const onMove = (e: MouseEvent) => {
     const r = el.getBoundingClientRect()
     const relX = e.clientX - r.left - r.width / 2
     const relY = e.clientY - r.top - r.height / 2
-    gsap.to(el, { x: relX * strength, y: relY * strength, duration: 0.4, ease: "power2.out" })
-  })
-  el.addEventListener("mouseleave", () => {
-    gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1,0.4)" })
-  })
+    quickX(relX * strength)
+    quickY(relY * strength)
+  }
+  const onLeave = () => {
+    quickX(0)
+    quickY(0)
+  }
+
+  el.addEventListener("mousemove", onMove)
+  el.addEventListener("mouseleave", onLeave)
+
+  return () => {
+    el.removeEventListener("mousemove", onMove)
+    el.removeEventListener("mouseleave", onLeave)
+    gsap.killTweensOf(el)
+    gsap.set(el, { x: 0, y: 0 })
+  }
 }
 
 export function tiltCard(el: HTMLElement, max = 7) {
-  if (window.matchMedia("(pointer: coarse)").matches) return
-  el.addEventListener("mousemove", (e) => {
+  if (window.matchMedia("(pointer: coarse)").matches) return () => {}
+
+  const quickRX = gsap.quickTo(el, "rotateX", { duration: 0.32, ease: "power2.out" })
+  const quickRY = gsap.quickTo(el, "rotateY", { duration: 0.32, ease: "power2.out" })
+
+  const onMove = (e: MouseEvent) => {
     const r = el.getBoundingClientRect()
     const px = (e.clientX - r.left) / r.width - 0.5
     const py = (e.clientY - r.top) / r.height - 0.5
-    gsap.to(el, { rotateX: -py * max, rotateY: px * max, transformPerspective: 800, duration: 0.5, ease: "power2.out" })
-  })
-  el.addEventListener("mouseleave", () => {
-    gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.6, ease: "power3.out" })
-  })
+    quickRX(-py * max)
+    quickRY(px * max)
+    gsap.set(el, { transformPerspective: 800 })
+  }
+  const onLeave = () => {
+    quickRX(0)
+    quickRY(0)
+  }
+
+  el.addEventListener("mousemove", onMove)
+  el.addEventListener("mouseleave", onLeave)
+
+  return () => {
+    el.removeEventListener("mousemove", onMove)
+    el.removeEventListener("mouseleave", onLeave)
+    gsap.killTweensOf(el)
+    gsap.set(el, { rotateX: 0, rotateY: 0 })
+  }
 }
