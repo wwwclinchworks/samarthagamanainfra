@@ -1,5 +1,7 @@
+import { useState } from "react"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import { Layout } from "./components/Layout"
+import { IntroLoader } from "./components/IntroLoader"
 import { ThemeProvider } from "./lib/theme"
 import { AboutPage } from "./pages/About"
 import { CareersPage } from "./pages/Careers"
@@ -19,36 +21,39 @@ import { VerticalPage } from "./pages/Vertical"
 import { FounderPage } from "./pages/Founder"
 
 export default function App() {
+  const [introDone, setIntroDone] = useState(false)
+
   return (
     <ThemeProvider>
       <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="nara-sudharshan" element={<FounderPage />} />
-          <Route path="founder" element={<FounderPage />} />
-          <Route path="about" element={<AboutPage />} />
-          <Route path="gallery" element={<GalleryPage />} />
-          <Route path="projects" element={<ProjectsPage />} />
-          <Route path="ongoing" element={<OngoingPage />} />
-          <Route path="upcoming" element={<UpcomingPage />} />
-          <Route path="process" element={<ProcessPage />} />
-          <Route path="team" element={<TeamPage />} />
-          <Route path="cities" element={<CitiesPage />} />
-          <Route path="careers" element={<CareersPage />} />
-          <Route path="press" element={<PressPage />} />
-          <Route path="faq" element={<FaqPage />} />
-          <Route path="journal" element={<JournalPage />} />
-          <Route path="contact" element={<ContactPage />} />
-          <Route path="what-we-do/:slug" element={<VerticalPage />} />
-          <Route path="why-anantapur" element={<Navigate to="/cities" replace />} />
-          <Route path="legal" element={<Navigate to="/about" replace />} />
-          <Route path="disclaimer" element={<Navigate to="/about" replace />} />
-          <Route path="privacy" element={<Navigate to="/contact" replace />} />
-          <Route path="terms" element={<Navigate to="/contact" replace />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Route>
-      </Routes>
+        {!introDone && <IntroLoader onDone={() => setIntroDone(true)} />}
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="nara-sudharshan" element={<FounderPage />} />
+            <Route path="founder" element={<FounderPage />} />
+            <Route path="about" element={<AboutPage />} />
+            <Route path="gallery" element={<GalleryPage />} />
+            <Route path="projects" element={<ProjectsPage />} />
+            <Route path="ongoing" element={<OngoingPage />} />
+            <Route path="upcoming" element={<UpcomingPage />} />
+            <Route path="process" element={<ProcessPage />} />
+            <Route path="team" element={<TeamPage />} />
+            <Route path="cities" element={<CitiesPage />} />
+            <Route path="careers" element={<CareersPage />} />
+            <Route path="press" element={<PressPage />} />
+            <Route path="faq" element={<FaqPage />} />
+            <Route path="journal" element={<JournalPage />} />
+            <Route path="contact" element={<ContactPage />} />
+            <Route path="what-we-do/:slug" element={<VerticalPage />} />
+            <Route path="why-anantapur" element={<Navigate to="/cities" replace />} />
+            <Route path="legal" element={<Navigate to="/about" replace />} />
+            <Route path="disclaimer" element={<Navigate to="/about" replace />} />
+            <Route path="privacy" element={<Navigate to="/contact" replace />} />
+            <Route path="terms" element={<Navigate to="/contact" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Route>
+        </Routes>
       </BrowserRouter>
     </ThemeProvider>
   )
