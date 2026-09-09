@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react"
 import * as THREE from "three"
 import gsap from "gsap"
-import { playCityIntro } from "../lib/cityScene"
 import { revealHero } from "../lib/motion"
 import "./introLoader.css"
 
@@ -54,7 +53,6 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
 
       const loader = document.getElementById("loader")
       revealHero()
-      playCityIntro()
 
       if (!loader) {
         notify()
@@ -108,7 +106,6 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
     const count = small ? 900 : 2400
     const points: Point[] = []
     const positions = new Float32Array(count * 3)
-    const sizes = new Float32Array(count)
 
     const resize = () => {
       const width = Math.max(1, window.innerWidth)
@@ -151,7 +148,6 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
       positions[i * 3] = x
       positions[i * 3 + 1] = y
       positions[i * 3 + 2] = z
-      sizes[i] = Math.random() * 2.8 + 1.2
     }
 
     const geometry = new THREE.BufferGeometry()
@@ -243,6 +239,11 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
     const glyphPromise = sampleGlyph()
     const start = performance.now()
 
+    const glyphCache = { current: [] as Array<[number, number]> }
+    void glyphPromise.then((glyph) => {
+      if (running) glyphCache.current = glyph
+    })
+
     const draw = (time: number) => {
       if (!running) return
 
@@ -300,11 +301,6 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
       renderer.render(scene, camera)
       raf = requestAnimationFrame(draw)
     }
-
-    const glyphCache = { current: [] as Array<[number, number]> }
-    void glyphPromise.then((glyph) => {
-      glyphCache.current = glyph
-    })
 
     raf = requestAnimationFrame(draw)
 
