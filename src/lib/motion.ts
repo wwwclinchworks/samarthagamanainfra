@@ -5,8 +5,9 @@ gsap.registerPlugin(ScrollTrigger)
 
 let homeMotionReady = false
 const cleanups: Array<() => void> = []
+const homeTriggers: ScrollTrigger[] = []
+const homeTweens: gsap.core.Animation[] = []
 
-/** Reveal with CSS class — content stays visible even if animation is interrupted. */
 function revealOnScroll(selector: string) {
   const nodes = Array.from(document.querySelectorAll<HTMLElement>(selector))
   if (!nodes.length) return
@@ -18,20 +19,19 @@ function revealOnScroll(selector: string) {
 
   const io = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue
         entry.target.classList.add("is-in")
         io.unobserve(entry.target)
-      })
+      }
     },
     { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
   )
 
-  nodes.forEach((el) => {
-    const rect = el.getBoundingClientRect()
-    if (rect.top < window.innerHeight * 0.92) el.classList.add("is-in")
+  for (const el of nodes) {
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.add("is-in")
     else io.observe(el)
-  })
+  }
 
   cleanups.push(() => io.disconnect())
 }
@@ -56,7 +56,7 @@ export function initHomeMotion() {
   revealOnScroll(".peb-spotlight__copy")
 
   document.querySelectorAll<HTMLElement>(".stat__num").forEach((el) => {
-    const target = parseFloat(el.dataset.count || "0")
+    const target = Number(el.dataset.count || 0)
     const suffix = el.dataset.suffix || ""
     const obj = { val: 0 }
     const trigger = ScrollTrigger.create({
@@ -64,31 +64,32 @@ export function initHomeMotion() {
       start: "top 85%",
       once: true,
       onEnter: () => {
-        gsap.to(obj, {
+        const tween = gsap.to(obj, {
           val: target,
-          duration: 1.6,
+          duration: 1.35,
           ease: "power2.out",
           onUpdate: () => {
-            el.textContent = Math.floor(obj.val) + suffix
+            el.textContent = `${Math.floor(obj.val)}${suffix}`
           },
         })
+        homeTweens.push(tween)
       },
     })
-    cleanups.push(() => trigger.kill())
+    homeTriggers.push(trigger)
   })
 
-  const path = document.getElementById("stats-path") as unknown as SVGPathElement | null
+  const path = document.getElementById("stats-path") as SVGPathElement | null
   if (path) {
     const len = path.getTotalLength()
     path.style.strokeDasharray = String(len)
     path.style.strokeDashoffset = String(len)
     const tween = gsap.to(path, {
       strokeDashoffset: 0,
-      duration: 1.6,
+      duration: 1.35,
       ease: "power2.out",
       scrollTrigger: { trigger: path, start: "top 90%", once: true },
     })
-    cleanups.push(() => tween.kill())
+    homeTweens.push(tween)
   }
 
   document.querySelectorAll<HTMLElement>("[data-rotate-lines]").forEach((root) => {
@@ -110,8 +111,8 @@ export function initHomeMotion() {
 export function resetHomeMotion() {
   homeMotionReady = false
   while (cleanups.length) cleanups.pop()?.()
-  ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-  gsap.killTweensOf(document.querySelectorAll<HTMLElement>(".stat__num"))
+  while (homeTriggers.length) homeTriggers.pop()?.kill()
+  while (homeTweens.length) homeTweens.pop()?.kill()
   document.querySelectorAll(".reveal").forEach((el) => {
     el.classList.remove("reveal", "is-in")
     ;(el as HTMLElement).style.opacity = ""
@@ -141,10 +142,8 @@ export function magnetic(el: HTMLElement | null, strength = 0.35) {
 
   const onMove = (e: MouseEvent) => {
     const r = el.getBoundingClientRect()
-    const relX = e.clientX - r.left - r.width / 2
-    const relY = e.clientY - r.top - r.height / 2
-    quickX(relX * strength)
-    quickY(relY * strength)
+    quickX((e.clientX - r.left - r.width / 2) * strength)
+    quickY((e.clientY - r.top - r.height / 2) * strength)
   }
   const onLeave = () => {
     quickX(0)
@@ -170,10 +169,8 @@ export function tiltCard(el: HTMLElement, max = 7) {
 
   const onMove = (e: MouseEvent) => {
     const r = el.getBoundingClientRect()
-    const px = (e.clientX - r.left) / r.width - 0.5
-    const py = (e.clientY - r.top) / r.height - 0.5
-    quickRX(-py * max)
-    quickRY(px * max)
+    quickRX(-((e.clientY - r.top) / r.height - 0.5) * max)
+    quickRY(((e.clientX - r.left) / r.width - 0.5) * max)
     gsap.set(el, { transformPerspective: 800 })
   }
   const onLeave = () => {
