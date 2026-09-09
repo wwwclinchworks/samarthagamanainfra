@@ -11,9 +11,6 @@ type Point = {
   tx: number
   ty: number
   tz: number
-  vx: number
-  vy: number
-  vz: number
   seed: number
 }
 
@@ -50,6 +47,11 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
       running = false
       cancelAnimationFrame(raf)
       document.body.classList.remove("loading")
+      try {
+        sessionStorage.setItem("sgi-intro", "1")
+      } catch {
+        /* storage is optional */
+      }
 
       const loader = document.getElementById("loader")
       revealHero()
@@ -102,8 +104,8 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
     camera.position.z = 360
 
     const small = window.innerWidth < 820
-    const dpr = Math.min(window.devicePixelRatio || 1, small ? 1.35 : 1.75)
-    const count = small ? 900 : 2400
+    const dpr = Math.min(window.devicePixelRatio || 1, small ? 1.25 : 1.55)
+    const count = small ? 720 : 2000
     const points: Point[] = []
     const positions = new Float32Array(count * 3)
 
@@ -140,9 +142,6 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
         tx: x,
         ty: y,
         tz: z,
-        vx: (Math.random() - 0.5) * 0.7,
-        vy: (Math.random() - 0.5) * 0.7,
-        vz: (Math.random() - 0.5) * 0.45,
         seed: Math.random() * Math.PI * 2,
       })
       positions[i * 3] = x
@@ -213,9 +212,10 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
       for (let y = 0; y < off.height; y += step) {
         for (let x = 0; x < off.width; x += step) {
           if (data[(y * off.width + x) * 4 + 3] > 150) {
-            const nx = ((x - off.width / 2) / off.width) * scale
-            const ny = ((off.height / 2 - y) / off.height) * 520
-            result.push([nx, ny])
+            result.push([
+              ((x - off.width / 2) / off.width) * scale,
+              ((off.height / 2 - y) / off.height) * 520,
+            ])
           }
         }
       }
@@ -224,8 +224,8 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
 
     const pointer = { x: 0, y: 0, active: false }
     const updatePointer = (clientX: number, clientY: number) => {
-      pointer.x = clientX / window.innerWidth - 0.5
-      pointer.y = clientY / window.innerHeight - 0.5
+      pointer.x = clientX / Math.max(1, window.innerWidth) - 0.5
+      pointer.y = clientY / Math.max(1, window.innerHeight) - 0.5
       pointer.active = true
     }
     const onPointerMove = (event: PointerEvent) => updatePointer(event.clientX, event.clientY)
@@ -236,14 +236,12 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
     window.addEventListener("pointerleave", onPointerLeave, { passive: true })
     window.addEventListener("resize", resize, { passive: true })
 
-    const glyphPromise = sampleGlyph()
-    const start = performance.now()
-
     const glyphCache = { current: [] as Array<[number, number]> }
-    void glyphPromise.then((glyph) => {
+    void sampleGlyph().then((glyph) => {
       if (running) glyphCache.current = glyph
     })
 
+    const start = performance.now()
     const draw = (time: number) => {
       if (!running) return
 
@@ -251,15 +249,14 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
       const morph = Math.min(1, Math.max(0, (elapsed - 1150) / 1350))
       const morphEase = 1 - Math.pow(1 - morph, 4)
       const drift = 1 - morphEase
-      const targetGlyph = glyphCache.current
       const elapsedSeconds = time * 0.001
+      const targetGlyph = glyphCache.current
 
       cloud.rotation.y += 0.0008 + drift * 0.0017
       cloud.rotation.x = Math.sin(elapsedSeconds * 0.25) * 0.045 * drift
 
       for (let i = 0; i < count; i++) {
         const p = points[i]
-
         const noiseX = Math.sin(elapsedSeconds * 0.75 + p.seed) * (2.2 * drift)
         const noiseY = Math.cos(elapsedSeconds * 0.9 + p.seed * 1.7) * (1.8 * drift)
         const noiseZ = Math.sin(elapsedSeconds * 0.6 + p.seed * 0.8) * (1.5 * drift)
@@ -283,8 +280,9 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
           const distance = Math.sqrt(dx * dx + dy * dy)
           if (distance < 0.42) {
             const force = Math.pow((0.42 - distance) / 0.42, 2) * (small ? 42 : 58)
-            repelX = dx / Math.max(distance, 0.001) * force
-            repelY = dy / Math.max(distance, 0.001) * force
+            const invDistance = 1 / Math.max(distance, 0.001)
+            repelX = dx * invDistance * force
+            repelY = dy * invDistance * force
           }
         }
 
@@ -315,8 +313,7 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
     skipEl?.classList.add("show")
 
     const timeline = window.setTimeout(() => {
-      if (skipped || doneRef.current) return
-      finish()
+      if (!skipped && !doneRef.current) finish()
     }, 3300)
 
     return () => {
@@ -336,7 +333,7 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
   }, [onDone])
 
   return (
-    <div id="loader" role="dialog" aria-label="Loading Samartha Gamana Infra">
+    <div id="loader" role="dialog" aria-label="Loading Samartha Gamana Infra" aria-busy="true">
       <canvas id="intro-canvas" ref={canvasRef} aria-hidden="true" />
       <div className="loader__meta">
         <span>Samartha Gamana Infra</span>
