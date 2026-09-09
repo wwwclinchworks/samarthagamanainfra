@@ -4,9 +4,7 @@ import { magnetic } from "../lib/motion"
 import { BrandLogo } from "./BrandLogo"
 
 export function Footer() {
-  useEffect(() => {
-    magnetic(document.getElementById("back-to-top"), 0.4)
-  }, [])
+  useEffect(() => magnetic(document.getElementById("back-to-top"), 0.4), [])
 
   return (
     <footer id="site-footer">
@@ -32,13 +30,8 @@ export function Footer() {
           <Link to="/faq">FAQ</Link>
           <Link to="/contact">Contact</Link>
         </div>
-        <button
-          id="back-to-top"
-          type="button"
-          aria-label="Back to top"
-          onClick={() => window.scrollTo(0, 0)}
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+        <button id="back-to-top" type="button" aria-label="Back to top" onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "smooth" })}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
             <path d="M12 19V5M5 12l7-7 7 7" />
           </svg>
         </button>
