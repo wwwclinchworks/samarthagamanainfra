@@ -1,6 +1,6 @@
+import { useMemo, useState } from "react"
 import { gallery, type GalleryKind } from "../data/site"
 import { waLink } from "../lib/whatsapp"
-import { useMemo, useState } from "react"
 
 const tabs: { id: "all" | GalleryKind; label: string }[] = [
   { id: "all", label: "All places" },
@@ -34,11 +34,13 @@ export function GalleryPage() {
             Photographs of Anantapur city, Lepakshi and Rayalaseema country. Filter by mood. Enquire on WhatsApp with
             the place name; live floor and facing are confirmed before a visit.
           </p>
-          <div className="gallery-tabs">
+          <div className="gallery-tabs" role="tablist" aria-label="Gallery filters">
             {tabs.map((t) => (
               <button
                 key={t.id}
                 type="button"
+                role="tab"
+                aria-selected={tab === t.id}
                 className={tab === t.id ? "gallery-tab is-on" : "gallery-tab"}
                 onClick={() => setTab(t.id)}
               >
@@ -52,7 +54,7 @@ export function GalleryPage() {
             <div className="gallery-grid">
               {items.map((g) => (
                 <article key={g.id} className="gallery-card">
-                  <img src={g.img} alt={g.title} />
+                  <img src={g.img} alt={g.title} loading="lazy" decoding="async" />
                   <div className="gallery-card__body">
                     <p className="parcel-card__coord">
                       {g.kind === "2bhk" ? "2 BHK" : g.kind === "villa" ? "Villa" : "House"} · {g.place} · {g.area}
