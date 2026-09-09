@@ -72,26 +72,37 @@ export function HomePage() {
   const closeIntro = useCallback(() => setIntro(false), [])
 
   useEffect(() => {
-    if (intro) document.body.classList.add("loading")
-    else document.body.classList.remove("loading")
+    if (intro) {
+      document.body.classList.add("loading")
+      return () => document.body.classList.remove("loading")
+    }
+
+    document.body.classList.remove("loading")
     const canvas = document.getElementById("scene-canvas") as HTMLCanvasElement | null
     const handle = canvas ? mountCityScene(canvas) : null
-    if (!intro) window.setTimeout(() => playCityIntro(), 120)
+    const timeout = window.setTimeout(() => playCityIntro(), 80)
+
     return () => {
+      window.clearTimeout(timeout)
       handle?.dispose()
       document.body.classList.remove("loading")
       resetHomeMotion()
       clearGsapScrollState()
     }
-    // City mounts once; intro overlay is independent.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [intro])
 
   useEffect(() => {
     if (intro) return
     initHomeMotion()
-    magnetic(document.getElementById("cta-btn"), 0.3)
-    document.querySelectorAll<HTMLElement>(".parcel-card").forEach((el) => tiltCard(el, 6))
+    const cleanups: Array<() => void> = []
+    cleanups.push(magnetic(document.getElementById("cta-btn"), 0.3))
+    document.querySelectorAll<HTMLElement>(".parcel-card").forEach((el) => {
+      cleanups.push(tiltCard(el, 6))
+    })
+
+    return () => {
+      cleanups.forEach((cleanup) => cleanup())
+    }
   }, [intro])
 
   return (
