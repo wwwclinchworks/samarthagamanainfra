@@ -1,13 +1,10 @@
-import { useEffect, useLayoutEffect, useRef } from "react"
+import { useLayoutEffect, useRef } from "react"
 import { useLocation, useNavigationType } from "react-router-dom"
 import { disableBrowserScrollRestoration, enforceScrollToAnchor, enforceScrollToTop } from "../lib/scrollReset"
 
-/**
- * Resets scroll on every client-side route change.
- * Hash navigations scroll to the target section; all other routes open at the top.
- */
+/** Keep SPA navigation predictable without fighting the browser every frame. */
 export function ScrollToTop() {
-  const { pathname, hash, key } = useLocation()
+  const { pathname, hash } = useLocation()
   const navigationType = useNavigationType()
   const prevPath = useRef(pathname)
 
@@ -20,23 +17,13 @@ export function ScrollToTop() {
     prevPath.current = pathname
 
     if (hash) {
-      enforceScrollToAnchor(hash)
-      return
+      return enforceScrollToAnchor(hash)
     }
 
-    // New page via menu / links — always start at the top.
     if (pathChanged || navigationType === "PUSH" || navigationType === "REPLACE") {
       enforceScrollToTop()
     }
-  }, [pathname, hash, key, navigationType])
-
-  useEffect(() => {
-    if (hash) {
-      enforceScrollToAnchor(hash)
-      return
-    }
-    enforceScrollToTop()
-  }, [pathname, hash, key])
+  }, [pathname, hash, navigationType])
 
   return null
 }
