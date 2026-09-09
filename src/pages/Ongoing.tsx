@@ -19,7 +19,7 @@ export function OngoingPage() {
           <div className="parcels__grid">
             {ongoingProjects.map((p, i) => (
               <article key={p.name} className="parcel-card">
-                {p.image ? (
+                {"image" in p && p.image ? (
                   <div
                     style={{
                       width: "100%",
